@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0D3BA476-9201-47FC-841A-FC7BC2F954D0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DnD.Model</RootNamespace>
+    <AssemblyName>DnD.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entity\Country.cs" />
+    <Compile Include="Entity\Currency.cs" />
+    <Compile Include="Entity\Customer.cs" />
+    <Compile Include="Entity\CustomerGroup.cs" />
+    <Compile Include="Entity\CustomerGroupMaster.cs" />
+    <Compile Include="Entity\DealnDonePlan.cs" />
+    <Compile Include="Entity\DisplayPrice.cs" />
+    <Compile Include="Entity\DNDUser.cs" />
+    <Compile Include="Entity\LabelPrinterFormat.cs" />
+    <Compile Include="Entity\PricingTier.cs" />
+    <Compile Include="Entity\Product.cs" />
+    <Compile Include="Entity\ProductBrand.cs" />
+    <Compile Include="Entity\ProductImage.cs" />
+    <Compile Include="Entity\ProductInventory.cs" />
+    <Compile Include="Entity\ProductOutletPricing.cs" />
+    <Compile Include="Entity\ProductPricing.cs" />
+    <Compile Include="Entity\ProductSupplier.cs" />
+    <Compile Include="Entity\ProductTag.cs" />
+    <Compile Include="Entity\ProductType.cs" />
+    <Compile Include="Entity\ProductVariant.cs" />
+    <Compile Include="Entity\ProductVariantAttribute.cs" />
+    <Compile Include="Entity\ProductVariantInventory.cs" />
+    <Compile Include="Entity\PurchaseStockOrder.cs" />
+    <Compile Include="Entity\RegisterOpenCloseStatusType.cs" />
+    <Compile Include="Entity\ReturnStockOrder.cs" />
+    <Compile Include="Entity\Role.cs" />
+    <Compile Include="Entity\RoleManagement.cs" />
+    <Compile Include="Entity\SalesTax.cs" />
+    <Compile Include="Entity\SellOpenCloseRegister.cs" />
+    <Compile Include="Entity\SetupAccount.cs" />
+    <Compile Include="Entity\SetupAccountClearOutData.cs" />
+    <Compile Include="Entity\SetupContactInformation.cs" />
+    <Compile Include="Entity\SetupGeneralStoreSetting.cs" />
+    <Compile Include="Entity\SetupLoyaltyPointsId.cs" />
+    <Compile Include="Entity\SetupPaymentType.cs" />
+    <Compile Include="Entity\SetupRegistersAskForNote.cs" />
+    <Compile Include="Entity\SetupRegistersCashManagement.cs" />
+    <Compile Include="Entity\SetupRegistersReceiptTemplate.cs" />
+    <Compile Include="Entity\SetupSalesTaxGroupId.cs" />
+    <Compile Include="Entity\SetupSalesTaxGroupMaster.cs" />
+    <Compile Include="Entity\SetupStoreAddress.cs" />
+    <Compile Include="Entity\SKUGenerationType.cs" />
+    <Compile Include="Entity\StockOrderType.cs" />
+    <Compile Include="Entity\Store.cs" />
+    <Compile Include="Entity\StoreOutlet.cs" />
+    <Compile Include="Entity\StoreOutletRegister.cs" />
+    <Compile Include="Entity\StoreUser.cs" />
+    <Compile Include="Entity\TimeZone.cs" />
+    <Compile Include="Entity\TransferStockOrder.cs" />
+    <Compile Include="Entity\UserRole.cs" />
+    <Compile Include="Entity\UserSwitchingSecurityType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\AddEditProductMasterViewModel.cs" />
+    <Compile Include="ViewModel\ProductListViewModel.cs" />
+    <Compile Include="ViewModel\ProductSearchCriteria.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

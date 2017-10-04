@@ -1,0 +1,74 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li style="text-align:center" ng-class="{active: $state.includes('home')}">
+                <a href="#">
+                    <div style="text-align:center"><i class="fa fa-home" style="color: mediumpurple; font-size: 20px"></i> </div>
+                    <span class="nav-label">{{ 'Home' | translate }}</span>
+                </a>
+            </li>
+            <li style="text-align:center" ng-class="{active: $state.includes('sell')}">
+                <a href="#">
+                    <div style="text-align:center"><i class="fa fa-hdd-o" style="color: green; font-size: 20px"></i> </div>
+                    <span class="nav-label">{{ 'Sell' | translate }}</span>
+                </a>
+            </li>
+            <li style="text-align:center" ng-class="{active: $state.includes('reporting')}">
+                <a href="#">
+                    <div style="text-align:center"><i class="fa fa-area-chart" style="color: #F3C276; font-size: 20px"></i> </div>
+                    <span class="nav-label">{{ 'Reporting' | translate }}</span>
+                </a>
+            </li>
+            <li style="text-align:center" ng-class="{active: $state.includes('products')}">
+                <a href="#">
+                    <div style="text-align:center">
+                        <i class="fa fa-tags" style="color: #F5765F; font-size: 20px"></i>
+                    </div>
+                    <span class="nav-label">{{ 'Products' | translate }}</span>
+                </a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('products')}">
+                    <li ui-sref-active="active"><a ui-sref="products.productsList">Products</a></li>
+                </ul>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('products')}">
+                    <li ui-sref-active="active"><a ui-sref="products.stockcontrol">Stock Control</a></li>
+                </ul>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('products')}">
+                    <li ui-sref-active="active"><a ui-sref="products.types">Product Categories</a></li>
+                </ul>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('products')}">
+                    <li ui-sref-active="active"><a ui-sref="products.suppliers">Suppliers</a></li>
+                </ul>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('products')}">
+                    <li ui-sref-active="active"><a ui-sref="products.brands">Brands</a></li>
+                </ul>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('products')}">
+                    <li ui-sref-active="active"><a ui-sref="products.tags">Product Tags</a></li>
+                </ul>
+                
+            </li>
+            <li style="text-align:center" ng-class="{active: $state.includes('customers')}">
+                <a href="#">
+                    <div style="text-align:center"><i class="fa fa-users" style="color: mediumpurple; font-size: 20px"></i></div>
+                    <span class="nav-label">{{ 'customers' | translate }}</span>
+                </a>
+            </li>
+            <li style="text-align:center" ng-class="{active: $state.includes('ecommerce')}">
+                <a href="#">
+                    <div style="text-align:center"><i class="fa fa-shopping-cart" style="color: green; font-size: 20px"></i></div>
+                    <span class="nav-label">{{ 'ecommerce' | translate }}</span>
+                </a>
+            </li>
+            <li style="text-align:center" ng-class="{active: $state.includes('setup')}">
+                <a href="#">
+                    <div style="text-align:center"><i class="fa fa-cog" style="font-size: 20px"></i> </div>
+                    <span class="nav-label">{{ 'Setup' | translate }}</span>
+                </a>
+            </li>
+            
+        </ul>
+
+    </div>
+    <!--<div class="sidebar-sub col-lg-1">
+        Tags
+    </div>-->
+</nav>

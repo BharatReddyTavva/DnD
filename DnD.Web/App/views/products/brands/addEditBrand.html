@@ -1,0 +1,27 @@
+﻿<form role="form" name="addBrand_form" ng-submit="addNewOrUpdateBrand()">
+    <div class="inmodal">
+        <div class="modal-header">
+            <h4 class="modal-title">{{addOrEditTitle}}</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label>Brand name</label>
+                <input type="text" placeholder="Brand name" ng-model="brandName" class="form-control" required>
+                <div class="m-t-xs" ng-show="addBrand_form.brandName.$invalid && addBrand_form.submitted">
+                    <small class="text-danger" ng-show="addBrand_form.brandName.$error.required">Brand name is required</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" placeholder="Description" ng-model="brandDescription"></textarea>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" ng-click="cancel()">Close</button>
+            <button  class="btn btn-primary" type="submit">{{addOrUpdateBrandActionText}}</button>
+        </div>
+    </div>
+</form>
+

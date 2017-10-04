@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ab1b3854a5094859a2363c7f546a9cc5" Name="Diagram1" ZoomLevel="72">
+        <EntityTypeShape EntityType="DNDModel.Country" Width="1.5" PointX="0.75" PointY="28.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.Currency" Width="1.5" PointX="6.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.Customer" Width="1.5" PointX="3" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.CustomerGroup" Width="1.5" PointX="5.25" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.CustomerGroupMaster" Width="1.5" PointX="3" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.DealnDonePlan" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.DisplayPrice" Width="1.5" PointX="6.75" PointY="47.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.DNDUser" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.LabelPrinterFormat" Width="1.5" PointX="6.75" PointY="50.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.PricingTier" Width="1.5" PointX="12" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.Product" Width="1.5" PointX="6" PointY="31.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.ProductBrand" Width="1.5" PointX="3.75" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.ProductImage" Width="1.5" PointX="8.25" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.ProductInventoryAndTax" Width="1.5" PointX="11.25" PointY="32.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.ProductSupplier" Width="1.5" PointX="3.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.ProductTag" Width="1.5" PointX="8.25" PointY="43" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.ProductType" Width="1.5" PointX="3.75" PointY="49.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.ProductVariantAttribute" Width="1.5" PointX="9" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.PurchaseStockOrder" Width="1.5" PointX="9" PointY="51.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.RegisterOpenCloseStatusType" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.ReturnStockOrder" Width="1.5" PointX="9" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.Role" Width="1.5" PointX="6.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.RoleManagement" Width="1.5" PointX="9" PointY="47.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SalesTax" Width="1.5" PointX="4.5" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SellOpenCloseRegister" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupAccount" Width="1.5" PointX="3" PointY="41.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupAccountClearOutData" Width="1.5" PointX="5.25" PointY="40.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupContactInformation" Width="1.5" PointX="3" PointY="45" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupGeneralStoreSetting" Width="1.5" PointX="9" PointY="32.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupLoyaltyPointsId" Width="1.5" PointX="3" PointY="55.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupPaymentType" Width="1.5" PointX="3" PointY="60.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupRegistersAskForNote" Width="1.5" PointX="9.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupRegistersCashManagement" Width="1.5" PointX="9.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupRegistersReceiptTemplate" Width="1.5" PointX="9.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupSalesTaxGroupId" Width="1.5" PointX="9.75" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupSalesTaxGroupMaster" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SetupStoreAddress" Width="1.5" PointX="3" PointY="64.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.SKUGenerationType" Width="1.5" PointX="6.75" PointY="54" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.StockOrderType" Width="1.5" PointX="6.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.Store" Width="1.5" PointX="0.75" PointY="32.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.StoreOutlet" Width="1.5" PointX="6.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.StoreOutletRegister" Width="1.5" PointX="12" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.StoreUser" Width="1.5" PointX="9" PointY="26.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.sysdiagram" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.TimeZone" Width="1.5" PointX="6.75" PointY="57.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.TransferStockOrder" Width="1.5" PointX="15" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.UserRole" Width="1.5" PointX="11.25" PointY="27.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.UserSwitchingSecurityType" Width="1.5" PointX="6.75" PointY="61.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DNDModel.ProductPricing" Width="1.5" PointX="14.25" PointY="33" IsExpanded="true" />
+        <AssociationConnector Association="DNDModel.FK_Customer_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_Customer_Country1" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupGeneralStoreSettings_Currency" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_Customer_CustomerGroup" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_Customer_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_CustomerGroup_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_CustomerGroup_CustomerGroupMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupGeneralStoreSettings_DisplayPrice" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupGeneralStoreSettings_LabelPrinterFormat" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_ProductPricing_PricingTier" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_Product_ProductBrand" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_Product_ProductSupplier" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_Product_ProductType" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_Product_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_ProductImage_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_ProductInventoryAndTax_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_ProductPricing_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_ProductTag_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_ProductInventoryAndTax_ProductVariantAttribute" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_ReturnStockOrder_ProductSupplier" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_PurchaseStockOrder_StockOrderType" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SellOpenCloseRegister_RegisterOpenCloseStatusType" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_ReturnStockOrder_StockOrderType" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_ReturnStockOrder_StoreOutlet" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_RoleManagement_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_StoreUser_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_UserRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupSalesTaxGroupId_SalesTax" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_StoreOutlet_SalesTax" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupAccount_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupAccountClearOutData_SetupAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupContactInformation_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupGeneralStoreSettings_SKUGenerationType" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupGeneralStoreSettings_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupGeneralStoreSettings_TimeZone" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupGeneralStoreSettings_UserSwitchingSecurityType" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupLoyaltyPointsId_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupPaymentType_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_StoreOutletRegister_SetupRegistersAskForNote" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_StoreOutletRegister_SetupRegistersCashManagement" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_StoreOutletRegister_SetupRegistersReceiptTemplate" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupSalesTaxGroupId_SetupSalesTaxGroupMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_SetupStoreAddress_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_TransferStockOrder_StockOrderType" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_StoreUser_Store" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_StoreOutletRegister_StoreOutlet" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_StoreUser_StoreOutlet" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_TransferStockOrder_StoreOutlet" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_TransferStockOrder_StoreOutlet_DestinationOutletId" ManuallyRouted="false" />
+        <AssociationConnector Association="DNDModel.FK_UserRole_StoreUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DNDModel.ProductVariant" Width="1.5" PointX="12.375" PointY="0.75" />
+        <EntityTypeShape EntityType="DNDModel.ProductOutletPricing" Width="1.5" PointX="12.375" PointY="3.75" />
+        <EntityTypeShape EntityType="DNDModel.ProductInventory" Width="1.5" PointX="12.375" PointY="8.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

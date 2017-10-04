@@ -1,0 +1,21 @@
+﻿<div class="form-group" >
+	<div class="col-lg-6">
+		<select name="productVariantAttributeType" class="form-control m-b" style="width:400px; margin-left:50px;" ng-model="productVariantAttributeType"
+				ng-options="pva.variantAttributeName for pva in productVariantAttributes">
+				<option ng-repeat="pva in productVariantAttributes"
+					value="{{pva.variantAttributeId}}">
+					{{pva.variantAttributeName}}
+				</option>
+		</select>
+	</div>
+	<div class="col-lg-6">
+        <div class="col-lg-9"><tags-input ng-model="productVariantAttributeTags" add-on-paste="true"
+            on-tag-added="onNewAttributeAdd()"
+            on-tag-removed="onNewAttributeRemove()">
+</tags-input></div>
+        <div class="col-lg-3"><button ng-click="Delete($event)" class="btn btn-danger">
+    <i class="fa fa-trash"></i>
+</button></div>
+	</div>
+</div>
+<br />

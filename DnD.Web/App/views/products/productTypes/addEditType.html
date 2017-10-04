@@ -1,0 +1,21 @@
+﻿<form role="form" name="addType_form" ng-submit="addNewType()">
+    <div class="inmodal">
+        <div class="modal-header">
+            <h4 class="modal-title">Add Type</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Type name</label>
+                <input type="text" placeholder="Type name" ng-model="typeName" class="form-control" required>
+                <div class="m-t-xs" ng-show="addType_form.typeName.$invalid && addType_form.submitted">
+                    <small class="text-danger" ng-show="addType_form.typeName.$error.required">Type name is required</small>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" ng-click="cancel()">Close</button>
+            <button class="btn btn-primary" type="submit">Add Type</button>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,233 @@
+﻿<div ng-controller="productSuppliersCtrl">
+    <form id="#dataSupplierForm" name="dataSupplierForm" novalidate ng-submit="saveSupplier()">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-10">
+                <h2>Create a new Supplier</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#/addproduct">Products</a>
+                    </li>
+                    <li>
+                        <a href="#/products/suppliers">Suppliers</a>
+                    </li>
+                    <li class="active">
+                        <strong>Add Supplier</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-sm-1">
+                <div class="title-action">
+                    <a href="#" class="btn btn-primary" ui-sref="products.suppliers">Cancel</a>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <div class="title-action">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="ibox ibox-addsupplier float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Details</h5>
+                        <div ibox-tools>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div>
+                                <div class="col-sm-4">
+                                    <p>
+                                        How your supplier is identified and described in DealnDone.
+                                        You can also choose to set a default markup,
+                                        making setting up products easier.
+                                    </p>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Supplier Name</label> <i class="fa fa-asterisk asterisk"></i>
+                                            <input type="text" name="name" ng-model="supplier.supplierName" placeholder="Supplier Name"
+                                                   class="form-control" minlength="2" tabindex="1" required ng-trim="false">
+                                            <div class="m-t-xs" ng-show="dataSupplierForm.name.$invalid && dataSupplierForm.submitted">
+                                                <small class="text-danger" ng-show="dataSupplierForm.name.$error.required">Supplier name is required</small>
+                                                <small class="text-danger" ng-show="dataSupplierForm.name.$error.minlength">Supplier name should be at least 2 characters long</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Default Markup</label> <i class="fa fa-asterisk asterisk"></i>
+                                            <input type="number" value="0" min="0" max="99" name="markup" ng-model="supplier.supplierDefaultMarkup"
+                                                   placeholder="Default Markup"
+                                                   class="form-control" tabindex="2" required>
+                                            <div class="m-t-xs" ng-show="dataSupplierForm.markup.$invalid && dataSupplierForm.submitted">
+                                                <small class="text-danger" ng-show="dataSupplierForm.markup.$error.required">Default markup is required</small>
+                                                <small class="text-danger" ng-show="dataSupplierForm.markup.$error.minlength">Supplier name should be at least 2 characters long</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group"><label>Description</label><textarea name="description" ng-model="supplier.description" placeholder="Supplier description" class="form-control"> </textarea></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="ibox ibox-addsupplier float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Contact info</h5>
+                        <div ibox-tools></div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div>
+                                <div class="col-sm-4">
+                                    <p>The official name and contact details for your supplier.</p>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>First name</label><i class="fa fa-asterisk asterisk"></i>
+                                                <input type="text" name="firstName" ng-model="supplier.firstName"
+                                                       placeholder="First Name" class="form-control" minlength="2" tabindex="4" required ng-trim="false">
+                                                <div class="m-t-xs" ng-show="dataSupplierForm.firstName.$invalid && dataSupplierForm.submitted">
+                                                    <small class="text-danger" ng-show="dataSupplierForm.firstName.$error.required">First name is required</small>
+                                                    <small class="text-danger" ng-show="dataSupplierForm.firstName.$error.minlength">First name should be at least 2 characters long</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Last name</label> <input type="text" name="lastName" ng-model="supplier.lastName"
+                                                                                placeholder="Last name"
+                                                                                class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group"><label>Company</label><input type="text" name="company" ng-model="supplier.company" placeholder="Company" class="form-control"></div>
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Email</label> <input type="text" name="email" ng-model="supplier.email"
+                                                                            placeholder="Email"
+                                                                            class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group"><label>Phone</label><input type="text" name="phone" ng-model="supplier.phone" placeholder="Phone" class="form-control"></div>
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Mobile</label> <input type="text" name="mobile" ng-model="supplier.mobile"
+                                                                             placeholder="Mobile"
+                                                                             class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group"><label>Fax</label><input type="text" name="fax" ng-model="supplier.fax" placeholder="Fax" class="form-control"></div>
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Website</label> <input type="text" name="website" ng-model="supplier.website"
+                                                                              placeholder="Website"
+                                                                              class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group"><label>Twitter</label><input type="text" name="twitter" ng-model="supplier.twitter" placeholder="Twitter" class="form-control"></div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="ibox ibox-addsupplier float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Address</h5>
+                        <div ibox-tools></div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div>
+                                <div class="col-sm-4">
+                                    <p>The address details for your supplier.</p>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group"><label>Street1</label><input type="text" name="addressStreet1" ng-model="supplier.addressStreet1" placeholder="Street" class="form-control"></div>
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Street2</label> <input type="text" name="addressStreet2" ng-model="supplier.addressStreet2"
+                                                                              placeholder="Street"
+                                                                              class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group"><label>Suburb</label><input type="text" name="suburb" ng-model="supplier.suburb" placeholder="Suburb" class="form-control"></div>
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Postcode</label> <input type="text" name="postcode" ng-model="supplier.postcode"
+                                                                               placeholder="Postcode"
+                                                                               class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group"><label>State</label><input type="text" name="state" ng-model="supplier.state" placeholder="State" class="form-control"></div>
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Country</label> <input type="text" name="country" ng-model="supplier.country"
+                                                                              placeholder="Country"
+                                                                              class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--<div class="row">
+                            <label> <input icheck type="checkbox" ng-model="supplier.isPostalSameAsPhysical"> Postal Address same as Physical Address </label>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

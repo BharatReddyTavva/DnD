@@ -1,0 +1,145 @@
+﻿<div ng-controller="productsCtrl">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Products</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#/addproduct">Products</a>
+                </li>
+                <li class="active">
+                    <strong>Products</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a href="#" class="btn btn-primary" ui-sref="products.addproduct">Add Product</a>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label" for="order_id">Search products by name, SKU, handle, or supplier code</label>
+                        <input type="text" id="productSearchParam" name="productSearchParam" placeholder="&#xF002; Enter name SKU, handle or supplier code" ng-model="enteredNameSkuHandleSupplier" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label style="text-align:left;padding-left:35px;" class="control-label">Product category</label>
+                        <select name="productCategoryType" class="form-control m-b" ng-model="selectedProductCategoryType"
+                                ng-options="pt.productTypeName for pt in productTypes" required>
+                            <option ng-repeat="pt in productTypes"
+                                    value="{{pt.productTypeId}}">
+                                {{pt.productTypeName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label style="text-align:left;" class="control-label">Product brand</label>
+                        <select name="productBrand" class="form-control m-b" ng-model="selectedProductBrand"
+                                ng-options="pb.brandName for pb in productBrands" required>
+                            <option ng-repeat="pb in productBrands"
+                                    value="{{pb.productBrandId}}">
+                                {{pb.brandName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label style="text-align:left;" class="control-label">Supplier</label>
+                        <select name="productSupplier" class="form-control m-b" ng-model="selectedProductSupplier"
+                                ng-options="ps.supplierName for ps in productSuppliers" required>
+                            <option ng-repeat="ps in productSuppliers"
+                                    value="{{ps.productSupplierId}}">
+                                {{ps.supplierName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="control-label" for="amount">Tags</label>
+                        <input type="text" id="amount" name="amount" value="" placeholder="Enter Tags" ng-model="enteredProductTags" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <a href="#" class="btn btn-primary" ng-click="searchProducts()">Apply Filter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+                            <thead>
+                                <tr>
+                                    <th colspan="1" data-toggle="true">Product</th>
+                                    <th colspan="1" data-toggle="true">Created</th>
+                                    <th colspan="1" data-toggle="true">Tags</th>
+                                    <th colspan="1" data-toggle="true">Brand</th>
+                                    <th colspan="1" data-toggle="true">Supplier</th>
+                                    <th colspan="1" data-toggle="true">Variants</th>
+                                    <th colspan="1" data-toggle="true">Price</th>
+                                    <th colspan="1" data-toggle="true">Count</th>
+                                    <th colspan="4" data-sort-ignore="true">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="product in products">
+                                    <td colspan="1">
+                                        {{product.productName}}
+                                    </td>
+                                    <td colspan="1">
+                                        {{product.createdOn | date : format : timezone}}
+                                    </td>
+                                    <td ng-if="product.productTags" >
+                                        <span ng-repeat="tag in product.productTags" >
+                                        <span class="label label-default">{{tag.tagName}}</span></span>
+                                    
+                                    </td>
+                                    <td ng-if="!product.productTags" colspan="1">
+                                        -
+                                    </td>
+                                    <td colspan="1">
+                                        {{product.productBrand.brandName}}
+                                    </td>
+                                    <td colspan="1">{{product.productSupplier.supplierName}}</td>
+                                    <td colspan="1">Variants</td>
+                                    <td colspan="1">Price</td>
+                                    <td colspan="1">Count</td>
+                                    <td colspan="4">
+                                        <div class="btn-group">
+                                            <a style="margin-right:20px;" ng-click="editProduct(product)"><i class="fa fa-pencil"></i></a>
+                                            <a><i class="fa fa-trash" ng-click="deleteProduct(product)"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

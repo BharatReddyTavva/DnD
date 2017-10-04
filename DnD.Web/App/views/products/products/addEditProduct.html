@@ -1,0 +1,540 @@
+﻿<div ng-controller="productsCtrl">
+    <form id="#dataProductForm" name="dataProductForm" class="form-horizontal" novalidate ng-submit="saveProduct()">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-9">
+                <h2>Create a new Product</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#/addproduct">Products</a>
+                    </li>
+                    <li>
+                        <a href="#/products/suppliers">Products</a>
+                    </li>
+                    <li class="active">
+                        <strong>Add Product</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-sm-1">
+                <div class="title-action">
+                    <a href="#" class="btn btn-primary" ui-sref="products.suppliers">Cancel</a>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="title-action">
+                    <button class="btn btn-primary" type="submit">Save Product</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="tabs-container">
+                        <uib-tabset>
+                            <uib-tab>
+                                <uib-tab-heading>
+                                    Details
+                                </uib-tab-heading>
+                                <div class="panel-body">
+                                    <div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Product name</label>
+                                            <i class="fa fa-asterisk asterisk"></i>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="name" ng-model="product.productName" placeholder="" class="form-control" ng-keydown="removeTagOnBackspace($event)" ng-change="onProductNameChange()"
+                                                       minlength="2" tabindex="1" required>
+                                                <div class="m-t-xs" ng-show="dataProductForm.name.$invalid && dataProductForm.submitted">
+                                                    <small class="text-danger" ng-show="dataProductForm.name.$error.required">Product name is required</small>
+                                                    <small class="text-danger" ng-show="dataProductForm.name.$error.minlength">Product name should be at least 2 characters long</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-10">
+                                                <input icheck type="checkbox" ng-model="product.isProductCanBeSold"><i></i> This product can be sold
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label pull-left">Product handle</label>
+                                            <i class="fa fa-asterisk asterisk"></i>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="handle" ng-model="product.productHandle" placeholder="" class="form-control"
+                                                       minlength="2" tabindex="2" required>
+                                                <span class="help-block m-b-none">A unique identifier for this product</span>
+                                                <div class="m-t-xs" ng-show="dataProductForm.handle.$invalid && dataProductForm.submitted">
+                                                    <small class="text-danger" ng-show="dataProductForm.handle.$error.required">Product handle is required</small>
+                                                    <small class="text-danger" ng-show="dataProductForm.handle.$error.minlength">Product handle should be at least 2 characters long</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label pull-left">Description</label>
+                                            <div class="col-lg-10">
+                                                <div summernote class="summernote" ng-model="product.description">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Product tags</label>
+                                            <div class="col-lg-4">
+                                                <tags-input ng-model="product.tags" add-on-paste="true" add-from-autocomplete-only="false">
+                                                    <auto-complete source="loadProductTags($query)" select-first-match="false"></auto-complete>
+                                                </tags-input>
+                                            </div>
+                                            <div class="col-lg-6"></div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <label style="text-align:left;padding-left:35px;" class="col-lg-4 control-label">Product category</label>
+                                                <div class="col-lg-8">
+                                                    <select name="productCategoryType" class="form-control m-b" ng-model="product.productCategoryType"
+                                                            ng-options="pt.productTypeName for pt in productTypes" required>
+                                                        <option ng-repeat="pt in productTypes"
+                                                                value="{{pt.productTypeId}}">
+                                                            {{pt.productTypeName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label style="text-align:left;padding-left:35px;" class="col-lg-4 control-label">Product brand</label>
+                                                <div class="col-lg-8">
+                                                    <select name="productBrand" class="form-control m-b" ng-model="product.productBrand"
+                                                            ng-options="pb.brandName for pb in productBrands" required>
+                                                        <option ng-repeat="pb in productBrands"
+                                                                value="{{pb.productBrandId}}">
+                                                            {{pb.brandName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <label style="text-align:left;padding-left:35px;" class="col-lg-4 control-label">Supplier</label>
+                                                <div class="col-lg-8">
+                                                    <select name="productSupplier" class="form-control m-b" ng-model="product.productSupplier"
+                                                            ng-options="ps.supplierName for ps in productSuppliers" required>
+                                                        <option ng-repeat="ps in productSuppliers"
+                                                                value="{{ps.productSupplierId}}">
+                                                            {{ps.supplierName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label style="text-align:left;padding-left:35px;" class="col-lg-4 control-label">Supplier code</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" name="name" ng-model="product.supplierCode" placeholder="Supplier code" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6">
+                                                <label style="text-align:left;padding-left:35px;" class="col-lg-4 control-label">Sales account code</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" name="name" ng-model="product.salesAccountCode" placeholder="Sales account code" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label style="text-align:left;padding-left:35px;" class="col-lg-4 control-label">Purchase account code</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" name="name" ng-model="product.purchaseAccountCode" placeholder="Purchase account code" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </uib-tab>
+                            <uib-tab>
+                                <uib-tab-heading>
+                                    Pricing
+                                </uib-tab-heading>
+                                <div class="panel-body">
+                                    <div>
+                                        <div class="form-group">
+                                            <div class="col-lg-3">
+                                                <label style="text-align:left;padding-left:50px;" class="control-label">Pricing Tier</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label style="text-align:left;padding-left:50px;" class="control-label">Supply Price</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label style="text-align:left;padding-left:50px;" class="control-label">* Markup (%)</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label style="text-align:left;padding-left:50px;" class="control-label">= Price</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-3">
+                                                <label style="text-align:left;padding-left:50px;" class="control-label">Retail</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="name" ng-model="product.retailSupplyPrice" ng-change="retailSupplyPriceChange()" placeholder="Supply Price" class="form-control">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="name" ng-model="product.retailMarkup" ng-change="retailSupplyPriceChange()" placeholder="Markup (%) " class="form-control">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="name" ng-model="product.retailPrice" ng-change="retailPriceChange()" placeholder="Retail price" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div style="text-align:center;padding-bottom:20px;padding-top:7px;">
+                                            <a ng-click="showRetailTaxes = !showRetailTaxes"><i ng-class="showRetailTaxes ? 'fa fa-chevron-down' : 'fa fa-chevron-up'"></i> {{ showRetailTaxes == true ? 'View' : 'Hide' }}  Retail taxes by outlet </a>
+                                        </div>
+                                        <div ng-show="!showRetailTaxes" class="form-group">
+                                            <table style="width:80%; margin-left:100px;" class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Outlet</th>
+                                                        <th>Sales tax</th>
+                                                        <th>Tax amount</th>
+                                                        <th>Retail price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="outlet in storeOutlets">
+                                                        <td>{{outlet.outletName}}</td>
+                                                        <td>
+                                                            <select name="salesTax" class="form-control m-b" ng-model="selectedRetailSalesTax[outlet.storeOutletId]"
+                                                                    ng-options="st.taxName + ' ' + st.taxRate + '%' for st in salesTaxes" ng-change="retailSupplyPriceChange()">
+                                                                <option value="" ng-selected="true"> Default tax for this outlet </option>
+                                                            </select>
+                                                        </td>
+                                                        <td>{{outlet.retailTaxAmount}}</td>
+                                                        <td>{{outlet.retailPriceIncludingTax}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-3">
+                                                <label style="text-align:left;padding-left:50px;" class="control-label">Wholesale</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="name" ng-model="product.wholesaleSupplyPrice" ng-change="wholesaleSupplyPriceChange()" placeholder="Supply Price" class="form-control">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="name" ng-model="product.wholesaleMarkup" ng-change="wholesaleSupplyPriceChange()" placeholder="Markup (%) " class="form-control">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="name" ng-model="product.wholesalePrice" ng-change="wholesalePriceChange()" placeholder="Wholesale price" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div style="text-align:center;padding-bottom:20px;padding-top:7px;">
+                                            <a ng-click="showWholesaleTaxes = !showWholesaleTaxes"><i ng-class="showWholesaleTaxes ? 'fa fa-chevron-down' : 'fa fa-chevron-up'"></i> {{ showWholesaleTaxes == true ? 'View' : 'Hide' }}  Wholesale taxes by outlet </a>
+                                        </div>
+                                        <div ng-show="!showWholesaleTaxes" class="form-group">
+                                            <table style="width:80%; margin-left:100px;" class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Outlet</th>
+                                                        <th>Sales tax</th>
+                                                        <th>Tax amount</th>
+                                                        <th>Wholesale price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="outlet in storeOutlets">
+                                                        <td>{{outlet.outletName}}</td>
+                                                        <td>
+                                                            <select name="salesTax" class="form-control m-b" ng-model="selectedWholesaleSalesTax[outlet.storeOutletId]"
+                                                                    ng-options="st.taxName + ' ' + st.taxRate + '%' for st in salesTaxes" ng-change="wholesaleSupplyPriceChange()">
+                                                                <option value="" ng-selected="true"> Default tax for this outlet </option>
+                                                            </select>
+                                                        </td>
+                                                        <td>{{outlet.wholesaleTaxAmount}}</td>
+                                                        <td>{{outlet.wholesalePriceIncludingTax}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-3">
+                                                <label style="text-align:left;padding-left:50px;" class="control-label">Distribution</label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="name" ng-model="product.distributionSupplyPrice" ng-change="distributionSupplyPriceChange()" placeholder="Supply Price" class="form-control">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="name" ng-model="product.distributionMarkup" ng-change="distributionSupplyPriceChange()" placeholder="Markup (%) " class="form-control">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="name" ng-model="product.distributionPrice" ng-change="distributionPriceChange()" placeholder="Distribution price" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div style="text-align:center;padding-bottom:20px;padding-top:7px;">
+                                            <a ng-click="showDistributionTaxes = !showDistributionTaxes"><i ng-class="showDistributionTaxes ? 'fa fa-chevron-down' : 'fa fa-chevron-up'"></i> {{ showDistributionTaxes == true ? 'View' : 'Hide' }}  Distribution taxes by outlet </a>
+                                        </div>
+                                        <div ng-show="!showDistributionTaxes" class="form-group">
+                                            <table style="width:80%; margin-left:100px;" class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Outlet</th>
+                                                        <th>Sales tax</th>
+                                                        <th>Tax amount</th>
+                                                        <th>Distribution price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="outlet in storeOutlets">
+                                                        <td>{{outlet.outletName}}</td>
+                                                        <td>
+                                                            <select name="salesTax" class="form-control m-b" ng-model="selectedDistributionSalesTax[outlet.storeOutletId]"
+                                                                    ng-options="st.taxName + ' ' + st.taxRate + '%' for st in salesTaxes" ng-change="distributionSupplyPriceChange()">
+                                                                <option value="" ng-selected="true"> Default tax for this outlet </option>
+                                                            </select>
+                                                        </td>
+                                                        <td>{{outlet.distributionTaxAmount}}</td>
+                                                        <td>{{outlet.distributionPriceIncludingTax}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+                            </uib-tab>
+                            <uib-tab>
+                                <uib-tab-heading>
+                                    Product Inventory
+                                </uib-tab-heading>
+                                <div class="panel-body">
+                                    <div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Stock Keeping Unit</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="sku" ng-model="product.sku" placeholder="10001" class="form-control">
+                                            </div>
+                                            <div class="col-lg-6"></div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <div class="col-lg-8">
+                                                <label style="text-align:left;padding-left:35px;" class="control-label">Variant Products</label>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label style="text-align:left;" class="control-label">This product has variants</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-8">
+                                                <label style="text-align:left;padding-left:35px;font-weight:normal" class="control-label">These are products that have different versions, like size or color. Turn this on to specify up to three attributes (like color), and unlimited values for each attribute (like green, blue, black).</label>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input type="checkbox" class="js-switch-small" ng-change="onChangeIsProductHasVariants()" ui-switch="{color:'#1AB394'}" ng-model="product.isProductHasVariants" />
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <div class="col-lg-8">
+                                                <label style="text-align:left;padding-left:35px;" class="control-label">Tracking Inventory</label>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <label style="text-align:left;" class="control-label">Track inventory with DealnDone</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-8">
+                                                <label style="text-align:left;padding-left:35px;font-weight:normal" class="control-label">Leave this on if you want to keep track of your inventory quantities. You'll be able to report on cost of goods sold, product performance, and projected weeks cover, as well as manage your store using inventory orders, transfers and rolling inventory count</label>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input type="checkbox" class="js-switch-small" checked ui-switch="{color:'#1AB394'}" data-switchery="true" ng-model="true" />
+                                            </div>
+                                        </div>
+                                        <div ng-if="!(product.isProductHasVariants)" class="hr-line-dashed"></div>
+                                        <div ng-if="!(product.isProductHasVariants)" class="form-group">
+                                            <table style="width:90%; margin-left:55px;" class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Outlet</th>
+                                                        <th>Current Inventory</th>
+                                                        <th>Reorder point</th>
+                                                        <th>Reorder amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="outlet in storeOutlets">
+                                                        <td>{{outlet.outletName}}</td>
+                                                        <td>
+                                                            <input type="number" value="0"
+                                                                   name="markup" ng-model="outlet.currentInventory[outlet.storeOutletId]"
+                                                                   class="form-control">
+                                                            <a ng-if="$index == 0" style="text-align:right;" ng-click="applyCurretInventoryToAllOutlets()"><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" value="0"
+                                                                   name="markup" ng-model="outlet.reorderPoint[outlet.storeOutletId]"
+                                                                   class="form-control">
+                                                            <a ng-if="$index == 0" style="text-align:right;" ng-click="applyReorderPointToAllOutlets()"><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" value="0"
+                                                                   name="markup" ng-model="outlet.reorderAmount[outlet.storeOutletId]"
+                                                                   class="form-control">
+                                                            <a ng-if="$index == 0" style="text-align:right;" ng-click="applyReorderAmountToAllOutlets()"><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div ng-if="product.isProductHasVariants" class="hr-line-dashed"></div>
+                                        <div ng-if="product.isProductHasVariants">
+                                            <div class="form-group">
+                                                <div class="col-lg-6">
+                                                    <label style="text-align:left;padding-left:35px;" class="control-label">Attribute (e.g. Colour)</label>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label style="text-align:left;" class="control-label">Value (e.g. Red, Blue, Green)</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <div id="productVariantAttributeDiv">
+
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <a style="margin-left:50px" ng-click="addNewVariantAttribute()">+Add New Attribute</a>
+                                            </div>
+                                            <div class="form-group">
+                                                <a style="margin-left:50px" class="btn btn-default" ng-click="viewProductVariants()">View Product Variants</a>
+                                            </div>
+                                            <div class="form-group">
+                                                <table style="width:90%; margin-left:55px;" class="table ">
+                                                    <thead>
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Variant Name</th>
+                                                            <th>SKU</th>
+                                                            <th>Supplier Code</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody ng-repeat="variant in product.productInventory">
+                                                        <tr>
+                                                            <td>
+                                                                <a class="btn btn-link" ng-init="toggle[$index] = false" ng-click="toggle[$index] = !toggle[$index]">
+                                                                    <span class="glyphicon glyphicon-plus-sign" ng-if="!toggle[$index]"></span>
+                                                                    <span class="glyphicon glyphicon-minus-sign" ng-if="toggle[$index]"></span>
+                                                                </a>
+                                                            </td>
+                                                            <td>{{ variant.productVariantName }}</td>
+                                                            <td>
+                                                                <input type="number"
+                                                                       name="productVariantSKU" ng-model="variant.productVariantSKU"
+                                                                       class="form-control">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text"
+                                                                       name="productVariantSupplierCode" ng-model="variant.productVariantSupplierCode"
+                                                                       class="form-control">
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-if="toggle[$index]">
+                                                            <td></td>
+                                                            <td colspan="3">
+                                                                <table style="width:90%; margin-left:55px;" class="table table-bordered">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Outlet</th>
+                                                                            <th>Current Inventory</th>
+                                                                            <th>Reorder point</th>
+                                                                            <th>Reorder amount</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="outlet in storeOutlets">
+                                                                            <td>{{outlet.outletName}}</td>
+                                                                            <td>
+                                                                                <input type="number" value="0"
+                                                                                       name="markup" ng-model="outlet.currentInventory[variant.productVariantName]"
+                                                                                       class="form-control">
+                                                                                <a ng-if="$index == 0" style="text-align:right;" ng-click=""><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number" value="0"
+                                                                                       name="markup" ng-model="outlet.reorderPoint[variant.productVariantName]"
+                                                                                       class="form-control">
+                                                                                <a ng-if="$index == 0" style="text-align:right;" ng-click=""><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="number" value="0"
+                                                                                       name="markup" ng-model="outlet.reorderAmount[variant.productVariantName]"
+                                                                                       class="form-control">
+                                                                                <a ng-if="$index == 0" style="text-align:right;" ng-click=""><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab>
+                                <uib-tab-heading>
+                                    Images
+                                </uib-tab-heading>
+                                <div class="panel-body">
+                                    <div id="dropzone2" class="dropzone sm" options="dzOptions" methods="dzMethods" callbacks="dzCallbacks" ng-dropzone></div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-stripped">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Image preview
+                                                    </th>
+                                                    <th>
+                                                        Actions
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <img src="img/gallery/2s.jpg">
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <img src="img/gallery/1s.jpg">
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                        </uib-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    Dropzone.autoDiscover = false;
+</script>

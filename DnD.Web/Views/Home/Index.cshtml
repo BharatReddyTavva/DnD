@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Optimization
+
+<!DOCTYPE html>
+
+<html ng-app="inspinia">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Page title set in pageTitle directive -->
+    <title page-title></title>
+    @Styles.Render("~/Content/css")
+    <link id="loadBefore" href="Content/style.css" rel="stylesheet">
+</head>
+<!-- ControllerAs syntax -->
+<!-- Main controller with serveral data used in Inspinia theme on diferent view -->
+<body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
+
+    <!-- Main view  -->
+    <div ui-view></div>
+    @Scripts.Render("~/bundles/vendors")
+    @Scripts.Render("~/bundles/app")
+</body>
+</html>

@@ -1,0 +1,58 @@
+﻿<div ng-controller="productTypesCtrl">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Product Types</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#/addproduct">Products</a>
+                </li>
+                <li class="active">
+                    <strong>Product Types</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a href="" class="btn btn-primary" ng-click="openAddProductType()">Add Product Type</a>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+                            <thead>
+                                <tr>
+                                    <th colspan="3" data-toggle="true">Product Type Name</th>
+                                    <th colspan="3" data-sort-ignore="true">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="productType in productTypes">
+                                    <td colspan="3">
+                                        {{productType.productTypeName}}
+                                    </td>
+                                    <td colspan="3">
+                                        <div class="btn-group">
+                                            <a style="margin-right:20px;" ng-click="editProductType(productType)"><i class="fa fa-pencil"></i></a>
+                                            <a><i class="fa fa-trash" ng-click="deleteProductType(productType)"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
