@@ -7,14 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DnD.DataModel
+namespace DnD.Model.Entity
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class usp_GetAllTagsByStore_Result
+    public partial class ProductTagMaster
     {
-        public int ProductTagId { get; set; }
+        public int ProductTagMasterId { get; set; }
         public string TagName { get; set; }
         public Nullable<bool> IsActive { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedOn { get; set; }
+        public int UpdatedBy { get; set; }
+        public System.DateTime UpdatedOn { get; set; }
+        public Nullable<int> StoreId { get; set; }
     }
 }

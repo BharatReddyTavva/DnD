@@ -10,11 +10,14 @@
 namespace DnD.DataModel
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class usp_GetAllProductTypesByStore_Result
+    public partial class DiscountTypeData
     {
-        public int ProductTypeId { get; set; }
-        public string ProductTypeName { get; set; }
-        public bool IsActive { get; set; }
+        public int DiscountTypeDataId { get; set; }
+        public int DiscountOfferId { get; set; }
+        public int DiscountTypeId { get; set; }
+        public int DiscountOfferTypeId { get; set; }
+        public int ItemId { get; set; }
     }
 }

@@ -146,10 +146,15 @@
     <Content Include="App\config.js" />
     <Content Include="App\controllers.js" />
     <Content Include="App\controllers\productBrands.controller.js" />
+    <Content Include="App\controllers\productDiscountOffers.controller.js" />
     <Content Include="App\controllers\products.controller.js" />
     <Content Include="App\controllers\productSuppliers.controller.js" />
     <Content Include="App\controllers\productTags.controller.js" />
     <Content Include="App\controllers\productTypes.controller.js" />
+    <Content Include="App\controllers\purchaseOrder.controller.js" />
+    <Content Include="App\controllers\returnOrder.controller.js" />
+    <Content Include="App\controllers\stockControl.controller.js" />
+    <Content Include="App\controllers\transferOrder.controller.js" />
     <Content Include="App\datacontext.service.js" />
     <Content Include="App\directives.js" />
     <Content Include="App\inspinia.js" />
@@ -175,6 +180,7 @@
     <Content Include="App\views\code_editor.html" />
     <Content Include="App\views\common\content.html" />
     <Content Include="App\views\common\content_top_navigation.html" />
+    <Content Include="App\views\common\directives\productSearch.html" />
     <Content Include="App\views\common\footer.html" />
     <Content Include="App\views\common\ibox_tools.html" />
     <Content Include="App\views\common\ibox_tools_full_screen.html" />
@@ -265,12 +271,16 @@
     <Content Include="App\views\products\brands\brands.html" />
     <Content Include="App\views\products\brands\addEditBrand.html" />
     <Content Include="App\views\products\brands\deleteBrandConfirm.html" />
+    <Content Include="App\views\products\discountOffers\addEditDiscountOffer.html" />
+    <Content Include="App\views\products\discountOffers\discountOffers.html" />
     <Content Include="App\views\products\products\addEditProduct.html" />
     <Content Include="App\views\products\products\products.html" />
     <Content Include="App\views\products\productTypes\addEditType.html" />
     <Content Include="App\views\products\productTypes\deleteTypeConfirm.html" />
     <Content Include="App\views\products\productTypes\productTypes.html" />
     <Content Include="App\views\products\stockControl\addEditPurchaseOrder.html" />
+    <Content Include="App\views\products\stockControl\addEditReturnOrder.html" />
+    <Content Include="App\views\products\stockControl\addEditTransferOrder.html" />
     <Content Include="App\views\products\stockControl\stockControl.html" />
     <Content Include="App\views\products\suppliers\addEditSupplier.html" />
     <Content Include="App\views\products\suppliers\suppliers.html" />
@@ -316,6 +326,8 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\plugins\awesome-bootstrap-checkbox\awesome-bootstrap-checkbox.css" />
+    <Content Include="Content\plugins\datapicker\angular-datapicker.css" />
+    <Content Include="Content\plugins\daterangepicker\daterangepicker-bs3.css" />
     <Content Include="Content\plugins\dropzone\basic.css" />
     <Content Include="Content\plugins\dropzone\dropzone.css" />
     <Content Include="Content\plugins\dropzone\ng-dropzone.min.css" />
@@ -330,6 +342,7 @@
     <Content Include="Content\plugins\ui-select\select.min.css" />
     <Content Include="Content\style.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="img\a1.jpg" />
     <Content Include="img\a2.jpg" />
@@ -1191,6 +1204,10 @@
     <Content Include="Content\plugins\footable\fonts\footable.eot" />
     <Content Include="Content\plugins\footable\fonts\footable.ttf" />
     <Content Include="Content\plugins\footable\fonts\footable.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
@@ -1201,6 +1218,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\plugins\angular-idle\angular-idle.js" />
+    <Content Include="Scripts\plugins\datapicker\angular-datepicker.js" />
+    <Content Include="Scripts\plugins\daterangepicker\angular-daterangepicker.js" />
+    <Content Include="Scripts\plugins\daterangepicker\daterangepicker.js" />
     <Content Include="Scripts\plugins\dropzone\dropzone.js" />
     <Content Include="Scripts\plugins\dropzone\ng-dropzone.min.js" />
     <Content Include="Scripts\plugins\footable\angular-footable.js" />
@@ -1208,6 +1228,8 @@
     <Content Include="Scripts\plugins\jasny\jasny-bootstrap.min.js" />
     <Content Include="Scripts\plugins\jquery-ui\jquery-ui.min.js" />
     <Content Include="Scripts\plugins\metisMenu\jquery.metisMenu.js" />
+    <Content Include="Scripts\plugins\moment\moment-timezone.js" />
+    <Content Include="Scripts\plugins\moment\moment.min.js" />
     <Content Include="Scripts\plugins\ngTags\ng-tags-input.min.js" />
     <Content Include="Scripts\plugins\oclazyload\ocLazyLoad.js" />
     <Content Include="Scripts\plugins\pace\pace.min.js" />

@@ -413,13 +413,16 @@
                                                 <a style="margin-left:50px" class="btn btn-default" ng-click="viewProductVariants()">View Product Variants</a>
                                             </div>
                                             <div class="form-group">
-                                                <table style="width:90%; margin-left:55px;" class="table ">
+                                                <table style="width:95%; margin-left:55px;" class="table ">
                                                     <thead>
                                                         <tr>
                                                             <th></th>
                                                             <th>Variant Name</th>
                                                             <th>SKU</th>
                                                             <th>Supplier Code</th>
+                                                            <th>Supply Price</th>
+                                                            <th>Markup (%)</th>
+                                                            <th>Retail Price</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody ng-repeat="variant in product.productInventory">
@@ -441,6 +444,24 @@
                                                                        name="productVariantSupplierCode" ng-model="variant.productVariantSupplierCode"
                                                                        class="form-control">
                                                             </td>
+                                                            <td>
+                                                                <input type="number"
+                                                                       name="productVariantSupplyPrice" ng-model="variant.productVariantSupplyPrice"
+                                                                       ng-change="productVariantSupplyPriceChange(variant)"
+                                                                       class="form-control">
+                                                            </td>
+                                                            <td>
+                                                                <input type="number"
+                                                                       name="productVariantMarkup" ng-model="variant.productVariantMarkup"
+                                                                       ng-change="productVariantMarkupChange(variant)"
+                                                                       class="form-control">
+                                                            </td>
+                                                            <td>
+                                                                <input type="number"
+                                                                       name="productVariantRetailPrice" ng-model="variant.productVariantRetailPrice"
+                                                                       ng-change="productVariantRetailPriceChange(variant)"
+                                                                       class="form-control">
+                                                            </td>
                                                         </tr>
                                                         <tr ng-if="toggle[$index]">
                                                             <td></td>
@@ -459,19 +480,19 @@
                                                                             <td>{{outlet.outletName}}</td>
                                                                             <td>
                                                                                 <input type="number" value="0"
-                                                                                       name="markup" ng-model="outlet.currentInventory[variant.productVariantName]"
+                                                                                       name="markup" ng-model="outlet.currentInventory[variant.productVariantName + outlet.storeOutletId]"
                                                                                        class="form-control">
                                                                                 <a ng-if="$index == 0" style="text-align:right;" ng-click=""><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number" value="0"
-                                                                                       name="markup" ng-model="outlet.reorderPoint[variant.productVariantName]"
+                                                                                       name="markup" ng-model="outlet.reorderPoint[variant.productVariantName + outlet.storeOutletId]"
                                                                                        class="form-control">
                                                                                 <a ng-if="$index == 0" style="text-align:right;" ng-click=""><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number" value="0"
-                                                                                       name="markup" ng-model="outlet.reorderAmount[variant.productVariantName]"
+                                                                                       name="markup" ng-model="outlet.reorderAmount[variant.productVariantName + outlet.storeOutletId]"
                                                                                        class="form-control">
                                                                                 <a ng-if="$index == 0" style="text-align:right;" ng-click=""><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
                                                                             </td>

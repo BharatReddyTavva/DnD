@@ -6,10 +6,13 @@
         <div class="modal-body">
 
             <div class="form-group">
-                <label>Brand name</label>
+                <label>Brand name</label><i class="fa fa-asterisk asterisk required-asterisk"></i>
                 <input type="text" placeholder="Brand name" ng-model="brandName" class="form-control" required>
                 <div class="m-t-xs" ng-show="addBrand_form.brandName.$invalid && addBrand_form.submitted">
                     <small class="text-danger" ng-show="addBrand_form.brandName.$error.required">Brand name is required</small>
+                </div>
+                <div ng-show="brandAlreadyExists">
+                    <small class="text-danger">Brand with this name already exists</small>
                 </div>
             </div>
             <div class="form-group">

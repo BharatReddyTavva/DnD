@@ -1,7 +1,7 @@
 ﻿<form role="form" name="addType_form" ng-submit="addNewType()">
     <div class="inmodal">
         <div class="modal-header">
-            <h4 class="modal-title">Add Type</h4>
+            <h4 class="modal-title">{{addOrEditTitle}}</h4>
         </div>
         <div class="modal-body">
             <div class="form-group">
@@ -14,7 +14,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-white" ng-click="cancel()">Close</button>
-            <button class="btn btn-primary" type="submit">Add Type</button>
+            <button class="btn btn-primary" type="submit">{{addOrUpdateTagActionText}}</button>
         </div>
     </div>
 </form>

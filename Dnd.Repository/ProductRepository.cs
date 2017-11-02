@@ -105,6 +105,50 @@ namespace DnD.Repository
             }
         }
 
+        public List<ProductInventoryListViewModel> GetInventoryBySearch(ProductSearchCriteria searchCriteriaObject)
+        {
+            List<ProductInventoryListViewModel> productInventories = new List<ProductInventoryListViewModel>();
+
+            using (var command = _dataBaseRepository.db.GetStoredProcCommand(DnD.Common.Constants.UspGetInventoryBySearch))
+            {
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "NameSkuHandleSupplier", searchCriteriaObject.NameSkuHandleSupplier, DbType.String));
+                using (var objDataReader = _dataBaseRepository.db.ExecuteReader(command))
+                {
+                    while (objDataReader.Read())
+                    {
+                        ProductInventoryListViewModel productInventory = new ProductInventoryListViewModel();
+                        productInventory.ProductId = HelperMethods.GetDataValue<int>(objDataReader, "ProductId");
+                        productInventory.ProductName = HelperMethods.GetDataValue<string>(objDataReader, "ProductName");
+                        productInventory.IsProductHasVariants = HelperMethods.GetDataValue<bool>(objDataReader, "IsProductHasVariants");
+                        productInventory.ProductVariantId = HelperMethods.GetDataValue<int>(objDataReader, "ProductVariantId");
+                        productInventory.ProductVariantName = HelperMethods.GetDataValue<string>(objDataReader, "ProductVariantName");
+                        productInventory.ProductSKU = HelperMethods.GetDataValue<string>(objDataReader, "ProductSKU");
+                        productInventory.IsActive = HelperMethods.GetDataValue<bool>(objDataReader, "IsActive");
+
+                        productInventories.Add(productInventory);
+                    }
+
+                    if(objDataReader.NextResult())
+                    {
+                        while(objDataReader.Read())
+                        {
+                            var inventory = productInventories.FirstOrDefault(i => i.ProductVariantId == HelperMethods.GetDataValue<int>(objDataReader, "ProductVariantId"));
+                            if(inventory.StoreOutletsInventory == null)
+                            {
+                                inventory.StoreOutletsInventory = new List<StoreOutletInventoryViewModel>();
+                            }
+                            StoreOutletInventoryViewModel storeOutletInventory = new StoreOutletInventoryViewModel();
+                            storeOutletInventory.ProductVariantId = HelperMethods.GetDataValue<int>(objDataReader, "ProductVariantId");
+                            storeOutletInventory.StoreOutletId = HelperMethods.GetDataValue<int>(objDataReader, "StoreOutletId");
+                            storeOutletInventory.StoreOutletCurrentInventory = HelperMethods.GetDataValue<int>(objDataReader, "StoreOutletCurrentInventory");
+                            inventory.StoreOutletsInventory.Add(storeOutletInventory);
+                        }
+                    }
+                }
+                return productInventories;
+            }
+        }
+
         public List<Product> GetProductsBySearch(ProductSearchCriteria searchCriteriaObject)
         {
             List<Product> products = new List<Product>();
@@ -142,9 +186,9 @@ namespace DnD.Repository
                             {
                                 if (product.ProductTags == null)
                                 {
-                                    product.ProductTags = new List<ProductTag>();
+                                    product.ProductTags = new List<ProductTagMaster>();
                                 }
-                                ProductTag tag = new ProductTag();
+                                ProductTagMaster tag = new ProductTagMaster();
                                 //tag.ProductTagId = HelperMethods.GetDataValue<int>(dataReader, "ProductTagId");
                                 tag.TagName = HelperMethods.GetDataValue<string>(objDataReader, "TagName");
                                 product.ProductTags.Add(tag);
@@ -189,10 +233,10 @@ namespace DnD.Repository
                             {
                                 if (product.ProductTags == null)
                                 {
-                                    product.ProductTags = new List<ProductTag>();
+                                    product.ProductTags = new List<ProductTagMaster>();
                                 }
-                                ProductTag tag = new ProductTag();
-                                //tag.ProductTagId = HelperMethods.GetDataValue<int>(dataReader, "ProductTagId");
+                                ProductTagMaster tag = new ProductTagMaster();
+                                //tag.ProductTagMasterId = HelperMethods.GetDataValue<int>(dataReader, "ProductTagMasterId");
                                 tag.TagName = HelperMethods.GetDataValue<string>(objDataReader, "TagName");
                                 product.ProductTags.Add(tag);
                             }
@@ -223,66 +267,94 @@ namespace DnD.Repository
                 command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "SupplierCode", productObj.SupplierCode, DbType.String));
                 command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "SalesAccountCode", productObj.SalesAccountCode, DbType.String));
                 command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "PurchaseAccountCode", productObj.PurchaseAccountCode, DbType.String));
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "IsProductHasVariants", productObj.IsProductHasVariants, DbType.Boolean));
                 command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "CreatedBy", 1, DbType.Int32));
                 var productId = Convert.ToInt32(_dataBaseRepository.db.ExecuteScalar(command));
                 SaveProductTags(productId, productObj.ProductTags);
                 //SaveProductPricings(productId, productObj.ProductPricings);
                 //SaveProductOutletPricings(productId, productObj.ProductOutletPricings);
-                //SaveProductVariants(productId, productObj.ProductVariants);
-                //SaveProductInventory(productId, productObj.ProductInventory);
+                if (productObj.IsProductHasVariants)
+                {
+                    SaveProductVariantAttributes(productId, productObj.ProductVariantAttributes);
+                }
+                SaveProductInventory(productId, productObj.ProductName, productObj.IsProductHasVariants, productObj.ProductInventory);
+
                 return productId;
 
             }
         }
 
-        public int SaveProductVariants(int productId, ICollection<ProductVariant> productVariants)
+        public int SaveProductVariantAttributes(int productId, ICollection<ProductVariantAttribute> productVariantAttributes)
+        {
+
+            using (var command = _dataBaseRepository.db.GetStoredProcCommand((Constants.UspInsertProductVariantAttribute)))
+            {
+                //convert the variants list to xml string
+                var productVariantAttributesListXML = new XElement("ProductVariantAttributesList",
+                                                productVariantAttributes.Select(a => new XElement("productVariantAttribute",
+                                                new XElement("ProductId", productId),
+                                                new XElement("ProductVariantAttributeMasterId", a.ProductVariantAttributeMasterId),
+                                                new XElement("VariantAttributeTagName", a.VariantAttributeTagName))));
+
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductVariantAttributesList", productVariantAttributesListXML.ToString(), DbType.Xml));
+                int value = _dataBaseRepository.db.ExecuteNonQuery(command);
+                return value;
+            }
+        }
+
+        public int SaveProductVariant(int productId, string productName, ProductInventory productInventory)
         {
 
             using (var command = _dataBaseRepository.db.GetStoredProcCommand((Constants.UspInsertProductVariant)))
             {
-                //convert the variants list to xml string
-                var variantsListXML = new XElement("VariantsList",
-                                                productVariants.Select(v => new XElement("Variant",
-                                                new XElement("ProductId", productId),
-                                                new XElement("ProductVariantAttributeId", v.ProductVariantAttributeId),
-                                                new XElement("VariantAttributeTagName", v.VariantAttributeTagName))));
-
-                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "VariantsList", variantsListXML.ToString(), DbType.Xml));
-                int value = _dataBaseRepository.db.ExecuteNonQuery(command);
-                return value;
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductId", productId, DbType.Int32));
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductVariantName", productName + " -- " + productInventory.ProductVariantName, DbType.String));
+                var productVariantId = Convert.ToInt32(_dataBaseRepository.db.ExecuteScalar(command));
+                return productVariantId;
             }
         }
 
-        public int SaveProductInventory(int productId, ICollection<ProductInventory> productInventory)
+        public int SaveProductInventory(int productId, string productName, bool isProductHasVariants, ICollection<ProductInventory> productInventory)
         {
-            using (var command = _dataBaseRepository.db.GetStoredProcCommand((Constants.UspInsertProductInventory)))
-            {
-                //convert the inventorys list to xml string
-                var inventorysListXML = new XElement("InventorysList",
-                                                productInventory.Select(
-                                                    v => new XElement("Inventory",
-                                                new XElement("ProductId", productId),
-                                                new XElement("ProductVariantName", v.ProductVariantName),
-                                                new XElement("ProductVariantSKU", v.ProductVariantSKU),
-                                                new XElement("ProductVariantSupplierCode", v.ProductVariantSupplierCode),
-                                                new XElement("StoreOutletInventory",
-                                                v.ProductVariantInventory.Select(
-                                                    so => new XElement("StoreOutlet",
-                                                new XElement("StoreOutletId", so.StoreOutletId),
-                                                new XElement("StoreOutletCurrentInventory", so.StoreOutletCurrentInventory),
-                                                new XElement("StoreOutletReorderPoint", so.StoreOutletReorderPoint),
-                                                new XElement("StoreOutletReorderAmount", so.StoreOutletReorderAmount)))),
-                                                new XElement("ProductVariantSupplierCode", v.ProductVariantSupplierCode),
-                                                new XElement("ProductVariantSupplierCode", v.ProductVariantSupplierCode),
-                                                new XElement("ProductVariantSupplierCode", v.ProductVariantSupplierCode))));
+            int returnProductInventoryId = 0;
+                foreach (var inventory in productInventory)
+                {
+                    
+                    using (var command = _dataBaseRepository.db.GetStoredProcCommand((Constants.UspInsertProductInventory)))
+                    {
+                        command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductId", productId, DbType.Int32));
+                        if (isProductHasVariants)
+                        {
+                            int productVariantId = SaveProductVariant(productId, productName, inventory);
+                            command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductVariantId", productVariantId, DbType.Int32));
+                        }
+                        else
+                        {
+                            command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductVariantId", null, DbType.Int32));
+                        }
+                        
+                        command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductVariantSKU", inventory.ProductVariantSKU, DbType.String));
+                        command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductVariantSupplierCode", inventory.ProductVariantSupplierCode, DbType.String));
+                        command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductVariantSupplyPrice", inventory.ProductVariantSupplyPrice, DbType.Decimal));
+                        command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductVariantMarkup", inventory.ProductVariantMarkup, DbType.Decimal));
+                        command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductVariantRetailPrice", inventory.ProductVariantRetailPrice, DbType.Decimal));
+                    //convert the store outlet inventorys list to xml string
+                    var storeOutletInventoryListXML = new XElement("StoreOutletInventoryList",
+                                                        inventory.ProductVariantInventory.Select(
+                                                            so => new XElement("StoreOutletInventory",
+                                                        new XElement("StoreOutletId", so.StoreOutletId),
+                                                        new XElement("StoreOutletCurrentInventory", so.StoreOutletCurrentInventory),
+                                                        new XElement("StoreOutletReorderPoint", so.StoreOutletReorderPoint),
+                                                        new XElement("StoreOutletReorderAmount", so.StoreOutletReorderAmount))));
 
-                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "InventorysList", inventorysListXML.ToString(), DbType.Xml));
-                int value = _dataBaseRepository.db.ExecuteNonQuery(command);
-                return value;
-            }
+                        command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "StoreOutletInventoryList", storeOutletInventoryListXML.ToString(), DbType.Xml));
+                    returnProductInventoryId = _dataBaseRepository.db.ExecuteNonQuery(command);
+                    }
+                }
+            return returnProductInventoryId;
         }
 
-        public int SaveProductTags(int productId, ICollection<ProductTag> productTags)
+        public int SaveProductTags(int productId, ICollection<ProductTagMaster> productTags)
         {
 
             using (var command = _dataBaseRepository.db.GetStoredProcCommand((Constants.UspInsertProductTag)))
@@ -291,7 +363,7 @@ namespace DnD.Repository
                 var tagsListXML = new XElement("TagsList",
                                                 productTags.Select(t => new XElement("Tag",
                                                 new XElement("ProductId", productId),
-                                                new XElement("TagName", t.TagName))));
+                                                new XElement("ProductTagMasterId", t.ProductTagMasterId))));
 
                 command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "TagsList", tagsListXML.ToString(), DbType.Xml));
                 int value = _dataBaseRepository.db.ExecuteNonQuery(command);
@@ -537,7 +609,7 @@ namespace DnD.Repository
         /// Save Tag
         /// </summary>
         /// <returns></returns>
-        public int SaveTag(ProductTag productTagObj)
+        public int SaveTag(ProductTagMaster productTagObj)
         {
             using (var command = _dataBaseRepository.db.GetStoredProcCommand(DnD.Common.Constants.UspInsertTag))
             {
@@ -554,12 +626,12 @@ namespace DnD.Repository
         /// Update Tag
         /// </summary>
         /// <returns></returns>
-        public int UpdateTag(ProductTag productTagObj)
+        public int UpdateTag(ProductTagMaster productTagMasterObj)
         {
             using (var command = _dataBaseRepository.db.GetStoredProcCommand(DnD.Common.Constants.UspUpdateTag))
             {
-                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductTagId", productTagObj.ProductTagId, DbType.String));
-                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "TagName", productTagObj.TagName, DbType.String));
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductTagMasterId", productTagMasterObj.ProductTagMasterId, DbType.Int32));
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "TagName", productTagMasterObj.TagName, DbType.String));
                 command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "UpdatedBy", 1, DbType.Int32));
                 var tagId = Convert.ToInt32(_dataBaseRepository.db.ExecuteScalar(command));
 
@@ -572,11 +644,11 @@ namespace DnD.Repository
         /// Delete Tag
         /// </summary>
         /// <returns></returns>
-        public int DeleteTag(ProductTag productTagObj)
+        public int DeleteTag(ProductTagMaster productTagMasterObj)
         {
             using (var command = _dataBaseRepository.db.GetStoredProcCommand(DnD.Common.Constants.UspDeleteTag))
             {
-                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductTagId", productTagObj.ProductTagId, DbType.String));
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductTagMasterId", productTagMasterObj.ProductTagMasterId, DbType.String));
                 command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "UpdatedBy", 1, DbType.Int32));
                 var tagId = Convert.ToInt32(_dataBaseRepository.db.ExecuteScalar(command));
 
@@ -585,9 +657,9 @@ namespace DnD.Repository
             }
         }
 
-        public List<ProductTag> GetAllTagsByStore(int storeId)
+        public List<ProductTagMaster> GetAllTagsByStore(int storeId)
         {
-            List<ProductTag> tags = new List<ProductTag>();
+            List<ProductTagMaster> tags = new List<ProductTagMaster>();
 
             using (var command = _dataBaseRepository.db.GetStoredProcCommand(DnD.Common.Constants.UspGetAllTagsByStore))
             {
@@ -596,8 +668,8 @@ namespace DnD.Repository
                 {
                     while (objDataReader.Read())
                     {
-                        ProductTag tag = new ProductTag();
-                        tag.ProductTagId = HelperMethods.GetDataValue<int>(objDataReader, "ProductTagId");
+                        ProductTagMaster tag = new ProductTagMaster();
+                        tag.ProductTagMasterId = HelperMethods.GetDataValue<int>(objDataReader, "ProductTagMasterId");
                         tag.TagName = HelperMethods.GetDataValue<string>(objDataReader, "TagName"); ;
                         tag.IsActive = HelperMethods.GetDataValue<bool>(objDataReader, "IsActive");
                         tags.Add(tag);
@@ -607,15 +679,158 @@ namespace DnD.Repository
             }
         }
 
+        public List<StoreOutlet> GetStoreOutlets(int storeId)
+        {
+            List<StoreOutlet> storeOutlets = new List<StoreOutlet>();
+            using (var command = _dataBaseRepository.db.GetStoredProcCommand(Constants.UspGetStoreOutlets))
+            {
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "StoreId", storeId, DbType.Int32));
+                using (var dataReader = _dataBaseRepository.db.ExecuteReader(command))
+                {
+                    // Get Store Outlets
+                        while (dataReader.Read())
+                        {
+                            StoreOutlet outlet = new StoreOutlet();
+                            outlet.StoreOutletId = HelperMethods.GetDataValue<int>(dataReader, "StoreOutletId");
+                            outlet.OutletName = HelperMethods.GetDataValue<string>(dataReader, "OutletName");
+                            outlet.OutletDefaultSalesTaxId = HelperMethods.GetDataValue<int>(dataReader, "OutletDefaultSalesTaxId");
+                            storeOutlets.Add(outlet);
+                        }
+                }
+            }
+            return storeOutlets;
+        }
+
+        public AddEditDiscountOfferMasterViewModel GetAllMasterDataForCreateOrEditDiscountOffer(int storeId)
+        {
+            AddEditDiscountOfferMasterViewModel addEditDiscountOfferMaster = new AddEditDiscountOfferMasterViewModel();
+            List<DiscountType> discountTypes = new List<DiscountType>();
+            List<DiscountOfferType> discountOfferTypes = new List<DiscountOfferType>();
+            List<Product> products = new List<Product>();
+            List<ProductTagMaster> productTags = new List<ProductTagMaster>();
+            List<ProductType> productTypes = new List<ProductType>();
+            List<ProductBrand> productBrands = new List<ProductBrand>();
+            List<StoreOutlet> storeOutlets = new List<StoreOutlet>();
+            List<CustomerGroupMaster> customerGroups = new List<CustomerGroupMaster>();
+
+            using (var command = _dataBaseRepository.db.GetStoredProcCommand(Constants.UspGetAllMasterDataForCreateOrEditDiscountOffer))
+            {
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "StoreId", storeId, DbType.Int32));
+                using (var dataReader = _dataBaseRepository.db.ExecuteReader(command))
+                {
+                    while (dataReader.Read())
+                    {
+                        DiscountType discountType = new DiscountType();
+                        discountType.DiscountTypeId = HelperMethods.GetDataValue<int>(dataReader, "DiscountTypeId");
+                        discountType.DiscountTypeName = HelperMethods.GetDataValue<string>(dataReader, "DiscountTypeName");
+                        discountTypes.Add(discountType);
+                    }
+
+                    if (dataReader.NextResult())
+                    {
+                        while (dataReader.Read())
+                        {
+                            DiscountOfferType discountOfferType = new DiscountOfferType();
+                            discountOfferType.DiscountOfferTypeId = HelperMethods.GetDataValue<int>(dataReader, "DiscountOfferTypeId");
+                            discountOfferType.DiscountOfferTypeName = HelperMethods.GetDataValue<string>(dataReader, "DiscountOfferTypeName");
+                            discountOfferTypes.Add(discountOfferType);
+                        }
+                    }
+
+                    if (dataReader.NextResult())
+                    {
+                        while (dataReader.Read())
+                        {
+                            Product product = new Product();
+                            product.ProductId = HelperMethods.GetDataValue<int>(dataReader, "ProductId");
+                            product.ProductName = HelperMethods.GetDataValue<string>(dataReader, "ProductName");
+                            products.Add(product);
+                        }
+                    }
+
+                    if (dataReader.NextResult())
+                    {
+                        // Get Product Tags
+                        while (dataReader.Read())
+                        {
+                            ProductTagMaster tag = new ProductTagMaster();
+                            tag.ProductTagMasterId = HelperMethods.GetDataValue<int>(dataReader, "ProductTagMasterId");
+                            tag.TagName = HelperMethods.GetDataValue<string>(dataReader, "TagName"); ;
+                            productTags.Add(tag);
+                        }
+                    }
+
+                    // Get product types
+                    if (dataReader.NextResult())
+                    {
+                        while (dataReader.Read())
+                        {
+                            ProductType type = new ProductType();
+                            type.ProductTypeId = HelperMethods.GetDataValue<int>(dataReader, "ProductTypeId");
+                            type.ProductTypeName = HelperMethods.GetDataValue<string>(dataReader, "ProductTypeName");
+                            productTypes.Add(type);
+                        }
+                    }
+
+                    // Get Product Brands
+                    if (dataReader.NextResult())
+                    {
+                        while (dataReader.Read())
+                        {
+                            ProductBrand brand = new ProductBrand();
+                            brand.ProductBrandId = HelperMethods.GetDataValue<int>(dataReader, "ProductBrandId");
+                            brand.BrandName = HelperMethods.GetDataValue<string>(dataReader, "BrandName");
+                            brand.BrandDescription = HelperMethods.GetDataValue<string>(dataReader, "BrandDescription");
+                            productBrands.Add(brand);
+                        }
+                    }
+
+                    // Get Store Outlets
+                    if (dataReader.NextResult())
+                    {
+                        while (dataReader.Read())
+                        {
+                            StoreOutlet outlet = new StoreOutlet();
+                            outlet.StoreOutletId = HelperMethods.GetDataValue<int>(dataReader, "StoreOutletId");
+                            outlet.OutletName = HelperMethods.GetDataValue<string>(dataReader, "OutletName");
+                            storeOutlets.Add(outlet);
+                        }
+                    }
+
+                    if (dataReader.NextResult())
+                    {
+                        while (dataReader.Read())
+                        {
+                            CustomerGroupMaster customerGroup = new CustomerGroupMaster();
+                            customerGroup.CustomerGroupMasterId = HelperMethods.GetDataValue<int>(dataReader, "CustomerGroupMasterId");
+                            customerGroup.GroupName = HelperMethods.GetDataValue<string>(dataReader, "GroupName");
+                            customerGroups.Add(customerGroup);
+                        }
+                    }
+
+
+                }
+            }
+
+            addEditDiscountOfferMaster.DiscountTypes = discountTypes;
+            addEditDiscountOfferMaster.DiscountOfferTypes = discountOfferTypes;
+            addEditDiscountOfferMaster.ProductTags = productTags;
+            addEditDiscountOfferMaster.ProductTypes = productTypes;
+            addEditDiscountOfferMaster.ProductBrands = productBrands;
+            addEditDiscountOfferMaster.StoreOutlets = storeOutlets;
+            addEditDiscountOfferMaster.CustomerGroups = customerGroups;
+            return addEditDiscountOfferMaster;
+        }
+
         public AddEditProductMasterViewModel GetAllMasterDataForCreateOrEditProduct(int storeId)
         {
             AddEditProductMasterViewModel addEditProductMaster = new AddEditProductMasterViewModel();
-            List<ProductTag> productTags = new List<ProductTag>();
+            List<ProductTagMaster> productTags = new List<ProductTagMaster>();
             List<ProductType> productTypes = new List<ProductType>();
             List<ProductBrand> productBrands = new List<ProductBrand>();
             List<ProductSupplier> productSuppliers = new List<ProductSupplier>();
             List<StoreOutlet> storeOutlets = new List<StoreOutlet>();
-            List<ProductVariantAttribute> productVariantAttributes = new List<ProductVariantAttribute>();
+            List<ProductVariantAttributeMaster> productVariantAttributes = new List<ProductVariantAttributeMaster>();
             List<SalesTax> salesTaxes = new List<SalesTax>();
 
             using (var command = _dataBaseRepository.db.GetStoredProcCommand(Constants.UspGetAllMasterDataForCreateOrEditProduct))
@@ -626,8 +841,8 @@ namespace DnD.Repository
                     // Get Product Tags
                     while (dataReader.Read())
                     {
-                        ProductTag tag = new ProductTag();
-                        //tag.ProductTagId = HelperMethods.GetDataValue<int>(dataReader, "ProductTagId");
+                        ProductTagMaster tag = new ProductTagMaster();
+                        tag.ProductTagMasterId = HelperMethods.GetDataValue<int>(dataReader, "ProductTagMasterId");
                         tag.TagName = HelperMethods.GetDataValue<string>(dataReader, "TagName"); ;
                         productTags.Add(tag);
                     }
@@ -690,8 +905,8 @@ namespace DnD.Repository
                     {
                         while (dataReader.Read())
                         {
-                            ProductVariantAttribute variantAttribute = new ProductVariantAttribute();
-                            variantAttribute.ProductVariantAttributeId = HelperMethods.GetDataValue<int>(dataReader, "ProductVariantAttributeId");
+                            ProductVariantAttributeMaster variantAttribute = new ProductVariantAttributeMaster();
+                            variantAttribute.ProductVariantAttributeMasterId = HelperMethods.GetDataValue<int>(dataReader, "ProductVariantAttributeMasterId");
                             variantAttribute.VariantAttributeName = HelperMethods.GetDataValue<string>(dataReader, "VariantAttributeName");
                             productVariantAttributes.Add(variantAttribute);
                         }

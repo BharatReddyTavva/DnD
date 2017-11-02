@@ -10,12 +10,15 @@
 namespace DnD.DataModel
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class usp_GetAllBrandsByStore_Result
+    public partial class DiscountOfferStoreOutlet
     {
-        public int ProductBrandId { get; set; }
-        public string BrandName { get; set; }
-        public string BrandDescription { get; set; }
-        public bool IsActive { get; set; }
+        public int DiscountOfferStoreOutletId { get; set; }
+        public int DiscountOfferId { get; set; }
+        public int StoreOutletId { get; set; }
+    
+        public virtual DiscountOffer DiscountOffer { get; set; }
+        public virtual StoreOutlet StoreOutlet { get; set; }
     }
 }

@@ -20,7 +20,7 @@ function productTypesCtrl($scope, $uibModal, productService) {
             });
     };
 
-    $scope.openAddType = function () {
+    $scope.openAddProductType = function () {
         var addTypeModalInstance = $uibModal.open({
             templateUrl: 'app/views/products/productTypes/addEditType.html',
             controller: 'addTypeModalInstanceCtrl',
@@ -89,8 +89,8 @@ function productTypesCtrl($scope, $uibModal, productService) {
 function addTypeModalInstanceCtrl($scope, $uibModalInstance, actionName, productService) {
     $scope.newType = { productTypeId: '', TypeName: '' };
     if (actionName == 'ADD') {
-        $scope.addOrEditTitle = 'Add Type';
-        $scope.addOrUpdateTypeActionText = 'Add Type'
+        $scope.addOrEditTitle = 'Add Category';
+        $scope.addOrUpdateTypeActionText = 'Add Category'
     }
     $scope.addNewOrUpdateType = function () {
         $scope.newType.TypeName = $scope.TypeName;

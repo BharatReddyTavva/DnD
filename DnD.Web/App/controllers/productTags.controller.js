@@ -1,8 +1,8 @@
 ﻿
 //Tags Start
 function productTagsCtrl($scope, $uibModal, productService) {
-    $scope.newTag = { productTagId: '', TagName: '', TagDescription: '' };
-    $scope.updatedTag = { productTagId: '', TagName: '', TagDescription: '' };
+    $scope.newTag = { productTagMasterId: '', TagName: '', TagDescription: '' };
+    $scope.updatedTag = { productTagMasterId: '', TagName: '', TagDescription: '' };
     $scope.Tags = {};
 
     init();
@@ -26,7 +26,10 @@ function productTagsCtrl($scope, $uibModal, productService) {
             controller: 'addTagModalInstanceCtrl',
             resolve: {
                 actionName: function () {
-                    return 'ADD'
+                    return 'ADD';
+                },
+                tagsList: function () {
+                    return $scope.tags;
                 }
             }
         });
@@ -48,17 +51,20 @@ function productTagsCtrl($scope, $uibModal, productService) {
                     return tag;
                 },
                 actionName: function () {
-                    return 'EDIT'
+                    return 'EDIT';
+                },
+                tagsList: function () {
+                    return $scope.tags;
                 }
             }
         });
 
         editTagModalInstance.result.then(function (updatedTag) {
             $scope.updatedTag = updatedTag;
-            getAllTags();
+            //getAllTags();
             //$log.info('Modal dismissed at: ' + new Date());
         });
-
+        getAllTags();
     };
 
     $scope.deleteTag = function (deletedTag) {
@@ -70,7 +76,7 @@ function productTagsCtrl($scope, $uibModal, productService) {
                     return deletedTag;
                 },
                 actionName: function () {
-                    return 'DELETE'
+                    return 'DELETE';
                 }
             }
         });
@@ -86,14 +92,21 @@ function productTagsCtrl($scope, $uibModal, productService) {
 
 };
 
-function addTagModalInstanceCtrl($scope, $uibModalInstance, actionName, productService) {
-    $scope.newTag = { productTagId: '', tagName: '' };
+function addTagModalInstanceCtrl($scope, $uibModalInstance, $filter, actionName, tagsList, productService) {
+    $scope.tagAlreadyExists = false;
+    $scope.newTag = { productTagMasterId: '', tagName: '' };
+
     if (actionName == 'ADD') {
         $scope.addOrEditTitle = 'Add Tag';
         $scope.addOrUpdateTagActionText = 'Add Tag'
     }
     $scope.addNewOrUpdateTag = function () {
         $scope.newTag.tagName = $scope.tagName;
+        var newTagToSave = $filter('filter')(tagsList, { tagName: $scope.newTag.tagName })[0];
+        if (newTagToSave) {
+            $scope.tagAlreadyExists = true;
+            return;
+        }
         saveNewTag();
         $uibModalInstance.close($scope.newTag);
     };
@@ -104,27 +117,38 @@ function addTagModalInstanceCtrl($scope, $uibModalInstance, actionName, productS
 
     function saveNewTag() {
         var options = { successMessage: "Tag saved successfully.", errorMessage: "Error occurred in saving Tag" };
-        productService.postTag($scope.newTag, options)
-            .then(function (data) {
-                var successData = data;
+        if ($scope.addTag_form.$valid) {
+            productService.postTag($scope.newTag, options)
+                .then(function (data) {
+                    var successData = data;
 
-            }, function (error) {
-                //
-            });
-
+                }, function (error) {
+                    //
+                });
+        } else {
+            $scope.addTag_form.submitted = true;
+        }
     }
 };
 
-function editTagModalInstanceCtrl($scope, $uibModalInstance, selectedTagToEdit, actionName, productService) {
-    $scope.updatedTag = { productTagId: '', tagName: '' };
+function editTagModalInstanceCtrl($scope, $uibModalInstance, $filter, selectedTagToEdit, actionName, tagsList, productService) {
+    $scope.tagAlreadyExists = false;
+    $scope.updatedTag = { productTagMasterId: '', tagName: '' };
     if (actionName == 'EDIT') {
-        $scope.addOrEditTitle = 'Update Tag';
-        $scope.addOrUpdateTagActionText = 'Update Tag'
+        $scope.addOrEditTitle = 'Edit Tag';
+        $scope.addOrUpdateTagActionText = 'Save Tag'
         $scope.tagName = selectedTagToEdit.tagName;
     }
     $scope.addNewOrUpdateTag = function () {
-        $scope.updatedTag.productTagId = selectedTagToEdit.productTagId;
+        $scope.updatedTag.productTagMasterId = selectedTagToEdit.productTagMasterId;
         $scope.updatedTag.tagName = $scope.tagName;
+        if (selectedTagToEdit.tagName != $scope.updatedTag.tagName) {
+            var newTagToSave = $filter('filter')(tagsList, { tagName: $scope.updatedTag.tagName })[0];
+            if (newTagToSave) {
+                $scope.tagAlreadyExists = true;
+                return;
+            }
+        }
         updateTag();
         $uibModalInstance.close($scope.updatedTag);
     };
@@ -147,14 +171,14 @@ function editTagModalInstanceCtrl($scope, $uibModalInstance, selectedTagToEdit, 
 };
 
 function deleteTagModalInstanceCtrl($scope, $uibModalInstance, selectedTagToDelete, actionName, productService) {
-    $scope.deletedTag = { productTagId: '', tagName: '' };
+    $scope.deletedTag = { productTagMasterId: '', tagName: '' };
     if (actionName == 'DELETE') {
         $scope.addOrEditTitle = 'Delete Tag';
         $scope.addOrUpdateTagActionText = 'Delete Tag'
         $scope.tagName = selectedTagToDelete.tagName;
     }
     $scope.deleteTag = function () {
-        $scope.deletedTag.productTagId = selectedTagToDelete.productTagId;
+        $scope.deletedTag.productTagMasterId = selectedTagToDelete.productTagMasterId;
         $scope.deletedTag.tagName = $scope.tagName;
         deleteTag();
         $uibModalInstance.close($scope.deletedTag);
@@ -165,7 +189,7 @@ function deleteTagModalInstanceCtrl($scope, $uibModalInstance, selectedTagToDele
     };
 
     function deleteTag() {
-        var options = { successMessage: "Tag" + $scope.tagName + "deleted successfully.", errorMessage: "Error occurred in saving Tag" };
+        var options = { successMessage: "Tag" + selectedTagToDelete.tagName + "deleted successfully.", errorMessage: "Error occurred in saving Tag" };
         productService.deleteTag($scope.deletedTag, options)
             .then(function (data) {
                 var successData = data;

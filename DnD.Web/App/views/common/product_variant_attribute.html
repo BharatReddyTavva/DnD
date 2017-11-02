@@ -3,7 +3,7 @@
 		<select name="productVariantAttributeType" class="form-control m-b" style="width:400px; margin-left:50px;" ng-model="productVariantAttributeType"
 				ng-options="pva.variantAttributeName for pva in productVariantAttributes">
 				<option ng-repeat="pva in productVariantAttributes"
-					value="{{pva.variantAttributeId}}">
+					value="{{pva.productVariantAttributeMasterId}}">
 					{{pva.variantAttributeName}}
 				</option>
 		</select>

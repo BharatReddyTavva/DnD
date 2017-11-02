@@ -25,12 +25,15 @@ namespace DnD.Common
         public const string UspInsertBrand = "usp_InsertBrand";
         public const string UspUpdateBrand = "usp_UpdateBrand";
         public const string UspDeleteBrand = "usp_DeleteBrand";
+        public const string UspGetStoreOutlets = "usp_GetStoreOutlets";
         public const string UspGetAllBrandsByStore = "usp_GetAllBrandsByStore";
         public const string UspGetAllProductsByStore = "usp_GetAllProductsByStore";
         public const string UspGetProductsBySearch = "usp_GetProductsBySearch";
+        public const string UspGetInventoryBySearch = "usp_GetInventoryBySearch";
         public const string UspInsertProduct = "usp_InsertProduct";
         public const string UspInsertProductTag = "usp_InsertProductTag";
         public const string UspInsertProductVariant = "usp_InsertProductVariant";
+        public const string UspInsertProductVariantAttribute = "usp_InsertProductVariantAttribute";
         public const string UspInsertProductInventory = "usp_InsertProductInventory";
         public const string UspInsertProductPricing = "usp_InsertProductPricing";
         public const string UspInsertProductOutletPricing = "usp_InsertProductOutletPricing";
@@ -47,6 +50,7 @@ namespace DnD.Common
         public const string UspDeleteTag = "usp_DeleteTag";
         public const string UspGetAllTagsByStore = "usp_GetAllTagsByStore";
         public const string UspGetAllMasterDataForCreateOrEditProduct = "usp_GetAllMasterDataForCreateOrEditProduct";
+        public const string UspGetAllMasterDataForCreateOrEditDiscountOffer = "usp_GetAllMasterDataForCreateOrEditDiscountOffer";
 
     }
 }

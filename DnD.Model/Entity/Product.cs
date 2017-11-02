@@ -25,6 +25,7 @@ namespace DnD.Model.Entity
         public string SalesAccountCode { get; set; }
         public string PurchaseAccountCode { get; set; }
         public bool IsProductCanBeSold { get; set; }
+        public bool IsProductHasVariants { get; set; }
         public decimal ProductLoyalty { get; set; }
         public bool IsActive { get; set; }
         public int StoreId { get; set; }
@@ -43,8 +44,9 @@ namespace DnD.Model.Entity
         public virtual ICollection<ProductPricing> ProductPricings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductOutletPricing> ProductOutletPricings { get; set; }
-        public virtual ICollection<ProductTag> ProductTags { get; set; }
+        public virtual ICollection<ProductTagMaster> ProductTags { get; set; }
         public virtual ICollection<ProductVariant> ProductVariants { get; set; }
+        public virtual ICollection<ProductVariantAttribute> ProductVariantAttributes { get; set; }
         public virtual ICollection<ProductInventory> ProductInventory { get; set; }
     }
 }

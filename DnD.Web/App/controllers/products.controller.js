@@ -1,5 +1,5 @@
 ﻿//Brands Start
-function productsCtrl($scope, $uibModal, $rootScope, $compile, $state, productService) {
+function productsCtrl($scope, $uibModal, $rootScope, $compile, $state, $filter, productService) {
     $scope.products = {};
 
     init();
@@ -18,8 +18,10 @@ function productsCtrl($scope, $uibModal, $rootScope, $compile, $state, productSe
     $scope.productContent.productOutletPricings = [];
     $scope.productContent.productInventory = [];
     $scope.product.productVariants = [];
+    $scope.product.productVariantAttributes = [];
     $scope.product.productInventory = [];
     $scope.productContent.productVariants = [];
+    $scope.productContent.productVariantAttributes = [];
     $scope.productTags = {};
     $scope.productTagsWithText = [];
     $scope.productTypes = {};
@@ -160,8 +162,8 @@ function productsCtrl($scope, $uibModal, $rootScope, $compile, $state, productSe
                         }
                     });
 
-                    $scope.productContent.productVariants.push({
-                        productVariantAttributeId: currentScope.productVariantAttributeType.productVariantAttributeId,
+                    $scope.product.productVariantAttributes.push({
+                        productVariantAttributeMasterId: currentScope.productVariantAttributeType.productVariantAttributeMasterId,
                         variantAttributeTagName: varriantAttributesCommaSeperated
                     });
                 }
@@ -204,6 +206,9 @@ function productsCtrl($scope, $uibModal, $rootScope, $compile, $state, productSe
                 productVariantName: productVariantCompleteName,
                 productVariantSKU: productVariantSKUSeed++,
                 productVariantSupplierCode: '',
+                productVariantSupplyPrice: parseFloat($scope.product.retailSupplyPrice),
+                productVariantMarkup: parseFloat($scope.product.retailMarkup),
+                productVariantRetailPrice: parseFloat($scope.product.retailPrice),
                 productVariantInventory: []
             });
         });
@@ -262,13 +267,13 @@ function productsCtrl($scope, $uibModal, $rootScope, $compile, $state, productSe
         if ($scope.productContent.isProductHasVariants) {
             angular.forEach($scope.product.productInventory, function (productVariantItem, productVariantItemNum) {
                 angular.forEach(productVariantItem.productVariantInventory, function (productVariantInventoryItem, productVariantInventoryNum) {
-                    angular.forEach($scope.storeOutlets, function (storeOutlet, storeOutletNum) {
-                        productVariantInventoryItem.storeOutletId = storeOutlet.storeOutletId;
-                        productVariantInventoryItem.storeOutletCurrentInventory = storeOutlet.currentInventory[productVariantItem.productVariantName];
-                        productVariantInventoryItem.storeOutletReorderPoint = storeOutlet.reorderPoint[productVariantItem.productVariantName];
-                        productVariantInventoryItem.storeOutletReorderAmount = storeOutlet.reorderAmount[productVariantItem.productVariantName];
-                        //$filter('filter')($scope.productContent.productInventory, { productVariantName: productVariantInventory.productVariantName })[0];
-                    });
+                    var inventoryOfStoreoutlet = $filter('filter')($scope.storeOutlets, { storeOutletId: productVariantInventoryItem.storeOutletId })[0];
+                    //productVariantInventoryItem.ProductVariantSKU = productVariantItem.productVariantSKU;
+                    //productVariantInventoryItem.productVariantSupplierCode = productVariantItem.productVariantSupplierCode;
+                    //productVariantInventoryItem.storeOutletId = inventoryOfStoreoutlet.storeOutletId;
+                    productVariantInventoryItem.storeOutletCurrentInventory = inventoryOfStoreoutlet.currentInventory[productVariantItem.productVariantName + inventoryOfStoreoutlet.storeOutletId];
+                    productVariantInventoryItem.storeOutletReorderPoint = inventoryOfStoreoutlet.reorderPoint[productVariantItem.productVariantName + inventoryOfStoreoutlet.storeOutletId];
+                    productVariantInventoryItem.storeOutletReorderAmount = inventoryOfStoreoutlet.reorderAmount[productVariantItem.productVariantName + inventoryOfStoreoutlet.storeOutletId];
                 });
             });
         }
@@ -279,6 +284,9 @@ function productsCtrl($scope, $uibModal, $rootScope, $compile, $state, productSe
                         productVariantName: null,
                         productVariantSKU: null,
                         productVariantSupplierCode: null,
+                        productVariantSupplyPrice: parseFloat($scope.product.retailSupplyPrice),
+                        productVariantMarkup: parseFloat($scope.product.retailMarkup),
+                        productVariantRetailPrice: parseFloat($scope.product.retailPrice),
                         storeOutletId: storeOutlet.storeOutletId,
                         storeOutletCurrentInventory: storeOutlet.currentInventory[productVariantInventory.productVariantName],
                         storeOutletReorderPoint: storeOutlet.reorderPoint[productVariantInventory.productVariantName],
@@ -288,6 +296,7 @@ function productsCtrl($scope, $uibModal, $rootScope, $compile, $state, productSe
             });
         }
 
+        $scope.productContent.productVariantAttributes = angular.copy($scope.product.productVariantAttributes);
         $scope.productContent.productInventory = angular.copy($scope.product.productInventory);
 
         $scope.productContent.productPricings.push(
@@ -369,6 +378,17 @@ function productsCtrl($scope, $uibModal, $rootScope, $compile, $state, productSe
 
         } else {
             $scope.dataProductForm.submitted = true;
+        }
+    }
+
+    $scope.productVariantSupplyPriceChange = function (variant) {
+        if (variant.productVariantMarkup != undefined && variant.productVariantMarkup != null) {
+            var productVariantRetailMarkupPercentageAmount = ((parseFloat(variant.productVariantSupplyPrice) * parseFloat(variant.productVariantMarkup))) / 100;
+            variant.productVariantRetailPrice = parseFloat(0.00);
+            variant.productVariantRetailPrice = parseFloat(productVariantRetailMarkupPercentageAmount) + parseFloat(variant.productVariantSupplyPrice);
+        }
+        else {
+            variant.productVariantRetailPrice = parseFloat(variant.productVariantSupplyPrice);
         }
     }
 

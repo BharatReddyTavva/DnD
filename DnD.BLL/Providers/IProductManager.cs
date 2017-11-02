@@ -16,6 +16,7 @@ namespace DnD.BLL.Providers
         List<ProductBrand> GetAllBrandsByStore(int storeId);
         List<Product> GetAllProductsByStore(int storeId);
         List<Product> GetProductsBySearch(ProductSearchCriteria searchCriteriaObject);
+        List<ProductInventoryListViewModel> GetInventoryBySearch(ProductSearchCriteria searchCriteriaObject);
         int SaveProduct(Product productObj);
         int SaveSupplier(ProductSupplier productSupplierObj);
         int UpdateSupplier(ProductSupplier productSupplierObj);
@@ -25,10 +26,12 @@ namespace DnD.BLL.Providers
         int UpdateType(ProductType productTypeObj);
         int DeleteType(ProductType productTypeObj);
         List<ProductType> GetAllTypesByStore(int storeId);
-        int SaveTag(ProductTag productTagObj);
-        int UpdateTag(ProductTag productTagObj);
-        int DeleteTag(ProductTag productTagObj);
-        List<ProductTag> GetAllTagsByStore(int storeId);
+        int SaveTag(ProductTagMaster productTagObj);
+        int UpdateTag(ProductTagMaster productTagObj);
+        int DeleteTag(ProductTagMaster productTagObj);
+        List<ProductTagMaster> GetAllTagsByStore(int storeId);
         AddEditProductMasterViewModel GetAllMasterDataForCreateOrEditProduct(int storeId);
+        AddEditDiscountOfferMasterViewModel GetAllMasterDataForCreateOrEditDiscountOffer(int storeId);
+        List<StoreOutlet> GetStoreOutlets(int storeId);
     }
 }

@@ -11,6 +11,7 @@
             getAllProducts: getAllProducts,
             getProductsBySearch: getProductsBySearch,
             getAllMasterDataForCreateOrEditProduct: getAllMasterDataForCreateOrEditProduct,
+            getAllMasterDataForCreateOrEditDiscountOffer: getAllMasterDataForCreateOrEditDiscountOffer,
             postProduct: postProduct,
             deleteProduct: deleteProduct,
             updateProduct: updateProduct,
@@ -29,7 +30,9 @@
             getAllTypes: getAllTypes,
             postType: postType,
             deleteType: deleteType,
-            updateType: updateType
+            updateType: updateType,
+            getStoreOutlets: getStoreOutlets,
+            getInventoryBySearch: getInventoryBySearch
         };
 
         return productService;
@@ -39,6 +42,11 @@
             return datacontext.get('Product/GetAllProductsByStore');
         };
 
+        function getInventoryBySearch(searchCriteriaObject)
+        {
+            return datacontext.post('Product/GetInventoryBySearch/', searchCriteriaObject);
+        };
+
         function getProductsBySearch(searchCriteriaObject, options) {
             return datacontext.post('Product/GetProductsBySearch/', searchCriteriaObject, options);
         };
@@ -46,6 +54,10 @@
         function getAllMasterDataForCreateOrEditProduct() {
             return datacontext.get('Product/GetAllMasterDataForCreateOrEditProduct');
         };
+
+        function getAllMasterDataForCreateOrEditDiscountOffer() {
+            return datacontext.get('Product/GetAllMasterDataForCreateOrEditDiscountOffer');
+        }
 
         //API call to save the Product Object
         function postProduct(productObject, options) {
@@ -140,6 +152,11 @@
         //API call to delete the Type Object
         function deleteType(brandObject, options) {
             return datacontext.post('Product/DeleteType/', brandObject, options);
+        };
+
+        //Stock Control
+        function getStoreOutlets() {
+            return datacontext.get('Product/GetStoreOutlets');
         };
 
     };

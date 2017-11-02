@@ -1,0 +1,88 @@
+﻿<div ng-controller="returnOrderCtrl">
+    <form id="#dataSupplierForm" name="dataSupplierForm" novalidate ng-submit="saveSupplier()">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-12">
+                <h2>Create a new purchase order</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#/addproduct">Products</a>
+                    </li>
+                    <li>
+                        <a href="#/products/stockcontrol">Stock Control</a>
+                    </li>
+                    <li class="active">
+                        <strong>New Purchase Order</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="ibox ibox-addsupplier float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Details</h5>
+                        <div ibox-tools>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Name / reference</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" name="name" ng-model="purchaseOrder.name" placeholder="Name" class="form-control"
+                                               minlength="2" tabindex="1" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Order From</label>
+                                    <div class="col-sm-10">
+                                        <select name="orderFrom" class="form-control m-b" ng-model="selectedOrderFrom"
+                                                ng-options="of.orderFromDesc for of in orderFromList" required>
+                                            <option value="" ng-selected="true"> Select Order From </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Delivery To</label>
+                                    <div class="col-sm-10">
+                                        <select name="deliveryTo" class="form-control m-b" ng-model="selectedDeliveryTo"
+                                                ng-options="dt.deliveryToDesc for dt in deliveryToList" required>
+                                            <option value="" ng-selected="true"> Select Delivery To </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Delivery due</label>
+                                    <div class="col-lg-10">
+                                        <div class="input-group date">
+                                            <input type="datetime" name="deliveryDuedate" class="form-control" date-time ng-model="purchaseOrder.deliveryDuedate" view="date" auto-close="true" min-view="date" format="YYYY-MM-DD">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Order No.</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" name="orderNumber" ng-model="purchaseOrder.orderNumber" placeholder="Order Number" class="form-control" tabindex="4" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Supplier Invoice</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" name="supplierInvoice" ng-model="purchaseOrder.supplierInvoice" placeholder="Supplier Invoice" class="form-control" tabindex="6">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+</div>

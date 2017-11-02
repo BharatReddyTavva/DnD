@@ -10,10 +10,16 @@
 namespace DnD.DataModel
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagramdefinition_Result
+    public partial class StockOrderStatu
     {
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int StockOrderStatusId { get; set; }
+        public string StockOrderStatusName { get; set; }
+        public bool IsActive { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedOn { get; set; }
+        public int UpdatedBy { get; set; }
+        public System.DateTime UpdatedOn { get; set; }
     }
 }

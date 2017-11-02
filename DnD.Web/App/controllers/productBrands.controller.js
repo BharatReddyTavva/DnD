@@ -60,7 +60,10 @@ function productBrandsCtrl($scope, $uibModal, productService) {
             controller: 'addBrandModalInstanceCtrl',
             resolve: {
                 actionName: function () {
-                    return 'ADD'
+                    return 'ADD';
+                },
+                brandsList: function () {
+                    return $scope.brands;
                 }
             }
         });
@@ -83,6 +86,9 @@ function productBrandsCtrl($scope, $uibModal, productService) {
                 },
                 actionName: function () {
                     return 'EDIT'
+                },
+                brandsList: function () {
+                    return $scope.brands;
                 }
             }
         });
@@ -120,8 +126,9 @@ function productBrandsCtrl($scope, $uibModal, productService) {
 
 };
 
-function addBrandModalInstanceCtrl($scope, $uibModalInstance, actionName, productService) {
+function addBrandModalInstanceCtrl($scope, $uibModalInstance, $filter, actionName, brandsList, productService) {
     $scope.newBrand = { productBrandId: '', brandName: '', brandDescription: '' };
+    $scope.brandAlreadyExists = false;
     if (actionName == 'ADD') {
         $scope.addOrEditTitle = 'Add Brand';
         $scope.addOrUpdateBrandActionText = 'Add Brand'
@@ -129,6 +136,11 @@ function addBrandModalInstanceCtrl($scope, $uibModalInstance, actionName, produc
     $scope.addNewOrUpdateBrand = function () {
         $scope.newBrand.brandName = $scope.brandName;
         $scope.newBrand.brandDescription = $scope.brandDescription;
+        var newBrandToSave = $filter('filter')(brandsList, { brandName: $scope.newBrand.brandName })[0];
+        if (newBrandToSave) {
+            $scope.brandAlreadyExists = true;
+            return;
+        }
         saveNewBrand();
         $uibModalInstance.close($scope.newBrand);
     };
@@ -150,7 +162,8 @@ function addBrandModalInstanceCtrl($scope, $uibModalInstance, actionName, produc
     }
 };
 
-function editBrandModalInstanceCtrl($scope, $uibModalInstance, selectedBrandToEdit, actionName, productService) {
+function editBrandModalInstanceCtrl($scope, $uibModalInstance, selectedBrandToEdit, $filter, actionName, brandsList, productService) {
+    $scope.brandAlreadyExists = false;
     $scope.updatedBrand = { productBrandId: '', brandName: '', brandDescription: '' };
     if (actionName == 'EDIT') {
         $scope.addOrEditTitle = 'Update Brand';
@@ -162,6 +175,13 @@ function editBrandModalInstanceCtrl($scope, $uibModalInstance, selectedBrandToEd
         $scope.updatedBrand.productBrandId = selectedBrandToEdit.productBrandId;
         $scope.updatedBrand.brandName = $scope.brandName;
         $scope.updatedBrand.brandDescription = $scope.brandDescription;
+        if (selectedBrandToEdit.brandName != $scope.updatedBrand.brandName) {
+            var newBrandToSave = $filter('filter')(brandsList, { brandName: $scope.updatedBrand.brandName })[0];
+            if (newBrandToSave) {
+                $scope.brandAlreadyExists = true;
+                return;
+            }
+        }
         updateBrand();
         $uibModalInstance.close($scope.updatedBrand);
     };

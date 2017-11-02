@@ -10,10 +10,15 @@
 namespace DnD.DataModel
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class usp_GetAllMasterDataForCreateOrEditProduct_Result
+    public partial class DiscountOfferCustomer
     {
-        public int ProductTagId { get; set; }
-        public string TagName { get; set; }
+        public int DiscountOfferCustomerId { get; set; }
+        public int DiscountOfferId { get; set; }
+        public int CustomerGroupId { get; set; }
+    
+        public virtual CustomerGroup CustomerGroup { get; set; }
+        public virtual DiscountOffer DiscountOffer { get; set; }
     }
 }

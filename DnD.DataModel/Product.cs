@@ -18,9 +18,10 @@ namespace DnD.DataModel
         public Product()
         {
             this.ProductImages = new HashSet<ProductImage>();
-            this.ProductInventoryAndTaxes = new HashSet<ProductInventoryAndTax>();
+            this.ProductInventories = new HashSet<ProductInventory>();
             this.ProductPricings = new HashSet<ProductPricing>();
             this.ProductTags = new HashSet<ProductTag>();
+            this.ProductVariants = new HashSet<ProductVariant>();
         }
     
         public int ProductId { get; set; }
@@ -50,10 +51,12 @@ namespace DnD.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductImage> ProductImages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductInventoryAndTax> ProductInventoryAndTaxes { get; set; }
+        public virtual ICollection<ProductInventory> ProductInventories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductPricing> ProductPricings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductTag> ProductTags { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductVariant> ProductVariants { get; set; }
     }
 }

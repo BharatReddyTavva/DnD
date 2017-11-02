@@ -92,15 +92,65 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             templateUrl: "app/views/products/suppliers/addEditSupplier.html",
             data: { pageTitle: 'Suppliers' }
         })
+        .state('products.discountOffers', {
+            url: "/discountOffers",
+            templateUrl: "app/views/products/discountOffers/discountOffers.html",
+            data: { pageTitle: 'Discount Offers' }
+        })
+        .state('products.addDiscountOffer', {
+            url: "/addDiscountOffer",
+            templateUrl: "app/views/products/discountOffers/addEditDiscountOffer.html",
+            data: { pageTitle: 'Discount Offers' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['Scripts/plugins/moment/moment.min.js']
+                        },
+                        {
+                            serie: true,
+                            files: ['Scripts/plugins/daterangepicker/daterangepicker.js', 'Content/plugins/daterangepicker/daterangepicker-bs3.css']
+                        },
+                        {
+                            name: 'daterangepicker',
+                            files: ['Scripts/plugins/daterangepicker/angular-daterangepicker.js']
+                        }
+                    ]);
+                }
+            }
+        })
         .state('products.stockcontrol', {
-            url: "/stockcontrol",
+            url: "/stocktransfers",
             templateUrl: "app/views/products/stockControl/stockControl.html",
-            data: { pageTitle: 'Stock Control' }
+            data: { pageTitle: 'Stock Transfers' }
         })
         .state('products.purchaseOrder', {
             url: "/purchaseOrder",
             templateUrl: "app/views/products/stockControl/addEditPurchaseOrder.html",
             data: { pageTitle: 'Purchase Order' }
+        })
+        .state('products.returnOrder', {
+            url: "/returnOrder",
+            templateUrl: "app/views/products/stockControl/addEditReturnOrder.html",
+            data: { pageTitle: 'Return Order' }
+        })
+        .state('products.transferOrder', {
+            url: "/transferOrder",
+            templateUrl: "app/views/products/stockControl/addEditTransferOrder.html",
+            data: { pageTitle: 'Transfer Order' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['Scripts/plugins/moment/moment.min.js']
+                        },
+                        {
+                            name: 'datePicker',
+                            files: ['Content/plugins/datapicker/angular-datapicker.css', 'Scripts/plugins/datapicker/angular-datepicker.js']
+                        }
+                    ]);
+                }
+            }
         })
         .state('products.types', {
             url: "/categories",

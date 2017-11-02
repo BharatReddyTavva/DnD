@@ -47,7 +47,7 @@
                                 <div class="col-sm-8">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Supplier Name</label> <i class="fa fa-asterisk asterisk"></i>
+                                            <label>Supplier Name</label> <i class="fa fa-asterisk asterisk required-asterisk"></i>
                                             <input type="text" name="name" ng-model="supplier.supplierName" placeholder="Supplier Name"
                                                    class="form-control" minlength="2" tabindex="1" required ng-trim="false">
                                             <div class="m-t-xs" ng-show="dataSupplierForm.name.$invalid && dataSupplierForm.submitted">
@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Default Markup</label> <i class="fa fa-asterisk asterisk"></i>
+                                            <label>Default Markup</label> <i class="fa fa-asterisk asterisk required-asterisk"></i>
                                             <input type="number" value="0" min="0" max="99" name="markup" ng-model="supplier.supplierDefaultMarkup"
                                                    placeholder="Default Markup"
                                                    class="form-control" tabindex="2" required>
@@ -93,7 +93,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label>First name</label><i class="fa fa-asterisk asterisk"></i>
+                                                <label>First name</label><i class="fa fa-asterisk asterisk required-asterisk"></i>
                                                 <input type="text" name="firstName" ng-model="supplier.firstName"
                                                        placeholder="First Name" class="form-control" minlength="2" tabindex="4" required ng-trim="false">
                                                 <div class="m-t-xs" ng-show="dataSupplierForm.firstName.$invalid && dataSupplierForm.submitted">

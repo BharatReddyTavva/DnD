@@ -65,6 +65,26 @@ namespace DnD.API.API
             }
         }
 
+
+        /// <summary>
+        /// Get Inventory By Search
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionName("GetInventoryBySearch")]
+        public IHttpActionResult GetInventoryBySearch([FromBody]ProductSearchCriteria searchCriteriaObject)
+        {
+            try
+            {
+                return Ok(_productManager.GetInventoryBySearch(searchCriteriaObject));
+            }
+            catch (Exception ex)
+            {
+                //LoggerEx.HandleException(LoggingBoundaries.DomainLayer, ex, false);
+                return BadRequest();
+            }
+        }
+
         /// <summary>
         /// Save Brand
         /// </summary>
@@ -89,7 +109,7 @@ namespace DnD.API.API
         /// Update Brand
         /// </summary>
         /// <returns>Brand Id</returns>
-        [HttpPut]
+        [HttpPost]
         [ActionName("UpdateBrand")]
         public IHttpActionResult UpdateBrand(ProductBrand productBrandObj)
         {
@@ -369,11 +389,11 @@ namespace DnD.API.API
         /// <returns>Tag Id</returns>
         [HttpPost]
         [ActionName("SaveTag")]
-        public IHttpActionResult SaveTag(ProductTag productTagObj)
+        public IHttpActionResult SaveTag(ProductTagMaster productTagMasterObj)
         {
             try
             {
-                return Ok(_productManager.SaveTag(productTagObj));
+                return Ok(_productManager.SaveTag(productTagMasterObj));
             }
             catch (Exception ex)
             {
@@ -389,11 +409,11 @@ namespace DnD.API.API
         /// <returns>Tag Id</returns>
         [HttpPut]
         [ActionName("UpdateTag")]
-        public IHttpActionResult UpdateTag(ProductTag productTagObj)
+        public IHttpActionResult UpdateTag(ProductTagMaster productTagMasterObj)
         {
             try
             {
-                return Ok(_productManager.UpdateTag(productTagObj));
+                return Ok(_productManager.UpdateTag(productTagMasterObj));
             }
             catch (Exception ex)
             {
@@ -409,11 +429,11 @@ namespace DnD.API.API
         /// <returns>Tag Id</returns>
         [HttpPost]
         [ActionName("DeleteTag")]
-        public IHttpActionResult DeleteTag(ProductTag productTagObj)
+        public IHttpActionResult DeleteTag(ProductTagMaster productTagMasterObj)
         {
             try
             {
-                return Ok(_productManager.DeleteTag(productTagObj));
+                return Ok(_productManager.DeleteTag(productTagMasterObj));
             }
             catch (Exception ex)
             {
@@ -455,6 +475,44 @@ namespace DnD.API.API
             try
             {
                 return Ok(_productManager.GetAllMasterDataForCreateOrEditProduct(1));
+            }
+            catch (Exception ex)
+            {
+                //LoggerEx.HandleException(LoggingBoundaries.DomainLayer, ex, false);
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Get All MasterData For Create Or Edit Discount Offer
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ActionName("GetAllMasterDataForCreateOrEditDiscountOffer")]
+        public IHttpActionResult GetAllMasterDataForCreateOrEditDiscountOffer()
+        {
+            try
+            {
+                return Ok(_productManager.GetAllMasterDataForCreateOrEditDiscountOffer(1));
+            }
+            catch (Exception ex)
+            {
+                //LoggerEx.HandleException(LoggingBoundaries.DomainLayer, ex, false);
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Get Store Outlet
+        /// </summary>
+        /// <returns>Collection of Outlets</returns>
+        [HttpGet]
+        [ActionName("GetStoreOutlets")]
+        public IHttpActionResult GetStoreOutlets()
+        {
+            try
+            {
+                return Ok(_productManager.GetStoreOutlets(1));
             }
             catch (Exception ex)
             {

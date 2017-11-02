@@ -14,9 +14,13 @@ namespace DnD.Model.Entity
     {
         public int ProductInventoryId { get; set; }
         public int ProductId { get; set; }
+        public string ProductVariantId { get; set; }
         public string ProductVariantName { get; set; }
         public string ProductVariantSKU { get; set; }
         public string ProductVariantSupplierCode { get; set; }
+        public decimal? ProductVariantSupplyPrice { get; set; }
+        public decimal? ProductVariantMarkup { get; set; }
+        public decimal? ProductVariantRetailPrice { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }

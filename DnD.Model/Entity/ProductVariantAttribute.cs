@@ -20,12 +20,15 @@ namespace DnD.Model.Entity
         }
 
         public int ProductVariantAttributeId { get; set; }
-        public string VariantAttributeName { get; set; }
+        public int ProductId { get; set; }
+        public int ProductVariantAttributeMasterId { get; set; }
+        public string VariantAttributeTagName { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public int UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
+        public int StoreId { get; set; }
 
     }
 }

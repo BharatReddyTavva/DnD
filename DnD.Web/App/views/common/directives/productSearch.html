@@ -1,0 +1,95 @@
+﻿    <div uib-dropdown="" is-open="isopen" auto-close="outsideClick" class="dropdown open" style="">
+        <div class="form-group form-md-line-input padding-top-0 no-margin dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true">
+            <div class="input-icon">
+                <i class="fa fa-search" style="position:absolute;"></i>
+                <input type="text" class="form-control" ng-model-options="{debounce: 750}" placeholder="Find products..." ng-model="searchtext" ng-change="search()" style="">
+            </div>
+        </div>
+
+        <ul class="dropdown-menu dropdown-content dnd-width-block ng-isolate-scope" uib-dropdown-menu="" role="menu" busy-if="loading" style="zoom: 1;">
+
+            <div ng-if="productInventories != null && productInventories.length != 0" style="">
+                <table class="table table-hover table-vert table-border fix-table-header">
+                    <thead>
+                        <tr ng-repeat="item in productInventories | limitTo:1 track by $index" class="ng-scope">
+                            <th colspan="6" class="no-border">
+                                <!--<span ng-repeat="obj in item.stocks | where:{outletId: currentOutlet}" class="ng-binding ng-scope">
+
+                                    Hyderabad Store
+                                </span>-->
+                                <span>
+
+                                    Hyderabad Store
+                                </span>
+                                <!--<span ng-repeat="obj in item.stocks | where:{outletId: destinationOutlet}" class="ng-binding ng-scope">
+                                    , Hyderabad Store
+                                </span>-->
+                                <span>
+                                    , Hyderabad Store
+                                </span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="col-xs-1"></th>
+                            <th class="col-xs-4">
+                                Product name
+                            </th>
+
+                            <th class="col-xs-2 text-center">
+                                SKU
+                            </th>
+                            <th class="col-xs-2 text-center">
+                                <!--<span ng-if="outletId != destinationOutlet" class="inventory-source ng-scope">Inventory at source</span>-->
+                                <span class="inventory-source">Inventory at source</span>
+                            </th>
+                            <!--<th class="col-xs-3 text-center inventory-source ng-scope" ng-if="outletId != destinationOutlet">
+                                Inventory at destination
+                            </th>-->
+                            <th class="col-xs-3 text-center inventory-source">
+                                Inventory at destination
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="scroll-h-290 scroll">
+                        <tr ng-repeat="inventory in productInventories track by $index">
+                            <td class="col-xs-1 text-center">
+                                <div class="md-checkbox">
+                                    <input id="3" type="checkbox" checklist-value="inventory" checklist-model="selectedProducts">
+                                    <!--<label for="3">
+                                        <span></span>
+                                        <span class="check"></span>
+                                        <span class="box"></span>
+                                    </label>-->
+                                </div>
+                            </td>
+                            <td class="col-xs-4 ng-binding">
+                                {{inventory.productVariantName}}
+                            </td>
+
+                            <td class="col-xs-2 text-center ng-binding">
+                                {{inventory.productSKU}}
+                            </td>
+                            <!--<td ng-repeat="obj in item.stocks | where:{outletId: currentOutlet}" class="col-xs-2 text-center ng-binding ng-scope">
+                                0
+                            </td>-->
+                            <td class="col-xs-2 text-center">
+                                0
+                            </td>
+                            <!--<td ng-repeat="obj in item.stocks | where:{outletId: destinationOutlet}" class="col-xs-3 text-center ng-binding ng-scope">
+                                0
+                            </td>-->
+                            <td class="col-xs-3 text-center">
+                                0
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <li class="text-center">
+                <button class="btn dark btn-lg dropdown-toggle" data-toggle="dropdown" ng-disabled="isdisable" ng-click="addProducts()" disabled="disabled">Add &amp; continue</button>
+
+            </li>
+        </ul>
+    </div>

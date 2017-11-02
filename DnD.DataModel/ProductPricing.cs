@@ -16,7 +16,6 @@ namespace DnD.DataModel
     {
         public Nullable<int> ProductPricingId { get; set; }
         public Nullable<int> ProductId { get; set; }
-        public Nullable<int> OutletId { get; set; }
         public Nullable<int> PricingTierId { get; set; }
         public Nullable<decimal> SupplyPrice { get; set; }
         public Nullable<decimal> MarkupPercentage { get; set; }

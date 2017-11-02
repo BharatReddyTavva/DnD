@@ -17,6 +17,7 @@ namespace DnD.DataModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StoreOutlet()
         {
+            this.DiscountOfferStoreOutlets = new HashSet<DiscountOfferStoreOutlet>();
             this.ReturnStockOrders = new HashSet<ReturnStockOrder>();
             this.StoreOutletRegisters = new HashSet<StoreOutletRegister>();
             this.StoreUsers = new HashSet<StoreUser>();
@@ -50,6 +51,8 @@ namespace DnD.DataModel
         public int UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DiscountOfferStoreOutlet> DiscountOfferStoreOutlets { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReturnStockOrder> ReturnStockOrders { get; set; }
         public virtual SalesTax SalesTax { get; set; }

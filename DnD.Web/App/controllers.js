@@ -3474,6 +3474,10 @@ angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
     .controller('productsCtrl', productsCtrl)
+    .controller('stockControlCtrl', stockControlCtrl)
+    .controller('purchaseOrderCtrl', purchaseOrderCtrl)
+    .controller('returnOrderCtrl', returnOrderCtrl)
+    .controller('transferOrderCtrl', transferOrderCtrl)
     .controller('productBrandsCtrl', productBrandsCtrl) //Products Brand Controller
     .controller('addBrandModalInstanceCtrl', addBrandModalInstanceCtrl)
     .controller('editBrandModalInstanceCtrl', editBrandModalInstanceCtrl)
@@ -3483,7 +3487,11 @@ angular
     .controller('editTagModalInstanceCtrl', editTagModalInstanceCtrl)
     .controller('deleteTagModalInstanceCtrl', deleteTagModalInstanceCtrl)
     .controller('productSuppliersCtrl', productSuppliersCtrl)
+    .controller('productDiscountOffersCtrl', productDiscountOffersCtrl)
     .controller('productTypesCtrl', productTypesCtrl)
+    .controller('addTypeModalInstanceCtrl', addTypeModalInstanceCtrl)
+    .controller('editTypeModalInstanceCtrl', editTypeModalInstanceCtrl)
+    .controller('deleteTypeModalInstanceCtrl', deleteTypeModalInstanceCtrl)
     .controller('dashboardFlotOne', dashboardFlotOne)
     .controller('dashboardFlotTwo', dashboardFlotTwo)
     .controller('dashboardFive', dashboardFive)
@@ -3526,16 +3534,27 @@ angular
     .controller('passwordMeterCtrl', passwordMeterCtrl);
 
 productBrandsCtrl.$inject = ['$scope', '$uibModal', 'productService'];
-addBrandModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'actionName', 'productService'];
-editBrandModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'selectedBrandToEdit', 'actionName', 'productService'];
+addBrandModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', '$filter', 'actionName', 'brandsList', 'productService'];
+editBrandModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'selectedBrandToEdit', '$filter', 'actionName', 'brandsList', 'productService'];
 deleteBrandModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'selectedBrandToDelete', 'actionName', 'productService'];
 
 productTagsCtrl.$inject = ['$scope', '$uibModal', 'productService'];
-addTagModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'actionName', 'productService'];
-editTagModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'selectedTagToEdit', 'actionName', 'productService'];
+addTagModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', '$filter', 'actionName', 'tagsList', 'productService'];
+editTagModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', '$filter', 'selectedTagToEdit', 'actionName', 'tagsList', 'productService'];
 deleteTagModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'selectedTagToDelete', 'actionName', 'productService'];
 
-productSuppliersCtrl.$inject = ['$scope', '$uibModal', 'productService'];
+productSuppliersCtrl.$inject = ['$scope', '$uibModal', '$state', 'productService'];
+
 productTypesCtrl.$inject = ['$scope', '$uibModal', 'productService'];
-productsCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', 'productService'];
+addTypeModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', '$filter', 'actionName', 'typesList', 'productService'];
+editTypeModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', '$filter', 'selectedTypeToEdit', 'actionName', 'typesList', 'productService'];
+deleteTypeModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'selectedTypeToDelete', 'actionName', 'productService'];
+
+productsCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', '$filter', 'productService'];
+stockControlCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', 'productService'];
+purchaseOrderCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', '$filter', 'productService'];
+returnOrderCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', 'productService'];
+transferOrderCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', '$filter', 'productService'];
+
+productDiscountOffersCtrl.$inject = ['$scope', '$uibModal', 'productService'];
 

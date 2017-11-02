@@ -1,10 +1,10 @@
 ﻿<div ng-controller="productTagsCtrl">
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>Stock Control</h2>
+            <h2>Stock Transfers</h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="#/addproduct">Products</a>
+                    <a href="#" ui-sref="products.productsList">Products</a>
                 </li>
                 <li class="active">
                     <strong>Stock Control</strong>
@@ -14,17 +14,17 @@
         <div class="col-sm-8">
             <div class="col-sm-4">
                 <div class="title-action">
-                    <a href="#" class="btn btn-primary" ui-sref="products.purchaseOrder">Order Stock</a>
+                    <a href="#" class="btn btn-primary" ui-sref="products.purchaseOrder">Purchase Order</a>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="title-action">
-                    <a href="#" class="btn btn-primary" ui-sref="products.returnStock">Return Stock</a>
+                    <a href="#" class="btn btn-primary" ui-sref="products.returnOrder">Stock Return</a>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="title-action">
-                    <a href="#" class="btn btn-primary" ui-sref="products.transferStock">Transfer Stock</a>
+                    <a href="#" class="btn btn-primary" ui-sref="products.transferOrder">Transfer Stock</a>
                 </div>
             </div>
         </div>

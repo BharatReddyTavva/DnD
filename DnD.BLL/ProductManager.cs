@@ -68,6 +68,11 @@ namespace DnD.BLL
             return _productRepository.GetProductsBySearch(searchCriteriaObject);
         }
 
+        public List<ProductInventoryListViewModel> GetInventoryBySearch(ProductSearchCriteria searchCriteriaObject)
+        {
+            return _productRepository.GetInventoryBySearch(searchCriteriaObject);
+        }
+
         /// <summary>
         /// Save Product
         /// </summary>
@@ -145,7 +150,7 @@ namespace DnD.BLL
         /// Save Tag
         /// </summary>
         /// <returns>Tag Id</returns>
-        public int SaveTag(ProductTag productTagObj)
+        public int SaveTag(ProductTagMaster productTagObj)
         {
             return _productRepository.SaveTag(productTagObj);
         }
@@ -154,7 +159,7 @@ namespace DnD.BLL
         /// Update Tag
         /// </summary>
         /// <returns>Tag Id</returns>
-        public int UpdateTag(ProductTag productTagObj)
+        public int UpdateTag(ProductTagMaster productTagObj)
         {
             return _productRepository.UpdateTag(productTagObj);
         }
@@ -163,12 +168,12 @@ namespace DnD.BLL
         /// Delete Tag
         /// </summary>
         /// <returns>Tag Id</returns>
-        public int DeleteTag(ProductTag productTagObj)
+        public int DeleteTag(ProductTagMaster productTagObj)
         {
             return _productRepository.DeleteTag(productTagObj);
         }
 
-        public List<ProductTag> GetAllTagsByStore(int storeId)
+        public List<ProductTagMaster> GetAllTagsByStore(int storeId)
         {
             return _productRepository.GetAllTagsByStore(storeId);
         }
@@ -176,6 +181,16 @@ namespace DnD.BLL
         public AddEditProductMasterViewModel GetAllMasterDataForCreateOrEditProduct(int storeId)
         {
             return _productRepository.GetAllMasterDataForCreateOrEditProduct(storeId);
+        }
+
+        public AddEditDiscountOfferMasterViewModel GetAllMasterDataForCreateOrEditDiscountOffer(int storeId)
+        {
+            return _productRepository.GetAllMasterDataForCreateOrEditDiscountOffer(storeId);
+        }
+
+        public List<StoreOutlet> GetStoreOutlets(int storeId)
+        {
+            return _productRepository.GetStoreOutlets(storeId);
         }
     }
 }

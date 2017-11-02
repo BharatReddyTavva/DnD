@@ -14,21 +14,17 @@ namespace DnD.DataModel
     
     public partial class ProductVariantAttribute
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProductVariantAttribute()
-        {
-            this.ProductInventoryAndTaxes = new HashSet<ProductInventoryAndTax>();
-        }
-    
         public int ProductVariantAttributeId { get; set; }
-        public string VariantAttributeName { get; set; }
-        public bool IsActive { get; set; }
+        public int ProductId { get; set; }
+        public int ProductVariantAttributeMasterId { get; set; }
+        public string VariantAttributeTagName { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public int UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
+        public bool IsActive { get; set; }
+        public Nullable<int> StoreId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductInventoryAndTax> ProductInventoryAndTaxes { get; set; }
+        public virtual ProductVariantAttributeMaster ProductVariantAttributeMaster { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿//Brands Start
-function productSuppliersCtrl($scope, $uibModal, productService) {
+function productSuppliersCtrl($scope, $uibModal, $state, productService) {
     $scope.suppliers = {};
 
     init();
@@ -18,7 +18,8 @@ function productSuppliersCtrl($scope, $uibModal, productService) {
             productService.postSupplier($scope.supplier, options)
                 .then(function (data) {
                     var successData = data;
-                    getAllSuppliers();
+                    $state.go('products.suppliers');
+                    //getAllSuppliers();
 
                 }, function (error) {
                     //

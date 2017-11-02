@@ -1,0 +1,128 @@
+﻿<div ng-controller="transferOrderCtrl">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-12">
+            <h2>Create a new transfer order</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#/addproduct">Products</a>
+                </li>
+                <li>
+                    <a href="#/products/stockcontrol">Stock Control</a>
+                </li>
+                <li class="active">
+                    <strong>New Transfer Order</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="ibox ibox-addsupplier float-e-margins">
+                <div class="ibox-title">
+                    <h5>Transfer info</h5>
+                </div>
+                <div class="ibox-content">
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="font-normal">Source outlet</label> <i class="fa fa-asterisk asterisk required-asterisk"></i>
+                                    <select name="sourceOutlet" class="form-control m-b" ng-model="selectedSourceOutlet"
+                                            ng-options="so.outletName for so in storeOutlets" required>
+                                        <option ng-repeat="so in storeOutlets"
+                                                value="{{so.storeOutletId}}">
+                                            {{so.outletName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="font-normal">Destination outlet</label> <i class="fa fa-asterisk asterisk required-asterisk"></i>
+                                    <select name="destinationOutlet" class="form-control m-b" ng-model="selectedDestinationOutlet"
+                                            ng-options="so.outletName for so in storeOutlets" required>
+                                        <option ng-repeat="so in storeOutlets"
+                                                value="{{so.storeOutletId}}">
+                                            {{so.outletName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <input icheck type="checkbox" ng-model="transferOrder.isCostTaxInclusive"><i></i> Item cost rates are tax inclusive
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <hr />
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="font-normal">Delivery due</label>
+                                    <div class="input-group date">
+                                        <input type="datetime" class="form-control" date-time ng-model="transferOrder.deliveryDueDate" view="date" auto-close="true" min-view="date" format="YYYY-MM-DD">
+                                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="font-normal">Transfer no.</label>
+                                    <input type="text" name="transferNumber" ng-model="transferOrder.transferNumber"
+                                           placeholder="Transfer no." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <product-search selected-products="selectedProducts"></product-search>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>Transfer Products</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Order #</th>
+                                                    <th>Product name</th>
+                                                    <th>Stock on hand</th>
+                                                    <th>Quantity</th>
+                                                    <th>Supplier price</th>
+                                                    <th>Tax</th>
+                                                    <th>Total cost</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="product in productsToTransfer">
+                                                    <td>{{product.orderNum}}</td>
+                                                    <td>{{product.productVariantName}}</td>
+                                                    <td>{{product.inventoryAtHand}}</td>
+                                                    <td>@mdo</td>
+                                                    <td>@mdo</td>
+                                                    <td>@mdo</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

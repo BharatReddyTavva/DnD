@@ -1,20 +1,23 @@
 ﻿<form role="form" name="addTag_form" ng-submit="addNewOrUpdateTag()">
     <div class="inmodal">
         <div class="modal-header">
-            <h4 class="modal-title">Add Tag</h4>
+            <h4 class="modal-title">{{addOrEditTitle}}</h4>
         </div>
         <div class="modal-body">
             <div class="form-group">
-                <label>Tag name</label>
-                <input type="text" placeholder="Tag name" ng-model="tagName" class="form-control" required>
+                <label>Tag name</label><i class="fa fa-asterisk asterisk required-asterisk"></i>
+                <input name="tagName" type="text" placeholder="Tag name" ng-model="tagName" class="form-control" required>
                 <div class="m-t-xs" ng-show="addTag_form.tagName.$invalid && addTag_form.submitted">
                     <small class="text-danger" ng-show="addTag_form.tagName.$error.required">Tag name is required</small>
+                </div>
+                <div ng-show="tagAlreadyExists">
+                    <small class="text-danger">Tag with this name already exists</small>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-white" ng-click="cancel()">Close</button>
-            <button class="btn btn-primary" type="submit">Add Tag</button>
+            <button class="btn btn-primary" type="submit">{{addOrUpdateTagActionText}}</button>
         </div>
     </div>
 </form>

@@ -17,7 +17,6 @@ namespace DnD.DataModel
         public int ProductInventoryId { get; set; }
         public int ProductId { get; set; }
         public Nullable<int> ProductVariantId { get; set; }
-        public string ProductVariantName { get; set; }
         public string ProductVariantSKU { get; set; }
         public string ProductVariantSupplierCode { get; set; }
         public Nullable<int> StoreOutletId { get; set; }
@@ -29,5 +28,11 @@ namespace DnD.DataModel
         public System.DateTime CreatedOn { get; set; }
         public int UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
+        public Nullable<decimal> ProductVariantSupplyPrice { get; set; }
+        public Nullable<decimal> ProductVariantMarkupPercentage { get; set; }
+        public Nullable<decimal> ProductVariantPriceExcludingTax { get; set; }
+    
+        public virtual Product Product { get; set; }
+        public virtual ProductVariant ProductVariant { get; set; }
     }
 }

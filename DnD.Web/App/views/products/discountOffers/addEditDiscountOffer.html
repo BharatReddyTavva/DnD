@@ -1,0 +1,151 @@
+﻿<div ng-controller="productDiscountOffersCtrl">
+    <form id="#dataDiscountOfferForm" name="dataDiscountOfferForm" novalidate ng-submit="saveDiscountOffer()">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-10">
+                <h2>Create a new discount offer</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#/productsList">Products</a>
+                    </li>
+                    <li>
+                        <a href="#/products/suppliers">Discount Offers</a>
+                    </li>
+                    <li class="active">
+                        <strong>Add Discount Offer</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-sm-1">
+                <div class="title-action">
+                    <a href="#" class="btn btn-primary" ui-sref="products.discountOffers">Cancel</a>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <div class="title-action">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="ibox ibox-addsupplier float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Offer Name</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Offer Name</label> <i class="fa fa-asterisk asterisk"></i>
+                                        <input type="text" name="name" ng-model="discountOffer.offerName" placeholder="Offer Name"
+                                               class="form-control" minlength="2" tabindex="1" required ng-trim="false">
+                                        <div class="m-t-xs" ng-show="dataDiscountOfferForm.name.$invalid && dataDiscountOfferForm.submitted">
+                                            <small class="text-danger" ng-show="dataDiscountOfferForm.name.$error.required">Offer name is required</small>
+                                            <small class="text-danger" ng-show="dataDiscountOfferForm.name.$error.minlength">Offer name should be at least 2 characters long</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group"><label>Offer Text</label><textarea name="offerDisplayText" ng-model="discountOffer.offerDisplayText" placeholder="Offer Text" class="form-control"> </textarea></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="ibox ibox-addsupplier float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Active Dates</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <input date-range-picker class="form-control date-picker" placeholder="Start Date - End Date" type="text" ng-model="discountOffer.discountOfferDateRange" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="ibox ibox-addsupplier float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Discount Type</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <select name="discountType" class="form-control m-b" ng-change="onDiscountTypeChange()" ng-model="discountOffer.discountType"
+                                                ng-options="dt.discountTypeName for dt in discountTypes" required>
+                                            <option ng-repeat="dt in discountTypes"
+                                                    value="{{dt.discountTypeId}}">
+                                                {{dt.discountTypeName}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="discountOffer.discountType">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <input type="radio" name="percentDiscount" id="percentDiscount" value="percentDiscount" ng-model="discountOffer.discountOfferType">
+                                            <label for="percentDiscount">
+                                                % discount on {{discountTypeText}}/s
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <input type="radio" name="buyUnitsGetUnits" id="buyUnitsGetUnits" value="buyUnitsGetUnits" ng-model="discountOffer.discountOfferType">
+                                            <label for="buyUnitsGetUnits">
+                                                Buy X unit/s, get Y more units in the same {{discountTypeText}} for free (same or lesser value)
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <input type="radio" name="buyUnitsGetPercent" id="buyUnitsGetPercent" value="buyUnitsGetPercent" ng-model="discountOffer.discountOfferType">
+                                            <label for="buyUnitsGetPercent">
+                                                Buy X Get %
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="discountOffer.discountOfferType == 'percentDiscount'">
+                                <div class="form-inline form-group">
+                                    <span>Get </span>
+                                    <span><input type="text" name="discountPercentOff" ng-model="discountOffer.discountPercentOff" class="form-control"></span>
+                                    <span> % off each item in the following {{discountTypeText}} types: </span>
+                                </div>
+                        </div>
+                        <div class="row" ng-if="discountOffer.discountOfferType == 'buyUnitsGetUnits'">
+                            <div class="form-inline form-group">
+                                <span>Get </span>
+                                <span><input type="text" name="getUnitsWhenBoughtUnits" ng-model="discountOffer.getUnitsWhenBoughtUnits" class="form-control"></span>
+                                <span>  unit/s from the same {{discountTypeText}}/s for free (same or lesser value) </span>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="discountOffer.discountOfferType == 'buyUnitsGetPercent'">
+                            <div class="form-inline form-group">
+                                <span>Get </span>
+                                <span><input type="text" name="discountPercentOff" ng-model="discountOffer.discountPercentOff" class="form-control"></span>
+                                <span> % off each item in the following {{discountTypeText}} types: </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
