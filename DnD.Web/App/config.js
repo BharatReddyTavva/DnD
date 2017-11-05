@@ -57,6 +57,9 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 loadPlugin: function ($ocLazyLoad) {
                     return $ocLazyLoad.load([
                         {
+                            files: ['Content/plugins/summernote/summernote.css', 'Content/plugins/summernote/summernote-bs3.css', 'Scripts/plugins/summernote/summernote.min.js']
+                        },
+                        {
                             name: 'summernote',
                             files: ['Content/plugins/summernote/summernote.css', 'Content/plugins/summernote/summernote-bs3.css', 'Scripts/plugins/summernote/summernote.min.js', 'Scripts/plugins/summernote/angular-summernote.min.js']
                         },

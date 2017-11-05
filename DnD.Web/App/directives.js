@@ -649,7 +649,8 @@ function productSearch($filter, productService) {
         restrict: 'E',
         templateUrl: 'app/views/common/directives/productSearch.html',
         scope: {
-            selectedProducts: "="
+            selectedProducts: "=",
+            isProductsAdded: "="
         },
         link: function (scope, element, attrs) {
             //scope.selectedProducts = [];
@@ -665,6 +666,7 @@ function productSearch($filter, productService) {
             }, true);
 
             scope.isopen = false;
+            scope.isProductsAdded = false;
             //scope.NoRecord = false;
             scope.search = function () {
                 scope.loading = true;
@@ -715,6 +717,7 @@ function productSearch($filter, productService) {
                 scope.searchtext = "";
                 scope.searchCriteria = {};
                 scope.productInventories = [];
+                scope.isProductsAdded = true;
             }
 
             //scope.close = function () {

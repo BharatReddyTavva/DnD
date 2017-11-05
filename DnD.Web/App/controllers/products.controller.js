@@ -403,6 +403,12 @@ function productsCtrl($scope, $uibModal, $rootScope, $compile, $state, $filter, 
             $scope.product.retailPrice = parseFloat($scope.product.retailSupplyPrice);
         }
 
+        if ($scope.product.retailSupplyPrice != undefined && $scope.product.retailSupplyPrice != null) {
+            $scope.product.wholesaleSupplyPrice = angular.copy($scope.product.retailSupplyPrice);
+            $scope.product.distributionSupplyPrice = angular.copy($scope.product.retailSupplyPrice);
+        }
+
+
         $.each($scope.storeOutlets, function (index, outlet) {
             if ($scope.selectedRetailSalesTax[outlet.storeOutletId] != '' && $scope.selectedRetailSalesTax[outlet.storeOutletId] != undefined)
             {

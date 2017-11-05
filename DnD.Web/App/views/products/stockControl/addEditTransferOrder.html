@@ -7,7 +7,7 @@
                     <a href="#/addproduct">Products</a>
                 </li>
                 <li>
-                    <a href="#/products/stockcontrol">Stock Control</a>
+                    <a href="#/products/stockcontrol">Stock Transfers</a>
                 </li>
                 <li class="active">
                     <strong>New Transfer Order</strong>
@@ -34,6 +34,7 @@
                                             {{so.outletName}}
                                         </option>
                                     </select>
+                                    <span class="help-block m-b-none">Select Source outlet to search products to transfer.</span>
                                 </div>
                             </div>
                             <div class="col-sm-3">
@@ -80,7 +81,7 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <product-search selected-products="selectedProducts"></product-search>
+                                    <product-search selected-products="selectedProducts" is-products-added="isProductsAdded"></product-search>
                                 </div>
                             </div>
                         </div>
@@ -103,14 +104,24 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="product in productsToTransfer">
+                                                <tr ng-repeat="product in transferOrder.productsToTransfer">
                                                     <td>{{product.orderNum}}</td>
                                                     <td>{{product.productVariantName}}</td>
                                                     <td>{{product.inventoryAtHand}}</td>
-                                                    <td>@mdo</td>
-                                                    <td>@mdo</td>
-                                                    <td>@mdo</td>
-                                                    <td>@mdo</td>
+                                                    <td><input type="text" name="quantity" ng-model="product.quantity" ng-change="changeQuantityPriceSalestax(product)"
+                                                         class="form-control"></td>
+                                                    <td><input type="text" name="supplyPrice" ng-model="product.productVariantSupplyPrice" ng-change="changeQuantityPriceSalestax(product)"
+                                                         class="form-control"></td>
+                                                    <td><select name="tax" class="form-control m-b" ng-model="product.salesTax" ng-change="changeQuantityPriceSalestax(product)"
+                                                                ng-options="st.taxName for st in salesTaxes" required>
+                                                            <option ng-repeat="st in salesTaxes"
+                                                                    value="{{st}}">
+                                                                {{st.taxName}}
+                                                            </option>
+                                                        </select>   
+                                                    </td>
+                                                    <td><input type="text" name="quantity" ng-model="product.totalPrice" ng-disabled="true"
+                                                        class="form-control"></td>
                                                 </tr>
                                             </tbody>
                                         </table>

@@ -183,6 +183,11 @@ namespace DnD.BLL
             return _productRepository.GetAllMasterDataForCreateOrEditProduct(storeId);
         }
 
+        public List<SalesTax> GetAllSalesTaxList(int storeId)
+        {
+            return _productRepository.GetAllSalesTaxList(storeId);
+        }
+
         public AddEditDiscountOfferMasterViewModel GetAllMasterDataForCreateOrEditDiscountOffer(int storeId)
         {
             return _productRepository.GetAllMasterDataForCreateOrEditDiscountOffer(storeId);

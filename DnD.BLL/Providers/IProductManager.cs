@@ -33,5 +33,6 @@ namespace DnD.BLL.Providers
         AddEditProductMasterViewModel GetAllMasterDataForCreateOrEditProduct(int storeId);
         AddEditDiscountOfferMasterViewModel GetAllMasterDataForCreateOrEditDiscountOffer(int storeId);
         List<StoreOutlet> GetStoreOutlets(int storeId);
+        List<SalesTax> GetAllSalesTaxList(int storeId);
     }
 }

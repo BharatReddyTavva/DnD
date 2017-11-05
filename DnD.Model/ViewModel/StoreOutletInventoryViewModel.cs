@@ -10,6 +10,7 @@ namespace DnD.Model.ViewModel
     {
         public int ProductVariantId { get; set; }
         public int StoreOutletId { get; set; }
-        public int StoreOutletCurrentInventory { get; set; }
+        public int? StoreOutletCurrentInventory { get; set; }
+        public decimal? ProductVariantSupplyPrice { get; set; }
     }
 }

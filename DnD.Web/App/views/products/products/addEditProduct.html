@@ -220,7 +220,7 @@
                                                 <label style="text-align:left;padding-left:50px;" class="control-label">Wholesale</label>
                                             </div>
                                             <div class="col-lg-3">
-                                                <input type="text" name="name" ng-model="product.wholesaleSupplyPrice" ng-change="wholesaleSupplyPriceChange()" placeholder="Supply Price" class="form-control">
+                                                <input type="text" name="name" ng-model="product.wholesaleSupplyPrice" ng-change="wholesaleSupplyPriceChange()" placeholder="Supply Price" class="form-control" ng-disabled="true">
                                             </div>
                                             <div class="col-lg-3">
                                                 <input type="text" name="name" ng-model="product.wholesaleMarkup" ng-change="wholesaleSupplyPriceChange()" placeholder="Markup (%) " class="form-control">
@@ -262,7 +262,7 @@
                                                 <label style="text-align:left;padding-left:50px;" class="control-label">Distribution</label>
                                             </div>
                                             <div class="col-lg-3">
-                                                <input type="text" name="name" ng-model="product.distributionSupplyPrice" ng-change="distributionSupplyPriceChange()" placeholder="Supply Price" class="form-control">
+                                                <input type="text" name="name" ng-model="product.distributionSupplyPrice" ng-change="distributionSupplyPriceChange()" placeholder="Supply Price" class="form-control" ng-disabled="true">
                                             </div>
                                             <div class="col-lg-3">
                                                 <input type="text" name="name" ng-model="product.distributionMarkup" ng-change="distributionSupplyPriceChange()" placeholder="Markup (%) " class="form-control">
@@ -371,19 +371,19 @@
                                                             <input type="number" value="0"
                                                                    name="markup" ng-model="outlet.currentInventory[outlet.storeOutletId]"
                                                                    class="form-control">
-                                                            <a ng-if="$index == 0" style="text-align:right;" ng-click="applyCurretInventoryToAllOutlets()"><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                            <a ng-if="$index == 0" style="text-align:right;" ng-click="applyCurretInventoryToAllOutlets(outlet.currentInventory[outlet.storeOutletId])"><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
                                                         </td>
                                                         <td>
                                                             <input type="number" value="0"
                                                                    name="markup" ng-model="outlet.reorderPoint[outlet.storeOutletId]"
                                                                    class="form-control">
-                                                            <a ng-if="$index == 0" style="text-align:right;" ng-click="applyReorderPointToAllOutlets()"><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                            <a ng-if="$index == 0" style="text-align:right;" ng-click="applyReorderPointToAllOutlets(outlet.reorderPoint[outlet.storeOutletId])"><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
                                                         </td>
                                                         <td>
                                                             <input type="number" value="0"
                                                                    name="markup" ng-model="outlet.reorderAmount[outlet.storeOutletId]"
                                                                    class="form-control">
-                                                            <a ng-if="$index == 0" style="text-align:right;" ng-click="applyReorderAmountToAllOutlets()"><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                            <a ng-if="$index == 0" style="text-align:right;" ng-click="applyReorderAmountToAllOutlets(outlet.reorderAmount[outlet.storeOutletId])"><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -482,19 +482,19 @@
                                                                                 <input type="number" value="0"
                                                                                        name="markup" ng-model="outlet.currentInventory[variant.productVariantName + outlet.storeOutletId]"
                                                                                        class="form-control">
-                                                                                <a ng-if="$index == 0" style="text-align:right;" ng-click=""><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                                                <a ng-if="$index == 0" style="text-align:right;" ng-click="applyCurretInventoryToAllOutlets(outlet.currentInventory[variant.productVariantName + outlet.storeOutletId])"><span ng-if="$index == 0"  style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number" value="0"
                                                                                        name="markup" ng-model="outlet.reorderPoint[variant.productVariantName + outlet.storeOutletId]"
                                                                                        class="form-control">
-                                                                                <a ng-if="$index == 0" style="text-align:right;" ng-click=""><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                                                <a ng-if="$index == 0" style="text-align:right;" ng-click="applyReorderPointToAllOutlets(outlet.reorderPoint[variant.productVariantName + outlet.storeOutletId])"><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
                                                                             </td>
                                                                             <td>
                                                                                 <input type="number" value="0"
                                                                                        name="markup" ng-model="outlet.reorderAmount[variant.productVariantName + outlet.storeOutletId]"
                                                                                        class="form-control">
-                                                                                <a ng-if="$index == 0" style="text-align:right;" ng-click=""><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
+                                                                                <a ng-if="$index == 0" style="text-align:right;" ng-click="applyReorderAmountToAllOutlets(outlet.reorderAmount[variant.productVariantName + outlet.storeOutletId])"><span ng-if="$index == 0" style="color:#337ab7 !important" class="help-block m-b-none">Apply to all outlets</span></a>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>

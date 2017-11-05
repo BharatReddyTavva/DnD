@@ -484,6 +484,25 @@ namespace DnD.API.API
         }
 
         /// <summary>
+        /// Get All Sales Tax
+        /// </summary>
+        /// <returns>Collection of Tags</returns>
+        [HttpGet]
+        [ActionName("GetAllSalesTaxList")]
+        public IHttpActionResult GetAllSalesTaxList()
+        {
+            try
+            {
+                return Ok(_productManager.GetAllSalesTaxList(1));
+            }
+            catch (Exception ex)
+            {
+                //LoggerEx.HandleException(LoggingBoundaries.DomainLayer, ex, false);
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
         /// Get All MasterData For Create Or Edit Discount Offer
         /// </summary>
         /// <returns></returns>

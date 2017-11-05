@@ -32,7 +32,8 @@
             deleteType: deleteType,
             updateType: updateType,
             getStoreOutlets: getStoreOutlets,
-            getInventoryBySearch: getInventoryBySearch
+            getInventoryBySearch: getInventoryBySearch,
+            getAllSalesTaxList: getAllSalesTaxList
         };
 
         return productService;
@@ -157,6 +158,10 @@
         //Stock Control
         function getStoreOutlets() {
             return datacontext.get('Product/GetStoreOutlets');
+        };
+
+        function getAllSalesTaxList() {
+            return datacontext.get('Product/GetAllSalesTaxList');
         };
 
     };

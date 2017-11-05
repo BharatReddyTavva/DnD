@@ -51,6 +51,7 @@ namespace DnD.Common
         public const string UspGetAllTagsByStore = "usp_GetAllTagsByStore";
         public const string UspGetAllMasterDataForCreateOrEditProduct = "usp_GetAllMasterDataForCreateOrEditProduct";
         public const string UspGetAllMasterDataForCreateOrEditDiscountOffer = "usp_GetAllMasterDataForCreateOrEditDiscountOffer";
+        public const string UspGetAllSalesTaxList = "usp_GetAllSalesTaxList";
 
     }
 }

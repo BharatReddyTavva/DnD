@@ -95,8 +95,8 @@ namespace DnD.Repository
                     {
                         ProductBrand Brand = new ProductBrand();
                         Brand.ProductBrandId = HelperMethods.GetDataValue<int>(objDataReader, "ProductBrandId");
-                        Brand.BrandName = HelperMethods.GetDataValue<string>(objDataReader, "BrandName"); ;
-                        Brand.BrandDescription = HelperMethods.GetDataValue<string>(objDataReader, "BrandDescription"); ;
+                        Brand.BrandName = HelperMethods.GetDataValue<string>(objDataReader, "BrandName");
+                        Brand.BrandDescription = HelperMethods.GetDataValue<string>(objDataReader, "BrandDescription");
                         Brand.IsActive = HelperMethods.GetDataValue<bool>(objDataReader, "IsActive");
                         Brands.Add(Brand);
                     }
@@ -141,6 +141,7 @@ namespace DnD.Repository
                             storeOutletInventory.ProductVariantId = HelperMethods.GetDataValue<int>(objDataReader, "ProductVariantId");
                             storeOutletInventory.StoreOutletId = HelperMethods.GetDataValue<int>(objDataReader, "StoreOutletId");
                             storeOutletInventory.StoreOutletCurrentInventory = HelperMethods.GetDataValue<int>(objDataReader, "StoreOutletCurrentInventory");
+                            storeOutletInventory.ProductVariantSupplyPrice = HelperMethods.GetDataValue<decimal>(objDataReader, "ProductVariantSupplyPrice");
                             inventory.StoreOutletsInventory.Add(storeOutletInventory);
                         }
                     }
@@ -271,8 +272,8 @@ namespace DnD.Repository
                 command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "CreatedBy", 1, DbType.Int32));
                 var productId = Convert.ToInt32(_dataBaseRepository.db.ExecuteScalar(command));
                 SaveProductTags(productId, productObj.ProductTags);
-                //SaveProductPricings(productId, productObj.ProductPricings);
-                //SaveProductOutletPricings(productId, productObj.ProductOutletPricings);
+                SaveProductPricings(productId, productObj.ProductPricings);
+                SaveProductOutletPricings(productId, productObj.ProductOutletPricings);
                 if (productObj.IsProductHasVariants)
                 {
                     SaveProductVariantAttributes(productId, productObj.ProductVariantAttributes);
@@ -363,7 +364,7 @@ namespace DnD.Repository
                 var tagsListXML = new XElement("TagsList",
                                                 productTags.Select(t => new XElement("Tag",
                                                 new XElement("ProductId", productId),
-                                                new XElement("ProductTagMasterId", t.ProductTagMasterId))));
+                                                new XElement("ProductTagName", t.TagName))));
 
                 command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "TagsList", tagsListXML.ToString(), DbType.Xml));
                 int value = _dataBaseRepository.db.ExecuteNonQuery(command);
@@ -399,6 +400,7 @@ namespace DnD.Repository
                 var productOutletPricingsListXML = new XElement("ProductOutletPricingsList",
                                                 productOutletPricings.Select(p => new XElement("ProductOutletPricing",
                                                 new XElement("ProductId", productId),
+                                                new XElement("PricingTierId", p.PricingTierId),
                                                 new XElement("StoreOutletId", p.StoreOutletId),
                                                 new XElement("SalestaxId", p.SalestaxId),
                                                 new XElement("TaxAmount", p.TaxAmount),
@@ -596,7 +598,7 @@ namespace DnD.Repository
                     {
                         ProductType productType = new ProductType();
                         productType.ProductTypeId = HelperMethods.GetDataValue<int>(objDataReader, "ProductTypeId");
-                        productType.ProductTypeName = HelperMethods.GetDataValue<string>(objDataReader, "ProductTypeName"); ;
+                        productType.ProductTypeName = HelperMethods.GetDataValue<string>(objDataReader, "ProductTypeName");
                         productType.IsActive = HelperMethods.GetDataValue<bool>(objDataReader, "IsActive");
                         productTypes.Add(productType);
                     }
@@ -670,7 +672,7 @@ namespace DnD.Repository
                     {
                         ProductTagMaster tag = new ProductTagMaster();
                         tag.ProductTagMasterId = HelperMethods.GetDataValue<int>(objDataReader, "ProductTagMasterId");
-                        tag.TagName = HelperMethods.GetDataValue<string>(objDataReader, "TagName"); ;
+                        tag.TagName = HelperMethods.GetDataValue<string>(objDataReader, "TagName");
                         tag.IsActive = HelperMethods.GetDataValue<bool>(objDataReader, "IsActive");
                         tags.Add(tag);
                     }
@@ -755,7 +757,7 @@ namespace DnD.Repository
                         {
                             ProductTagMaster tag = new ProductTagMaster();
                             tag.ProductTagMasterId = HelperMethods.GetDataValue<int>(dataReader, "ProductTagMasterId");
-                            tag.TagName = HelperMethods.GetDataValue<string>(dataReader, "TagName"); ;
+                            tag.TagName = HelperMethods.GetDataValue<string>(dataReader, "TagName");
                             productTags.Add(tag);
                         }
                     }
@@ -822,6 +824,30 @@ namespace DnD.Repository
             return addEditDiscountOfferMaster;
         }
 
+        public List<SalesTax> GetAllSalesTaxList(int storeId)
+        {
+            List<SalesTax> salesTaxes = new List<SalesTax>();
+
+            using (var command = _dataBaseRepository.db.GetStoredProcCommand(Constants.UspGetAllSalesTaxList))
+            {
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "StoreId", storeId, DbType.Int32));
+                using (var dataReader = _dataBaseRepository.db.ExecuteReader(command))
+                {
+                    // Get Sales Tax
+                    while (dataReader.Read())
+                    {
+                        SalesTax salesTax = new SalesTax();
+                        salesTax.SalesTaxId = HelperMethods.GetDataValue<int>(dataReader, "SalesTaxId");
+                        salesTax.TaxName = HelperMethods.GetDataValue<string>(dataReader, "TaxName");
+                        salesTax.TaxRate = HelperMethods.GetDataValue<decimal>(dataReader, "TaxRate");
+                        salesTaxes.Add(salesTax);
+                    }
+                }
+            }
+
+            return salesTaxes;
+        }
+
         public AddEditProductMasterViewModel GetAllMasterDataForCreateOrEditProduct(int storeId)
         {
             AddEditProductMasterViewModel addEditProductMaster = new AddEditProductMasterViewModel();
@@ -843,7 +869,7 @@ namespace DnD.Repository
                     {
                         ProductTagMaster tag = new ProductTagMaster();
                         tag.ProductTagMasterId = HelperMethods.GetDataValue<int>(dataReader, "ProductTagMasterId");
-                        tag.TagName = HelperMethods.GetDataValue<string>(dataReader, "TagName"); ;
+                        tag.TagName = HelperMethods.GetDataValue<string>(dataReader, "TagName");
                         productTags.Add(tag);
                     }
 
