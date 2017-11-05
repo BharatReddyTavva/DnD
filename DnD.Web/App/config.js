@@ -14,7 +14,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
 
     $urlRouterProvider.otherwise(function ($injector) {
         var $state = $injector.get('$state');
-        $state.go('products.addproduct');
+        $state.go('logins');
     });
 
     $ocLazyLoadProvider.config({
@@ -38,7 +38,21 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         //    url: "/dashboards",
         //    templateUrl: "app/views/common/content.html",
         //})
-
+        .state('logins', {
+            url: "/login",
+            templateUrl: "app/views/login.html",
+            data: { pageTitle: 'Login', specialClass: 'gray-bg' }
+        })
+        .state('register', {
+            url: "/register",
+            templateUrl: "app/views/register.html",
+            data: { pageTitle: 'Register', specialClass: 'gray-bg' }
+        })
+        .state('forgot_password', {
+            url: "/forgot_password",
+            templateUrl: "app/views/forgot_password.html",
+            data: { pageTitle: 'Forgot password', specialClass: 'gray-bg' }
+        })
         .state('products', {
             abstract: true,
             url: "/products",

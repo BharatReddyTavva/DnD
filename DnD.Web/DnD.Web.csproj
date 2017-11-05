@@ -145,6 +145,7 @@
     <Content Include="App\app.js" />
     <Content Include="App\config.js" />
     <Content Include="App\controllers.js" />
+    <Content Include="App\controllers\login.controller.js" />
     <Content Include="App\controllers\productBrands.controller.js" />
     <Content Include="App\controllers\productDiscountOffers.controller.js" />
     <Content Include="App\controllers\products.controller.js" />
@@ -325,6 +326,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\DnDBackground.jpg" />
     <Content Include="Content\plugins\awesome-bootstrap-checkbox\awesome-bootstrap-checkbox.css" />
     <Content Include="Content\plugins\datapicker\angular-datapicker.css" />
     <Content Include="Content\plugins\daterangepicker\daterangepicker-bs3.css" />

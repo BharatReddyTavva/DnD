@@ -21,7 +21,9 @@
 <body ng-controller="MainCtrl as main" class="{{$state.current.data.specialClass}}" landing-scrollspy id="page-top">
 
     <!-- Main view  -->
-    <div ui-view></div>
+    <div ui-view ng-style="$state.current.name == 'logins' && {'background-image':'url(content/images/DnDBackground.jpg)', 
+                                                                'background-repeat': 'no-repeat', 'height':'616px', 
+                                                                'background-size': '100% 800px'}"></div>
     @Scripts.Render("~/bundles/vendors")
     @Scripts.Render("~/bundles/app")
 </body>

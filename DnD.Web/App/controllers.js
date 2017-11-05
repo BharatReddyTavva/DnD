@@ -61,7 +61,6 @@ function MainCtrl($http) {
     /**
      * countries - Used as duallistbox in form advanced view
      */
-
     this.countries = [
         { name: 'Amsterdam' },
         { name: 'Washington' },
@@ -3474,6 +3473,7 @@ angular
     .module('inspinia')
     .controller('MainCtrl', MainCtrl)
     .controller('productsCtrl', productsCtrl)
+    .controller('loginCtrl', loginCtrl)
     .controller('stockControlCtrl', stockControlCtrl)
     .controller('purchaseOrderCtrl', purchaseOrderCtrl)
     .controller('returnOrderCtrl', returnOrderCtrl)
@@ -3551,6 +3551,7 @@ editTypeModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', '$filter', '
 deleteTypeModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'selectedTypeToDelete', 'actionName', 'productService'];
 
 productsCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', '$filter', 'productService'];
+loginCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', '$filter', 'productService'];
 stockControlCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', 'productService'];
 purchaseOrderCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', '$filter', 'productService'];
 returnOrderCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', 'productService'];

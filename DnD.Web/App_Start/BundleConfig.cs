@@ -39,6 +39,7 @@ namespace DnD.Web.App_Start
                         "~/app/config.js",
                         "~/app/translations.js",
                         "~/app/directives.js",
+                        "~/app/controllers/login.controller.js",
                         "~/app/controllers/productBrands.controller.js",
                         "~/app/controllers/productTags.controller.js",
                         "~/app/controllers/productSuppliers.controller.js",
