@@ -70,10 +70,10 @@ function productsCtrl($scope, $uibModal, $rootScope, $compile, $state, $filter, 
     $scope.dzMethods = {};
 
     $scope.dzCallbacks = {
-        'addedfile': function (file) {
-            var uploadedFiles = $scope.dzMethods.getAllFiles();
-            console.info('File added from dropzone 1.', file);
-        }
+        //'addedfile': function (file) {
+        //    var uploadedFiles = $scope.dzMethods.getAllFiles();
+            //console.info('File added from dropzone 1.', file);
+        //}
     };
 
     //Dropzone code end

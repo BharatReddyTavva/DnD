@@ -15,6 +15,7 @@ namespace DnD.BLL.Providers
         int DeleteBrand(ProductBrand productBrandObj);
         List<ProductBrand> GetAllBrandsByStore(int storeId);
         List<Product> GetAllProductsByStore(int storeId);
+        List<ProductForSaleViewModel> GetAllProductsForSaleByStore(int storeId);
         List<Product> GetProductsBySearch(ProductSearchCriteria searchCriteriaObject);
         List<ProductInventoryListViewModel> GetInventoryBySearch(ProductSearchCriteria searchCriteriaObject);
         int SaveProduct(Product productObj);

@@ -3531,7 +3531,8 @@ angular
     .controller('jstreeCtrl', jstreeCtrl)
     .controller('datamapsCtrl', datamapsCtrl)
     .controller('pdfCtrl', pdfCtrl)
-    .controller('passwordMeterCtrl', passwordMeterCtrl);
+    .controller('passwordMeterCtrl', passwordMeterCtrl)
+    .controller('sellCtrl', sellCtrl);
 
 productBrandsCtrl.$inject = ['$scope', '$uibModal', 'productService'];
 addBrandModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', '$filter', 'actionName', 'brandsList', 'productService'];
@@ -3558,4 +3559,5 @@ returnOrderCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$st
 transferOrderCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', '$filter', 'productService'];
 
 productDiscountOffersCtrl.$inject = ['$scope', '$uibModal', 'productService'];
+sellCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', '$filter', 'sellService'];
 

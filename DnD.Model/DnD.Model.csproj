@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,6 +78,7 @@
     <Compile Include="Entity\RoleManagement.cs" />
     <Compile Include="Entity\SalesTax.cs" />
     <Compile Include="Entity\SellOpenCloseRegister.cs" />
+    <Compile Include="Entity\SessionManager.cs" />
     <Compile Include="Entity\SetupAccount.cs" />
     <Compile Include="Entity\SetupAccountClearOutData.cs" />
     <Compile Include="Entity\SetupContactInformation.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AddEditDiscountOfferMasterViewModel.cs" />
     <Compile Include="ViewModel\AddEditProductMasterViewModel.cs" />
+    <Compile Include="ViewModel\ProductForSaleViewModel.cs" />
     <Compile Include="ViewModel\ProductInventoryListViewModel.cs" />
     <Compile Include="ViewModel\ProductListViewModel.cs" />
     <Compile Include="ViewModel\ProductSearchCriteria.cs" />

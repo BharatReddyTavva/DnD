@@ -17,6 +17,8 @@ namespace DnD.Model.Entity
         public int ProductImageId { get; set; }
         public byte[] Image { get; set; }
         public bool IsPrimaryImage { get; set; }
+        public string FileType { get; set; }
+        public string FileName { get; set; }
         public int ProductId { get; set; }
         public bool IsActive { get; set; }
         public int CreatedBy { get; set; }

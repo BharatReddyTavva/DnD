@@ -154,6 +154,7 @@
     <Content Include="App\controllers\productTypes.controller.js" />
     <Content Include="App\controllers\purchaseOrder.controller.js" />
     <Content Include="App\controllers\returnOrder.controller.js" />
+    <Content Include="App\controllers\sell\sell.controller.js" />
     <Content Include="App\controllers\stockControl.controller.js" />
     <Content Include="App\controllers\transferOrder.controller.js" />
     <Content Include="App\datacontext.service.js" />
@@ -161,6 +162,7 @@
     <Content Include="App\inspinia.js" />
     <Content Include="App\logger.service.js" />
     <Content Include="App\services\products.service.js" />
+    <Content Include="App\services\sell.service.js" />
     <Content Include="App\translations.js" />
     <Content Include="App\views\activity_stream.html" />
     <Content Include="App\views\agile_board.html" />
@@ -294,6 +296,7 @@
     <Content Include="App\views\project_detail.html" />
     <Content Include="App\views\register.html" />
     <Content Include="App\views\search_results.html" />
+    <Content Include="App\views\sell\sell\sell.html" />
     <Content Include="App\views\skin-config.html" />
     <Content Include="App\views\slick.html" />
     <Content Include="App\views\socialbuttons.html" />
@@ -328,6 +331,18 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\DnDBackground.jpg" />
     <Content Include="Content\plugins\awesome-bootstrap-checkbox\awesome-bootstrap-checkbox.css" />
+    <Content Include="Content\plugins\blueimp\css\blueimp-gallery-indicator.css" />
+    <Content Include="Content\plugins\blueimp\css\blueimp-gallery-video.css" />
+    <Content Include="Content\plugins\blueimp\css\blueimp-gallery.css" />
+    <Content Include="Content\plugins\blueimp\css\blueimp-gallery.min.css" />
+    <Content Include="Content\plugins\blueimp\css\demo.css" />
+    <Content Include="Content\plugins\blueimp\img\error.png" />
+    <Content Include="Content\plugins\blueimp\img\error.svg" />
+    <Content Include="Content\plugins\blueimp\img\loading.gif" />
+    <Content Include="Content\plugins\blueimp\img\play-pause.png" />
+    <Content Include="Content\plugins\blueimp\img\play-pause.svg" />
+    <Content Include="Content\plugins\blueimp\img\video-play.png" />
+    <Content Include="Content\plugins\blueimp\img\video-play.svg" />
     <Content Include="Content\plugins\datapicker\angular-datapicker.css" />
     <Content Include="Content\plugins\daterangepicker\daterangepicker-bs3.css" />
     <Content Include="Content\plugins\dropzone\basic.css" />
@@ -1220,6 +1235,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\plugins\angular-idle\angular-idle.js" />
+    <Content Include="Scripts\plugins\blueimp\jquery.blueimp-gallery.min.js" />
     <Content Include="Scripts\plugins\datapicker\angular-datepicker.js" />
     <Content Include="Scripts\plugins\daterangepicker\angular-daterangepicker.js" />
     <Content Include="Scripts\plugins\daterangepicker\daterangepicker.js" />
@@ -1278,6 +1294,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="img\ProductImages\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

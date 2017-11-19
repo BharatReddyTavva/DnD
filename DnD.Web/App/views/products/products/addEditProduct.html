@@ -1,5 +1,5 @@
 ﻿<div ng-controller="productsCtrl">
-    <form id="#dataProductForm" name="dataProductForm" class="form-horizontal" novalidate ng-submit="saveProduct()">
+    <form id="#dataProductForm" name="dataProductForm" class="form-horizontal" enctype="multipart/form-data" novalidate ng-submit="saveProduct()">
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-9">
                 <h2>Create a new Product</h2>
@@ -515,38 +515,6 @@
                                 </uib-tab-heading>
                                 <div class="panel-body">
                                     <div id="dropzone2" class="dropzone sm" options="dzOptions" methods="dzMethods" callbacks="dzCallbacks" ng-dropzone></div>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-stripped">
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        Image preview
-                                                    </th>
-                                                    <th>
-                                                        Actions
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/gallery/2s.jpg">
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <img src="img/gallery/1s.jpg">
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-white"><i class="fa fa-trash"></i> </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
                                 </div>
                             </uib-tab>
                         </uib-tabset>

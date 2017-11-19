@@ -201,6 +201,37 @@ namespace DnD.Repository
             }
         }
 
+        public List<ProductForSaleViewModel> GetAllProductsForSaleByStore(int storeId)
+        {
+            List<ProductForSaleViewModel> products = new List<ProductForSaleViewModel>();
+
+            using (var command = _dataBaseRepository.db.GetStoredProcCommand(DnD.Common.Constants.UspGetAllProductsForSaleByStore))
+            {
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "StoreId", storeId, DbType.Int32));
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "OutletId", 1, DbType.Int32));
+                using (var objDataReader = _dataBaseRepository.db.ExecuteReader(command))
+                {
+                    while (objDataReader.Read())
+                    {
+                        ProductForSaleViewModel product = new ProductForSaleViewModel();
+                        product.ProductId = HelperMethods.GetDataValue<int>(objDataReader, "ProductId");
+                        product.ProductName = HelperMethods.GetDataValue<string>(objDataReader, "ProductName");
+                        product.ProductImage = HelperMethods.GetDataValue<byte[]>(objDataReader, "ProductImage");
+                        product.ProductTypeId = HelperMethods.GetDataValue<int>(objDataReader, "ProductTypeId");
+                        product.ProductTypeName = HelperMethods.GetDataValue<string>(objDataReader, "ProductTypeName");
+                        product.IsProductHasVariants = HelperMethods.GetDataValue<bool>(objDataReader, "IsProductHasVariants");
+                        product.CreatedOn = HelperMethods.GetDataValue<DateTime>(objDataReader, "CreatedOn");
+                        product.CurrentInventory = HelperMethods.GetDataValue<int>(objDataReader, "CurrentInventory");
+                        product.Price = HelperMethods.GetDataValue<decimal>(objDataReader, "Price");
+                        product.StoreOutletId = HelperMethods.GetDataValue<int>(objDataReader, "StoreOutletId");
+                        products.Add(product);
+                    }
+
+                }
+                return products;
+            }
+        }
+
         public List<Product> GetAllProductsByStore(int storeId)
         {
             List<Product> products = new List<Product>();
@@ -215,8 +246,13 @@ namespace DnD.Repository
                         Product product = new Product();
                         product.ProductBrand = new ProductBrand();
                         product.ProductSupplier = new ProductSupplier();
+                        product.ProductImage = new ProductImage();
+                        product.ProductType = new ProductType();
                         product.ProductId = HelperMethods.GetDataValue<int>(objDataReader, "ProductId");
                         product.ProductName = HelperMethods.GetDataValue<string>(objDataReader, "ProductName");
+                        product.ProductImage.Image = HelperMethods.GetDataValue<byte[]>(objDataReader, "Image");
+                        product.ProductType.ProductTypeId = HelperMethods.GetDataValue<int>(objDataReader, "ProductTypeId");
+                        product.ProductType.ProductTypeName = HelperMethods.GetDataValue<string>(objDataReader, "ProductTypeName");
                         product.CreatedOn = HelperMethods.GetDataValue<DateTime>(objDataReader, "CreatedOn");
                         product.ProductBrand.BrandName = HelperMethods.GetDataValue<string>(objDataReader, "BrandName");
                         product.ProductSupplier.SupplierName = HelperMethods.GetDataValue<string>(objDataReader, "SupplierName");
@@ -271,6 +307,13 @@ namespace DnD.Repository
                 command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "IsProductHasVariants", productObj.IsProductHasVariants, DbType.Boolean));
                 command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "CreatedBy", 1, DbType.Int32));
                 var productId = Convert.ToInt32(_dataBaseRepository.db.ExecuteScalar(command));
+                if(SessionManager.Current.ProductImages != null)
+                {
+                    foreach (var image in SessionManager.Current.ProductImages)
+                    {
+                        SaveProductImages(productId, image);
+                    }
+                }
                 SaveProductTags(productId, productObj.ProductTags);
                 SaveProductPricings(productId, productObj.ProductPricings);
                 SaveProductOutletPricings(productId, productObj.ProductOutletPricings);
@@ -284,6 +327,20 @@ namespace DnD.Repository
 
             }
         }
+
+        public int SaveProductImages(int productId, ProductImage image)
+        {
+            using (var command = _dataBaseRepository.db.GetStoredProcCommand((Constants.UspInsertProductImage)))
+            {
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "ProductId", productId, DbType.Int32));
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "Image", image.Image, DbType.Binary));
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "FileType", image.FileType, DbType.String));
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "FileName", image.FileName, DbType.String));
+                var productImageId = Convert.ToInt32(_dataBaseRepository.db.ExecuteScalar(command));
+                return productImageId;
+            }
+        }
+
 
         public int SaveProductVariantAttributes(int productId, ICollection<ProductVariantAttribute> productVariantAttributes)
         {

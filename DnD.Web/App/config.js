@@ -22,8 +22,18 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         debug: false
     });
 
+    //dropzoneOpsProvider.setOptions({
+    //    url: 'api/Product/UploadProductImages',
+    //    acceptedFiles: 'image/jpeg, images/jpg, image/png',
+    //    addRemoveLinks: true,
+    //    dictDefaultMessage: 'Click to add or drag and drop  product images',
+    //    dictRemoveFile: 'Remove image',
+    //    dictResponseError: 'Could not upload this image',
+    //    autoProcessQueue: false
+    //});
+
     dropzoneOpsProvider.setOptions({
-        url: '~/api/Product/UploadProductImages',
+        url: 'api/Product/UploadProductImages',
         acceptedFiles: 'image/jpeg, images/jpg, image/png',
         addRemoveLinks: true,
         dictDefaultMessage: 'Click to add or drag and drop  product images',
@@ -62,6 +72,25 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
             url: "/productsList",
             templateUrl: "app/views/products/products/products.html",
             data: { pageTitle: 'Products' }
+        })
+        .state('sell', {
+            abstract: true,
+            url: "/sales",
+            templateUrl: "app/views/common/content.html"
+        })
+        .state('sell.dosell', {
+            url: "/sell",
+            templateUrl: "app/views/sell/sell/sell.html",
+            data: { pageTitle: 'Sell' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            files: ['Scripts/plugins/blueimp/jquery.blueimp-gallery.min.js', 'Content/plugins/blueimp/css/blueimp-gallery.min.css']
+                        }
+                    ]);
+                }
+            }
         })
         .state('products.addproduct', {
             url: "/addproduct",
@@ -241,11 +270,6 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
         .state('customers', {
             abstract: true,
             url: "/customers",
-            templateUrl: "app/views/common/content.html"
-        })
-        .state('sell', {
-            abstract: true,
-            url: "/sell",
             templateUrl: "app/views/common/content.html"
         })
         .state('setup', {

@@ -28,9 +28,11 @@ namespace DnD.Common
         public const string UspGetStoreOutlets = "usp_GetStoreOutlets";
         public const string UspGetAllBrandsByStore = "usp_GetAllBrandsByStore";
         public const string UspGetAllProductsByStore = "usp_GetAllProductsByStore";
+        public const string UspGetAllProductsForSaleByStore = "usp_GetAllProductsForSaleByStore";
         public const string UspGetProductsBySearch = "usp_GetProductsBySearch";
         public const string UspGetInventoryBySearch = "usp_GetInventoryBySearch";
         public const string UspInsertProduct = "usp_InsertProduct";
+        public const string UspInsertProductImage = "usp_InsertProductImage";
         public const string UspInsertProductTag = "usp_InsertProductTag";
         public const string UspInsertProductVariant = "usp_InsertProductVariant";
         public const string UspInsertProductVariantAttribute = "usp_InsertProductVariantAttribute";

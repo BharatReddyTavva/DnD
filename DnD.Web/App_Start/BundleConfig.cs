@@ -50,10 +50,12 @@ namespace DnD.Web.App_Start
                         "~/app/controllers/purchaseOrder.controller.js",
                         "~/app/controllers/returnOrder.controller.js",
                         "~/app/controllers/transferOrder.controller.js",
+                        "~/app/controllers/sell/sell.controller.js",
                         "~/app/controllers.js",
                         "~/app/datacontext.service.js",
                         "~/app/logger.service.js",
-                        "~/app/services/products.service.js"
+                        "~/app/services/products.service.js",
+                        "~/app/services/sell.service.js"
                     ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

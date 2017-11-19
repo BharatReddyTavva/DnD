@@ -58,6 +58,11 @@ namespace DnD.BLL
             return _productRepository.GetAllBrandsByStore(storeId);
         }
 
+        public List<ProductForSaleViewModel> GetAllProductsForSaleByStore(int storeId)
+        {
+            return _productRepository.GetAllProductsForSaleByStore(storeId);
+        }
+
         public List<Product> GetAllProductsByStore(int storeId)
         {
             return _productRepository.GetAllProductsByStore(storeId);

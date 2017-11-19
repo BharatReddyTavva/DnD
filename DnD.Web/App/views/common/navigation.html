@@ -8,10 +8,13 @@
                 </a>
             </li>
             <li style="text-align:center" ng-class="{active: $state.includes('sell')}">
-                <a href="#">
+                <a ui-sref="sell.dosell">
                     <div style="text-align:center"><i class="fa fa-hdd-o" style="color: green; font-size: 20px"></i> </div>
                     <span class="nav-label">{{ 'Sell' | translate }}</span>
                 </a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('sell')}">
+                    <li ui-sref-active="active"><a ui-sref="sell.dosell">Sell</a></li>
+                </ul>
             </li>
             <li style="text-align:center" ng-class="{active: $state.includes('reporting')}">
                 <a href="#">
@@ -20,7 +23,7 @@
                 </a>
             </li>
             <li style="text-align:center" ng-class="{active: $state.includes('products')}">
-                <a href="#">
+                <a ui-sref="products.productsList">
                     <div style="text-align:center">
                         <i class="fa fa-tags" style="color: #F5765F; font-size: 20px"></i>
                     </div>

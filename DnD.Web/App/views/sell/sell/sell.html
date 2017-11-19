@@ -1,0 +1,108 @@
+﻿<div ng-controller="sellCtrl">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <h2>Sell</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#/sellmain/sell">Sell</a>
+            </li>
+            <li class="active">
+                <strong>Sell</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label" for="order_id">Search for products</label>
+                        <input type="text" id="productSearchParam" name="productSearchParam" placeholder="&#xF002; Enter product name" ng-model="enteredNameSkuHandleSupplier" value="" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                        <div class="tabs-container">
+                            <uib-tabset>
+                                <uib-tab ng-repeat="category in productCategoriesList">
+                                    <uib-tab-heading>
+                                        {{category.productTypeName}}
+                                    </uib-tab-heading>
+                                    <div class="panel-body">
+                                        <div ng-repeat="productItem in products">
+                                            <div class="form-group">
+                                                    
+                                                <div class="row" ng-if="$even">
+                                                    <div class="col col-50" ng-repeat="productItem in [products[$index],products[$index + 1]]" ng-click="selectProductForSale(productItem)" ng-if="productItem.productType.productTypeId == category.productTypeId">
+                                                        <div style="position:relative">
+                                                            <a title="Image from Unsplash" data-gallery=""><img ng-src="data:image/jpeg;base64,{{productItem.productImage.image}}" style="width: 80px; height: 100px"></a>
+                                                        </div>
+                                                        <div style="float:left">{{productItem.productName}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </uib-tab>
+                            </uib-tabset>
+                        </div>
+                </div>
+                <div class="col-sm-4">
+                    <table style="width:95%;" class="table ">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Product</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="productSelected in productListSelectedForSale">
+                            <tr>
+                                <td>
+                                    <a class="btn btn-link" ng-init="toggle[$index] = false" ng-click="toggle[$index] = !toggle[$index]">
+                                        <span class="glyphicon glyphicon-plus-sign" ng-if="!toggle[$index]"></span>
+                                        <span class="glyphicon glyphicon-minus-sign" ng-if="toggle[$index]"></span>
+                                    </a>
+                                </td>
+                                <td>{{ productSelected.productName }}</td>
+                                <td>{{ productSelected.productPrice }}</td>
+                            </tr>
+                            <tr ng-if="toggle[$index]">
+                                <td></td>
+                                <td colspan="3">
+                                    <table style="width:90%; margin-left:55px;" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                                <th>Discount(%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <input type="number" value="0"
+                                                           name="markup" ng-model=""
+                                                           class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input type="number" value="0"
+                                                           name="markup" ng-model=""
+                                                           class="form-control">
+                                                </td>
+                                                <td>
+                                                    <input type="number" value="0"
+                                                           name="markup" ng-model=""
+                                                           class="form-control">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

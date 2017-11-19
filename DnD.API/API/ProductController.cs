@@ -4,12 +4,12 @@ using DnD.Model.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
+
 
 namespace DnD.API.API
 {
@@ -37,6 +37,26 @@ namespace DnD.API.API
             try
             {
                 return Ok(_productManager.GetAllProductsByStore(1));
+            }
+            catch (Exception ex)
+            {
+                //LoggerEx.HandleException(LoggingBoundaries.DomainLayer, ex, false);
+                return BadRequest();
+            }
+
+        }
+
+        /// <summary>
+        /// Get the all Products list 
+        /// </summary>
+        /// <returns>Collection of Products</returns>
+        [HttpGet]
+        [ActionName("GetAllProductsForSaleByStore")]
+        public IHttpActionResult GetAllProductsForSaleByStore()
+        {
+            try
+            {
+                return Ok(_productManager.GetAllProductsForSaleByStore(1));
             }
             catch (Exception ex)
             {
@@ -169,27 +189,26 @@ namespace DnD.API.API
         [HttpPost]
         public async Task<IHttpActionResult> UploadProductImages()
         {
+            List<ProductImage> images = new List<ProductImage>();
             if (!Request.Content.IsMimeMultipartContent())
                 throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-
             try
             {
                 var provider = new MultipartMemoryStreamProvider();
                 await Request.Content.ReadAsMultipartAsync(provider);
-
-                var baseUploadPath = @"D:\Uploads\";// + Request.QueryString["someParameter"];
-
                 foreach (var file in provider.Contents)
                 {
                     if (file.Headers.ContentLength > 0)
                     {
-                        var fileName = file.Headers.ContentDisposition.FileName.Trim('\"');
-                        var filePath = Path.Combine(baseUploadPath, fileName);
-                        var buffer = await file.ReadAsByteArrayAsync();
-                        File.WriteAllBytes(filePath, buffer);
+                        ProductImage image = new ProductImage();
+                        image.Image = await file.ReadAsByteArrayAsync();
+                        image.FileType = file.Headers.ContentType.MediaType;
+                        image.FileName = file.Headers.ContentDisposition.FileName.Trim('\"');
+                        //File.WriteAllBytes(imagePath, buffer);
+                        images.Add(image);
                     }
                 }
-
+                SessionManager.Current.ProductImages = images;
                 return Ok();
             }
             catch (Exception ex)
@@ -218,6 +237,60 @@ namespace DnD.API.API
             }
 
         }
+
+        //[HttpPost]
+        //[ActionName("UploadProductImages")]
+        //public IHttpActionResult UploadProductImages()
+        //{
+        //    bool isSavedSuccessfully = true;
+        //    string fName = "";
+        //    try
+        //    {
+        //        //HttpResponseMessage result = null;
+        //        var httpRequest = HttpContext.Current.Request;
+        //        if (httpRequest.Files.Count > 0)
+        //        {
+        //            foreach (string file in httpRequest.Files)
+        //            {
+        //                var postedFile = httpRequest.Files[file];
+        //                //Save file content goes here
+        //                fName = postedFile.FileName;
+        //                if (file != null && postedFile.ContentLength > 0)
+        //                {
+
+        //                    var originalDirectory = new DirectoryInfo(string.Format("{0}img\\ProductImages", HttpContext.Current.Server.MapPath(@"\")));
+
+        //                    string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "imagepath");
+
+        //                    var fileName1 = Path.GetFileName(postedFile.FileName);
+
+        //                    bool isExists = System.IO.Directory.Exists(pathString);
+
+        //                    if (!isExists)
+        //                        System.IO.Directory.CreateDirectory(pathString);
+
+        //                    var path = string.Format("{0}\\{1}", pathString, postedFile.FileName);
+        //                    postedFile.SaveAs(path);
+
+        //                }
+
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //LoggerEx.HandleException(LoggingBoundaries.DomainLayer, ex, false);
+        //        return BadRequest();
+        //    }
+        //    if (isSavedSuccessfully)
+        //    {
+        //        return Json(new { Message = fName });
+        //    }
+        //    else
+        //    {
+        //        return Json(new { Message = "Error in saving file" });
+        //    }
+        //}
 
         /// <summary>
         /// Save Supplier
