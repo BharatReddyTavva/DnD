@@ -77,9 +77,6 @@
     <Compile Include="Providers\IProductRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DnD.Common\DnD.Common.csproj">
       <Project>{03cba77f-ca52-4a09-899c-91082a5c56a9}</Project>
       <Name>DnD.Common</Name>
@@ -88,6 +85,9 @@
       <Project>{0d3ba476-9201-47fc-841a-fc7bc2f954d0}</Project>
       <Name>DnD.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

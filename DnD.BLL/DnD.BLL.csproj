@@ -71,9 +71,6 @@
     <Compile Include="Unity\UnityResolver.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DnD.Model\DnD.Model.csproj">
       <Project>{0d3ba476-9201-47fc-841a-fc7bc2f954d0}</Project>
       <Name>DnD.Model</Name>
@@ -82,6 +79,9 @@
       <Project>{542f9ce6-64ad-4f53-84c0-82a60695c839}</Project>
       <Name>DnD.Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
