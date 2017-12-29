@@ -67,9 +67,9 @@ namespace DnD.Web.App_Start
                       "~/Content/plugins/dropzone/basic.css",
                       "~/Content/plugins/dropzone/dropzone.css",
                       "~/Content/plugins/dropzone/ng-dropzone.min.css"));
-#if DEBUG
-            BundleTable.EnableOptimizations = false;
-#endif
+//#if DEBUG
+//            BundleTable.EnableOptimizations = false;
+//#endif
         }
     }
 }
