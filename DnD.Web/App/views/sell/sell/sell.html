@@ -10,18 +10,25 @@
             </li>
         </ol>
     </div>
-    <div class="wrapper wrapper-content animated fadeInRight">
+    <div id="sellTransaction" class="wrapper wrapper-content animated fadeInRight" ng-if="showSellTransaction">
         <div class="ibox-content m-b-sm border-bottom">
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     <div class="form-group">
                         <label class="control-label" for="order_id">Search for products</label>
                         <input type="text" id="productSearchParam" name="productSearchParam" placeholder="&#xF002; Enter product name" ng-model="enteredNameSkuHandleSupplier" value="" class="form-control">
                     </div>
                 </div>
+                <div class="col-sm-5">
+                    <div class="form-group">
+                        <label class="control-label" for="order_id">Add Customer</label>
+                        <select chosen id="customers" class="chosen-select" ng-model="selectedCustomer" 
+                                ng-options="cust.firstName + ' ' + cust.lastName + ' -- ' + cust.customerCode for cust in customers"></select>
+                    </div>
+                </div>
             </div>
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                         <div class="tabs-container">
                             <uib-tabset>
                                 <uib-tab ng-repeat="category in productCategoriesList">
@@ -33,11 +40,11 @@
                                             <div class="form-group">
                                                     
                                                 <div class="row" ng-if="$even">
-                                                    <div class="col col-50" ng-repeat="productItem in [products[$index],products[$index + 1]]" ng-click="selectProductForSale(productItem)" ng-if="productItem.productType.productTypeId == category.productTypeId">
+                                                    <div class="col col-50" ng-repeat="productItem in [products[$index],products[$index + 1]]" ng-click="selectProductForSale(productItem)" ng-if="productItem.productTypeId == category.productTypeId">
                                                         <div style="position:relative">
-                                                            <a title="Image from Unsplash" data-gallery=""><img ng-src="data:image/jpeg;base64,{{productItem.productImage.image}}" style="width: 80px; height: 100px"></a>
+                                                            <a title="Image from Unsplash" data-gallery=""><img ng-src="data:image/jpeg;base64,{{productItem.productImage}}" style="width: 80px; height: 100px"></a>
                                                         </div>
-                                                        <div style="float:left">{{productItem.productName}}</div>
+                                                        <div>{{productItem.productName}}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -47,12 +54,14 @@
                             </uib-tabset>
                         </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5 well m-t">
                     <table style="width:95%;" class="table ">
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Name</th>
+                                <th>Price</th>
                             </tr>
                         </thead>
                         <tbody ng-repeat="productSelected in productListSelectedForSale">
@@ -63,8 +72,9 @@
                                         <span class="glyphicon glyphicon-minus-sign" ng-if="toggle[$index]"></span>
                                     </a>
                                 </td>
+                                <td>{{ productSelected.productQuantity }}</td>
                                 <td>{{ productSelected.productName }}</td>
-                                <td>{{ productSelected.productPrice }}</td>
+                                <td>{{ productSelected.productTotalPrice }}</td>
                             </tr>
                             <tr ng-if="toggle[$index]">
                                 <td></td>
@@ -79,19 +89,16 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
-                                                    <input type="number" value="0"
-                                                           name="markup" ng-model=""
+                                                <td width="25%">
+                                                    <input type="number" name="productQuantity" ng-model="productSelected.productQuantity" ng-change="productPriceQuantityDiscountChange(productSelected)"
                                                            class="form-control">
                                                 </td>
-                                                <td>
-                                                    <input type="number" value="0"
-                                                           name="markup" ng-model=""
+                                                <td width="50%">
+                                                    <input type="number"  name="productPrice" ng-model="productSelected.productPrice" ng-change="productPriceQuantityDiscountChange(productSelected)"
                                                            class="form-control">
                                                 </td>
-                                                <td>
-                                                    <input type="number" value="0"
-                                                           name="markup" ng-model=""
+                                                <td width="25%">
+                                                    <input type="number" name="discountPercent" ng-model="productSelected.discountPercent" ng-change="productPriceQuantityDiscountChange(productSelected)"
                                                            class="form-control">
                                                 </td>
                                             </tr>
@@ -101,6 +108,149 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Add Sale Note" ng-model="sellTransaction.saleNote"></textarea>
+                        <div class="hr-line-dashed"></div>
+                    </div>
+
+                    <table class="table invoice-total">
+                        <tbody>
+                            <tr>
+                                <td style="width: 10%"><strong>Sub Total :</strong></td>
+                                <td><i class="fa fa-rupee"></i>{{sellTransaction.subTotalPrice}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 10%">
+                                <a class="btn btn-link" ng-init="toggle[$index] = false" ng-click="toggle[$index] = !toggle[$index]">
+                                    <span class="glyphicon glyphicon-plus-sign" ng-if="!toggle[$index]"></span>
+                                    <span class="glyphicon glyphicon-minus-sign" ng-if="toggle[$index]"></span>
+                                </a>
+                                <strong>Discount :</strong></td>
+                                <td><i class="fa fa-rupee"></i>{{sellTransaction.discountPrice}}</td>
+                            </tr>
+                            <tr ng-if="toggle[$index]">
+                                <td></td>
+                                <td colspan="3">
+                                    <table style="width:90%; margin-left:55px;" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Rs</th>
+                                                <th>%</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td width="50%">
+                                                    <input type="number" name="productQuantity" ng-model="" ng-change="productPriceQuantityDiscountChange(productSelected)"
+                                                           class="form-control">
+                                                </td>
+                                                <td width="50%">
+                                                    <input type="number" name="productPrice" ng-model="" ng-change="productPriceQuantityDiscountChange(productSelected)"
+                                                           class="form-control">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 10%"><strong>Tax(No Tax) :</strong></td>
+                                <td><i class="fa fa-rupee"></i>{{sellTransaction.saleTax}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 10%"><strong>TOTAL ({{sellTransaction.numberOfItems}} item(s)):</strong></td>
+                                <td><i class="fa fa-rupee"></i>{{sellTransaction.totalSaleTransactionPrice}}</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-right">
+                    <button style="width:455px;height:50px" class="btn btn-primary" ng-click="doSellTransactionPayment()">Pay <span><i class="fa fa-rupee"></i>{{sellTransaction.totalSaleTransactionPrice}}</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInUp" ng-if="!showSellTransaction">
+        <div class="ibox-content m-b-sm border-bottom">
+            <div class="row">
+                <button class="btn btn-primary" ng-click="doSellTransactionPayment()"><i class="fa fa-arrow-left"></i>  Back to sale</button>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 well m-t">
+                    <div><label class="control-label">SALE SUMMARY</label></div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Quantity</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="productSelected in productListSelectedForSale">
+                            <tr>
+                                <td>{{ productSelected.productQuantity }}</td>
+                                <td>{{ productSelected.productName }}</td>
+                                <td>{{ productSelected.productTotalPrice }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table invoice-total">
+                        <tbody>
+                            <tr>
+                                <td style="width: 10%"><strong>Sub Total :</strong></td>
+                                <td><i class="fa fa-rupee"></i>{{sellTransaction.subTotalPrice}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 10%"><strong>Discount :</strong></td>
+                                <td><i class="fa fa-rupee"></i>{{sellTransaction.discountPrice}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 10%"><strong>Tax(No Tax) :</strong></td>
+                                <td><i class="fa fa-rupee"></i>{{sellTransaction.saleTax}}</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 10%"><strong>TOTAL ({{sellTransaction.numberOfItems}} item(s)):</strong></td>
+                                <td><i class="fa fa-rupee"></i>{{sellTransaction.totalSaleTransactionPrice}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-6">
+                    <div style="padding-bottom: 30px;">
+                        <label class="control-label" style="font-size:x-large;float:left">Pay</label>
+                        <input style="float:right;width:250px;"  name="totalSaleTransactionPrice" ng-model="sellTransaction.totalSaleTransactionPrice" tabindex="1" class="form-control">
+                    </div>
+                    <div class="well m-t">
+                        <div class="form-group">
+                            <button class="btn btn-primary" style="width: 150px;height: 45px;" ng-click="">Cash</button>
+                            <button class="btn btn-primary" style="width: 150px;height: 45px;" ng-click="">Check</button>
+                            <button class="btn btn-primary" style="width: 150px;height: 45px;" ng-click="">BITCOIN</button>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" style="width: 150px;height: 45px;" ng-click="">Credit card</button>
+                            <button class="btn btn-primary" style="width: 150px;height: 45px;" ng-click="">Paytm</button>
+                        </div>
+                    </div>
+                    <div style="padding-top: 10px;">
+                        <label class="control-label" style="font-size:larger;float:left">Customer</label>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Raj Krishna</td>
+                                    <td><span>Store Credit: </span><span>Rs 500</span></td>
+                                    <td><span>Account Balance: </span><span>Rs 200</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--<div class="well m-t">-->
+                        <div class="form-group">
+                            <button class="btn btn-primary" style="width: 150px;height: 45px;background-color:#6692B0;" ng-click="">Layby</button>
+                            <button class="btn btn-primary" style="width: 150px;height: 45px;background-color:#6692B0;" ng-click="">Store Credit</button>
+                            <button class="btn btn-primary" style="width: 150px;height: 45px;background-color:#6692B0;" ng-click="">On Account</button>
+                        </div>
+                    <!--</div>-->
                 </div>
             </div>
         </div>

@@ -105,6 +105,29 @@ namespace DnD.Repository
             }
         }
 
+        public List<Customer> GetAllCustomersByStore(int storeId)
+        {
+            List<Customer> customers = new List<Customer>();
+
+            using (var command = _dataBaseRepository.db.GetStoredProcCommand(DnD.Common.Constants.UspGetAllCustomersByStore))
+            {
+                command.Parameters.Add(_dataBaseRepository.CreateParameter(command, "StoreId", storeId, DbType.Int32));
+                using (var objDataReader = _dataBaseRepository.db.ExecuteReader(command))
+                {
+                    while (objDataReader.Read())
+                    {
+                        Customer customer = new Customer();
+                        customer.CustomerId = HelperMethods.GetDataValue<int>(objDataReader, "CustomerId");
+                        customer.FirstName = HelperMethods.GetDataValue<string>(objDataReader, "FirstName");
+                        customer.LastName = HelperMethods.GetDataValue<string>(objDataReader, "LastName");
+                        customer.CustomerCode = HelperMethods.GetDataValue<string>(objDataReader, "CustomerCode");
+                        customers.Add(customer);
+                    }
+                }
+                return customers;
+            }
+        }
+
         public List<ProductInventoryListViewModel> GetInventoryBySearch(ProductSearchCriteria searchCriteriaObject)
         {
             List<ProductInventoryListViewModel> productInventories = new List<ProductInventoryListViewModel>();

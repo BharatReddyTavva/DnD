@@ -53,6 +53,11 @@ namespace DnD.BLL
             return _productRepository.DeleteBrand(productBrandObj);
         }
 
+        public List<Customer> GetAllCustomersByStore(int storeId)
+        {
+            return _productRepository.GetAllCustomersByStore(storeId);
+        }
+
         public List<ProductBrand> GetAllBrandsByStore(int storeId)
         {
             return _productRepository.GetAllBrandsByStore(storeId);

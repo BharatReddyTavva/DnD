@@ -186,6 +186,26 @@ namespace DnD.API.API
 
         }
 
+        /// <summary>
+        /// Get the all Customers list 
+        /// </summary>
+        /// <returns>Collection of customers</returns>
+        [HttpGet]
+        [ActionName("GetAllCustomers")]
+        public IHttpActionResult GetAllCustomers()
+        {
+            try
+            {
+                return Ok(_productManager.GetAllCustomersByStore(1));
+            }
+            catch (Exception ex)
+            {
+                //LoggerEx.HandleException(LoggingBoundaries.DomainLayer, ex, false);
+                return BadRequest();
+            }
+
+        }
+
         [HttpPost]
         public async Task<IHttpActionResult> UploadProductImages()
         {

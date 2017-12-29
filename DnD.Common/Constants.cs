@@ -21,6 +21,9 @@ namespace DnD.Common
         //logged in User details procedure
         public const string UspGetLoggedInUserDetails = "usp_GetLoggedInUserDetails";
 
+        //Customers
+        public const string UspGetAllCustomersByStore = "usp_GetAllCustomers";
+
         //Products
         public const string UspInsertBrand = "usp_InsertBrand";
         public const string UspUpdateBrand = "usp_UpdateBrand";

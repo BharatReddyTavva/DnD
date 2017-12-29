@@ -51,6 +51,7 @@ namespace DnD.Web.App_Start
                         "~/app/controllers/returnOrder.controller.js",
                         "~/app/controllers/transferOrder.controller.js",
                         "~/app/controllers/sell/sell.controller.js",
+                        "~/app/controllers/reporting/retailDashboard.controller.js",
                         "~/app/controllers.js",
                         "~/app/datacontext.service.js",
                         "~/app/logger.service.js",

@@ -34,5 +34,6 @@ namespace DnD.Repository.Providers
         AddEditDiscountOfferMasterViewModel GetAllMasterDataForCreateOrEditDiscountOffer(int storeId);
         List<StoreOutlet> GetStoreOutlets(int storeId);
         List<SalesTax> GetAllSalesTaxList(int storeId);
+        List<Customer> GetAllCustomersByStore(int storeId);
     }
 }

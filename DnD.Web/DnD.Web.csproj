@@ -1,4 +1,5 @@
-﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -24,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -153,6 +155,7 @@
     <Content Include="App\controllers\productTags.controller.js" />
     <Content Include="App\controllers\productTypes.controller.js" />
     <Content Include="App\controllers\purchaseOrder.controller.js" />
+    <Content Include="App\controllers\reporting\retailDashboard.controller.js" />
     <Content Include="App\controllers\returnOrder.controller.js" />
     <Content Include="App\controllers\sell\sell.controller.js" />
     <Content Include="App\controllers\stockControl.controller.js" />
@@ -295,8 +298,10 @@
     <Content Include="App\views\projects.html" />
     <Content Include="App\views\project_detail.html" />
     <Content Include="App\views\register.html" />
+    <Content Include="App\views\reporting\retaildashboard\retaildashboard.html" />
     <Content Include="App\views\search_results.html" />
     <Content Include="App\views\sell\sell\sell.html" />
+    <Content Include="App\views\sell\sell\sellPayment.html" />
     <Content Include="App\views\skin-config.html" />
     <Content Include="App\views\slick.html" />
     <Content Include="App\views\socialbuttons.html" />
@@ -343,6 +348,11 @@
     <Content Include="Content\plugins\blueimp\img\play-pause.svg" />
     <Content Include="Content\plugins\blueimp\img\video-play.png" />
     <Content Include="Content\plugins\blueimp\img\video-play.svg" />
+    <Content Include="Content\plugins\c3\c3.min.css" />
+    <Content Include="Content\plugins\chosen\bootstrap-chosen.css" />
+    <Content Include="Content\plugins\chosen\chosen-sprite%402x.png" />
+    <Content Include="Content\plugins\chosen\chosen-sprite.png" />
+    <Content Include="Content\plugins\chosen\chosen.css" />
     <Content Include="Content\plugins\datapicker\angular-datapicker.css" />
     <Content Include="Content\plugins\daterangepicker\daterangepicker-bs3.css" />
     <Content Include="Content\plugins\dropzone\basic.css" />
@@ -1236,11 +1246,28 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\plugins\angular-idle\angular-idle.js" />
     <Content Include="Scripts\plugins\blueimp\jquery.blueimp-gallery.min.js" />
+    <Content Include="Scripts\plugins\c3\c3-angular.min.js" />
+    <Content Include="Scripts\plugins\c3\c3.min.js" />
+    <Content Include="Scripts\plugins\chartJs\angles.js" />
+    <Content Include="Scripts\plugins\chartJs\Chart.min.js" />
+    <Content Include="Scripts\plugins\chosen\chosen.jquery.js" />
+    <Content Include="Scripts\plugins\chosen\chosen.js" />
+    <Content Include="Scripts\plugins\d3\d3.min.js" />
     <Content Include="Scripts\plugins\datapicker\angular-datepicker.js" />
     <Content Include="Scripts\plugins\daterangepicker\angular-daterangepicker.js" />
     <Content Include="Scripts\plugins\daterangepicker\daterangepicker.js" />
     <Content Include="Scripts\plugins\dropzone\dropzone.js" />
     <Content Include="Scripts\plugins\dropzone\ng-dropzone.min.js" />
+    <Content Include="Scripts\plugins\flot\angular-flot.js" />
+    <Content Include="Scripts\plugins\flot\curvedLines.js" />
+    <Content Include="Scripts\plugins\flot\excanvas.min.js" />
+    <Content Include="Scripts\plugins\flot\jquery.flot.js" />
+    <Content Include="Scripts\plugins\flot\jquery.flot.pie.js" />
+    <Content Include="Scripts\plugins\flot\jquery.flot.resize.js" />
+    <Content Include="Scripts\plugins\flot\jquery.flot.spline.js" />
+    <Content Include="Scripts\plugins\flot\jquery.flot.symbol.js" />
+    <Content Include="Scripts\plugins\flot\jquery.flot.time.js" />
+    <Content Include="Scripts\plugins\flot\jquery.flot.tooltip.min.js" />
     <Content Include="Scripts\plugins\footable\angular-footable.js" />
     <Content Include="Scripts\plugins\footable\footable.all.min.js" />
     <Content Include="Scripts\plugins\jasny\jasny-bootstrap.min.js" />
@@ -1251,6 +1278,8 @@
     <Content Include="Scripts\plugins\ngTags\ng-tags-input.min.js" />
     <Content Include="Scripts\plugins\oclazyload\ocLazyLoad.js" />
     <Content Include="Scripts\plugins\pace\pace.min.js" />
+    <Content Include="Scripts\plugins\peity\angular-peity.js" />
+    <Content Include="Scripts\plugins\peity\jquery.peity.min.js" />
     <Content Include="Scripts\plugins\slimscroll\jquery.slimscroll.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls-1.1.2.min.js" />
     <Content Include="Scripts\plugins\summernote\angular-summernote.min.js" />

@@ -87,6 +87,49 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     return $ocLazyLoad.load([
                         {
                             files: ['Scripts/plugins/blueimp/jquery.blueimp-gallery.min.js', 'Content/plugins/blueimp/css/blueimp-gallery.min.css']
+                        },
+                        {
+                            insertBefore: '#loadBefore',
+                            name: 'localytics.directives',
+                            files: ['Content/plugins/chosen/bootstrap-chosen.css', 'Scripts/plugins/chosen/chosen.jquery.js', 'Scripts/plugins/chosen/chosen.js']
+                        }
+                    ]);
+                }
+            }
+        })
+        .state('reporting', {
+            abstract: true,
+            url: "/reporting",
+            templateUrl: "app/views/common/content.html"
+        })
+        .state('reporting.retaildashboard', {
+            url: "/retaildashboard",
+            templateUrl: "app/views/reporting/retaildashboard/retaildashboard.html",
+            data: { pageTitle: 'Retail Dashboard' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'angles',
+                            files: ['Scripts/plugins/chartJs/angles.js', 'Scripts/plugins/chartJs/Chart.min.js']
+                        },
+                        {
+                            name: 'angular-peity',
+                            files: ['Scripts/plugins/peity/jquery.peity.min.js', 'Scripts/plugins/peity/angular-peity.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'angular-flot',
+                            files: ['Scripts/plugins/flot/jquery.flot.js', 'Scripts/plugins/flot/jquery.flot.time.js', 'Scripts/plugins/flot/jquery.flot.tooltip.min.js', 'Scripts/plugins/flot/jquery.flot.spline.js', 'Scripts/plugins/flot/jquery.flot.resize.js', 'Scripts/plugins/flot/jquery.flot.pie.js', 'Scripts/plugins/flot/curvedLines.js', 'Scripts/plugins/flot/angular-flot.js',]
+                        },
+                        {
+                            serie: true,
+                            files: ['Content/plugins/c3/c3.min.css', 'Scripts/plugins/d3/d3.min.js', 'Scripts/plugins/c3/c3.min.js']
+                        },
+                        {
+                            serie: true,
+                            name: 'gridshore.c3js.chart',
+                            files: ['Scripts/plugins/c3/c3-angular.min.js']
                         }
                     ]);
                 }
