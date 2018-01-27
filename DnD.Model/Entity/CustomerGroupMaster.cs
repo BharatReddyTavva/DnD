@@ -27,7 +27,8 @@ namespace DnD.Model.Entity
         public System.DateTime CreatedOn { get; set; }
         public int UpdatedBy { get; set; }
         public System.DateTime UpdatedOn { get; set; }
-    
+        public Nullable<int> DiscountPercentage { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerGroup> CustomerGroups { get; set; }
     }

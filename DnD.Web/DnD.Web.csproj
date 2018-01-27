@@ -147,6 +147,9 @@
     <Content Include="App\app.js" />
     <Content Include="App\config.js" />
     <Content Include="App\controllers.js" />
+    <Content Include="App\controllers\customer\customer.controller.js" />
+    <Content Include="App\controllers\customer\customerGroups.controller.js" />
+    <Content Include="App\controllers\customer\editCustomer.controller.js" />
     <Content Include="App\controllers\login.controller.js" />
     <Content Include="App\controllers\productBrands.controller.js" />
     <Content Include="App\controllers\productDiscountOffers.controller.js" />
@@ -158,6 +161,8 @@
     <Content Include="App\controllers\reporting\retailDashboard.controller.js" />
     <Content Include="App\controllers\returnOrder.controller.js" />
     <Content Include="App\controllers\sell\sell.controller.js" />
+    <Content Include="App\controllers\setting\setting.controller.js" />
+    <Content Include="App\controllers\setting\store.controller.js" />
     <Content Include="App\controllers\stockControl.controller.js" />
     <Content Include="App\controllers\transferOrder.controller.js" />
     <Content Include="App\datacontext.service.js" />
@@ -202,6 +207,14 @@
     <Content Include="App\views\contacts.html" />
     <Content Include="App\views\contacts_2.html" />
     <Content Include="App\views\css_animation.html" />
+    <Content Include="App\views\customers\customers\addCustomer.html" />
+    <Content Include="App\views\customers\customers\customers.html" />
+    <Content Include="App\views\customers\customers\deleteCustomerConfirm.html" />
+    <Content Include="App\views\customers\customers\updateCustomer.html" />
+    <Content Include="App\views\customers\groups\addEditGroup.html" />
+    <Content Include="App\views\customers\groups\deleteGroupConfirm.html" />
+    <Content Include="App\views\customers\groups\groups.html" />
+    <Content Include="App\views\customers\marketting\marketting.html" />
     <Content Include="App\views\dashboard_1.html" />
     <Content Include="App\views\dashboard_2.html" />
     <Content Include="App\views\dashboard_3.html" />
@@ -302,6 +315,8 @@
     <Content Include="App\views\search_results.html" />
     <Content Include="App\views\sell\sell\sell.html" />
     <Content Include="App\views\sell\sell\sellPayment.html" />
+    <Content Include="App\views\setting\setting\setting.html" />
+    <Content Include="App\views\setting\store\storeSetup.html" />
     <Content Include="App\views\skin-config.html" />
     <Content Include="App\views\slick.html" />
     <Content Include="App\views\socialbuttons.html" />

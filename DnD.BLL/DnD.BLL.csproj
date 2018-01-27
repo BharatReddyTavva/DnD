@@ -65,9 +65,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerManger.cs" />
     <Compile Include="ProductManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ICustomerManager.cs" />
     <Compile Include="Providers\IProductManager.cs" />
+    <Compile Include="Providers\IStoreManager.cs" />
+    <Compile Include="StoreManager.cs" />
     <Compile Include="Unity\UnityResolver.cs" />
   </ItemGroup>
   <ItemGroup>

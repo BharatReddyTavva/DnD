@@ -81,7 +81,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\CustomerController.cs" />
     <Compile Include="API\ProductController.cs" />
+    <Compile Include="API\StoreController.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="BaseApiController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

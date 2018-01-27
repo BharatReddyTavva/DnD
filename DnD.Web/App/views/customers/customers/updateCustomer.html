@@ -1,0 +1,290 @@
+﻿<div ng-controller="editCustomerCtrl">
+    <form id="#dataUpdateCustomerForm" name="dataUpdateCustomerForm" class="form-horizontal" novalidate ng-submit="updateCustomer()" ng-click="submitted=true">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-7">
+                <h2>Create a new Customer</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#/customers/customersList">Customers</a>
+                    </li>
+                    <li class="active">
+                        <strong>Edit customer</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-sm-1">
+                <div class="title-action">
+                    <a href="#" class="btn btn-primary" ui-sref="customers.customersList">Cancel</a>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="title-action">
+                    <button class="btn btn-primary" type="button">Delete Customer</button>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="title-action">
+                    <button class="btn btn-primary" type="submit">Save Customer</button>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tabs-container">
+                        <uib-tabset>
+                            <uib-tab>
+                                <uib-tab-heading>
+                                    Update Customer
+                                </uib-tab-heading>
+                                <div class="panel-body">
+                                    <div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Contact name</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="firstName" ng-model="editCustomer.firstName" placeholder="First" class="form-control" ng-keydown="" ng-change="onCustomerNameChange()"
+                                                       tabindex="1">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="lastName" ng-model="editCustomer.lastName" placeholder="Last" class="form-control" ng-keydown="" ng-change="onCustomerNameChange()"
+                                                       tabindex="2">
+                                            </div>
+                                            <div class="col-lg-2"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Date of birth</label>
+                                            <div class="col-lg-1">
+                                                <input type="number" name="birthDay" ng-model="editCustomer.birthDay" placeholder="DD" class="form-control" ng-keydown="" ng-change=""
+                                                       maxlength="2" tabindex="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <input type="number" name="birthMonth" ng-model="editCustomer.birthMonth" placeholder="MM" class="form-control" ng-keydown="" ng-change=""
+                                                       maxlength="2" tabindex="4" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <input type="number" name="year" ng-model="editCustomer.birthYear" placeholder="YYYY" class="form-control" ng-keydown="" ng-change=""
+                                                       maxlength="4" tabindex="5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                            </div>
+                                            <div class="col-lg-6"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Sex</label>
+                                            <div class="col-lg-2">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="genderRadioOptions" value="Female" data-ng-model="editCustomer.sex"> Female
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="genderRadioOptions" value="Male" data-ng-model="editCustomer.sex"> Male
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Company</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="company" ng-model="editCustomer.company" placeholder="" class="form-control" ng-keydown="" ng-change="onCustomerNameChange()"
+                                                       minlength="2" tabindex="6">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Customer code</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="customerCode" ng-model="editCustomer.customerCode" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="7">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Customer group</label>
+                                            <div class="col-lg-4">
+                                                <select name="customerGroupCategory" class="form-control m-b" ng-model="editCustomer.customerGroupCategory"
+                                                        ng-options="cg.groupName for cg in customerGroups">
+                                                    <option ng-repeat="cg in customerGroups"
+                                                            value="{{cg.customerGroupMasterId}}">
+                                                        {{cg.groupName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-10">
+                                                <input icheck type="checkbox" ng-model="editCustomer.isLoyaltyEnabled"><i></i> Enable Loyalty for this customer
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab>
+                                <uib-tab-heading>
+                                    Contact Information
+                                </uib-tab-heading>
+                                <div class="panel-body">
+                                    <div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Phone</label>
+                                            <div class="col-lg-4">
+                                                <input type="number" name="phone" ng-model="editCustomer.phone" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       maxlength="10" tabindex="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Email</label>
+                                            <div class="col-lg-4">
+                                                <input type="email" name="email" ng-model="editCustomer.email" placeholder="Email address" class="form-control" ng-keydown="" ng-change=""
+                                                       tabindex="1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Mobile</label>
+                                            <div class="col-lg-4">
+                                                <input type="number" name="mobile" ng-model="editCustomer.mobile" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       maxlength="10" tabindex="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Website</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="website" ng-model="editCustomer.website" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Fax</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="fax" ng-model="editCustomer.fax" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Twitter</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="twitter" ng-model="editCustomer.twitter" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-8 col-lg-10">
+                                                <input icheck type="checkbox" ng-model="editCustomer.isCustomerOptedOutMail"><i></i> This customer has opted out of direct mail communications.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab>
+                                <uib-tab-heading>
+                                    Address
+                                </uib-tab-heading>
+                                <div class="panel-body">
+                                    <div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6" style="text-align:left;padding-left:50px;">
+                                                Physical Address
+                                            </div>
+                                            <div class="col-lg-6" style="text-align:left;padding-left:50px;">
+                                                Postal Address
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Street</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="physicalAddressStreet1" ng-model="editCustomer.physicalAddressStreet1" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Street</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="postalAddressStreet1" ng-model="editCustomer.postalAddressStreet1" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Street</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="physicalAddressStreet2" ng-model="editCustomer.physicalAddressStreet2" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Street</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="postalAddressStreet2" ng-model="editCustomer.postalAddressStreet2" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Suburb</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="physicalSuburb" ng-model="editCustomer.physicalSuburb" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-offset-1 col-lg-2 control-label">Suburb</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="postalSuburb" ng-model="editCustomer.postalSuburb" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">City</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="physicalCity" ng-model="editCustomer.physicalCity" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-offset-1 col-lg-2 control-label">City</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="postalCity" ng-model="editCustomer.postalCity" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Postcode</label>
+                                            <div class="col-lg-1">
+                                                <input type="text" name="physicalPostcode" ng-model="editCustomer.physicalPostcode" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-offset-3 col-lg-2 control-label">Postcode</label>
+                                            <div class="col-lg-1">
+                                                <input type="text" name="postalPostCode" ng-model="editCustomer.postalPostCode" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">State</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="physicalState" ng-model="editCustomer.physicalState" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-offset-1 col-lg-2 control-label">State</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="postalState" ng-model="editCustomer.postalState" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Country</label>
+                                            <div class="col-lg-3">
+                                                <select name="physicalCountry" class="form-control m-b" ng-model="editCustomer.selectedphysicalCountry"
+                                                        ng-options="c.name for c in physicalCountry">
+                                                    <option ng-repeat="pc in physicalCountry"
+                                                            value="{{pc.countryId}}">
+                                                        {{pc.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-offset-1 col-lg-2 control-label">Country</label>
+                                            <div class="col-lg-3">
+                                                <select name="postalCountry" class="form-control m-b" ng-model="editCustomer.selectedpostalCountry"
+                                                        ng-options="c.name for c in physicalCountry">
+                                                    <option ng-repeat="pc in physicalCountry"
+                                                            value="{{pc.countryId}}">
+                                                        {{pc.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-8 col-lg-10">
+                                                <input icheck type="checkbox" ng-model="editCustomer.isPostalAddSameAsPhysicalAdd"><i></i> Enable Loyalty for this customer
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                        </uib-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

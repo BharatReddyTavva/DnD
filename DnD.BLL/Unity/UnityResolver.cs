@@ -25,6 +25,22 @@ namespace DnD.BLL.Unity
                   new ContainerControlledLifetimeManager(), new InjectionConstructor(
                    new ResolvedParameter<IProductRepository>()));
 
+            container.RegisterType<ICustomerRepository, CustomerRepository>(
+            new ContainerControlledLifetimeManager(), new InjectionConstructor(
+             new ResolvedParameter<DataBaseRepository>()));
+
+            container.RegisterType<ICustomerManager, CustomerManger>(
+                  new ContainerControlledLifetimeManager(), new InjectionConstructor(
+                   new ResolvedParameter<ICustomerRepository>()));
+
+            container.RegisterType<IStoreRepository, StoreRepository>(
+              new ContainerControlledLifetimeManager(), new InjectionConstructor(
+               new ResolvedParameter<DataBaseRepository>()));
+
+            container.RegisterType<IStoreManager, StoreManager>(
+                 new ContainerControlledLifetimeManager(), new InjectionConstructor(
+                  new ResolvedParameter<IStoreRepository>()));
+
             return container;
         }
     }

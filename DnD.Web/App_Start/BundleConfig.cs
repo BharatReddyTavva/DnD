@@ -52,11 +52,18 @@ namespace DnD.Web.App_Start
                         "~/app/controllers/transferOrder.controller.js",
                         "~/app/controllers/sell/sell.controller.js",
                         "~/app/controllers/reporting/retailDashboard.controller.js",
+                        "~/app/controllers/customer/customerGroups.controller.js",
+                        "~/app/controllers/customer/customer.controller.js",
+                        "~/app/controllers/customer/editCustomer.controller.js",
+                        "~/app/controllers/setting/setting.controller.js",
+                        "~/app/controllers/setting/store.controller.js",
                         "~/app/controllers.js",
                         "~/app/datacontext.service.js",
                         "~/app/logger.service.js",
                         "~/app/services/products.service.js",
-                        "~/app/services/sell.service.js"
+                        "~/app/services/sell.service.js",
+                        "~/app/services/customer.service.js",
+                        "~/app/services/setting.service.js"
                     ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

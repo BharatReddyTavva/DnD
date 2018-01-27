@@ -1,0 +1,27 @@
+﻿<form role="form" name="addGoup_form" ng-submit="addNewOrUpdateGroup()">
+    <div class="inmodal">
+        <div class="modal-header">
+            <h4 class="modal-title">{{addOrEditTitle}}</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label>Group name</label>
+                <input type="text" placeholder="Group name" ng-model="groupName" class="form-control" required>
+                <div class="m-t-xs" ng-show="addGroup_form.groupName.$invalid && addGroup_form.submitted">
+                    <small class="text-danger" ng-show="addGroup_form.groupName.$error.required">Group name is required</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Percentage discounts</label>
+                <input type="text" placeholder="0" ng-model="discountPercentage" class="form-control" required>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" ng-click="cancel()">Close</button>
+            <button class="btn btn-primary" type="submit">{{addOrUpdateGroupActionText}}</button>
+        </div>
+    </div>
+</form>
+

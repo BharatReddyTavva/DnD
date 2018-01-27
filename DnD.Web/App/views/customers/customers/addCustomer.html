@@ -1,0 +1,343 @@
+﻿<div ng-controller="customersCtrl">
+    <form id="#dataCustomerForm" name="dataCustomerForm" class="form-horizontal" novalidate ng-submit="saveCustomer()" ng-click="submitted=true">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-9">
+                <h2>Create a new Customer</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#/customers/customersList">Customers</a>
+                    </li>
+                    <li class="active">
+                        <strong>Add Customer</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-sm-1">
+                <div class="title-action">
+                    <a href="#" class="btn btn-primary" ui-sref="customers.customersList">Cancel</a>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="title-action">
+                    <button class="btn btn-primary" type="submit">Save Customer</button>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tabs-container">
+                        <uib-tabset>
+                            <uib-tab>
+                                <uib-tab-heading>
+                                    New Customer
+                                </uib-tab-heading>
+                                <div class="panel-body">
+                                    <div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Contact name</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="firstName" ng-model="customer.firstName" placeholder="First" class="form-control" ng-keydown="" ng-change="onCustomerNameChange()"
+                                                        tabindex="1">                                               
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="lastName" ng-model="customer.lastName" placeholder="Last" class="form-control" ng-keydown="" ng-change="onCustomerNameChange()"
+                                                      tabindex="2">
+                                            </div>
+                                            <div class="col-lg-2"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Date of birth</label>
+                                            <div class="col-lg-1">
+                                                <input type="number" name="birthDay" ng-model="customer.birthDay" placeholder="DD" class="form-control" ng-keydown="" ng-change=""
+                                                       maxlength="2" tabindex="3" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                            </div>
+                                            <div class="col-lg-1">
+                                                <input type="number" name="birthMonth" ng-model="customer.birthMonth" placeholder="MM" class="form-control" ng-keydown="" ng-change=""
+                                                       maxlength ="2" tabindex="4" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <input type="number" name="year" ng-model="customer.birthYear" placeholder="YYYY" class="form-control" ng-keydown="" ng-change=""
+                                                       maxlength ="4" tabindex="5" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                            </div>
+                                            <div class="col-lg-6"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Sex</label>
+                                            <div class="col-lg-2">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="genderRadioOptions"  value="Female" data-ng-model="customer.sex"> Female
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="genderRadioOptions"  value="Male" data-ng-model="customer.sex"> Male
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Company</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="company" ng-model="customer.company" placeholder="" class="form-control" ng-keydown="" ng-change="onCustomerNameChange()"
+                                                       minlength="2" tabindex="6" >
+                                                <div class="m-t-xs" ng-show="dataCustomerForm.company.$invalid && dataCustomerForm.submitted">
+                                                    <small class="text-danger" ng-show="dataCustomerForm.company.$error.">Please enter either a first name, a last name or a company name</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Customer code</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="customerCode" ng-model="customer.customerCode" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="7" >
+                                                <div class="m-t-xs" ng-show="dataCustomerForm.company.$invalid && dataCustomerForm.submitted">
+                                                    <small class="text-danger" ng-show="dataCustomerForm.company.$error.required">Please enter either a first name, a last name or a company name</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Customer group</label>
+                                            <div class="col-lg-4">
+                                                <select name="customerGroupCategory" class="form-control m-b" ng-model="customer.customerGroupCategory"
+                                                        ng-options="cg.groupName for cg in customerGroups" >
+                                                    <option ng-repeat="cg in customerGroups"
+                                                            value="{{cg.customerGroupMasterId}}">
+                                                        {{cg.groupName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-10">
+                                                <input icheck type="checkbox" ng-model="customer.isLoyaltyEnabled"><i></i> Enable Loyalty for this customer
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab>
+                                <uib-tab-heading>
+                                    Contact Information
+                                </uib-tab-heading>
+                                <div class="panel-body">
+                                    <div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Phone</label>
+                                            <div class="col-lg-4">
+                                                <input type="number" name="phone" ng-model="customer.phone" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       maxlength="10" tabindex="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Email</label>
+                                            <div class="col-lg-4">
+                                                <input type="email" name="email" ng-model="customer.email" placeholder="Email address" class="form-control" ng-keydown="" ng-change=""
+                                                        tabindex="1" required>
+                                                <div class="m-t-xs" ng-show="dataCustomerForm.email.$invalid && submitted">                                                  
+                                                    <small class="text-danger" ng-message="email">Enter valid email.</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Mobile</label>
+                                            <div class="col-lg-4">
+                                                <input type="number" name="mobile" ng-model="customer.mobile" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       maxlength="10" tabindex="1" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Website</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="website" ng-model="customer.website" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Fax</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="fax" ng-model="customer.fax" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Twitter</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="twitter" ng-model="customer.twitter" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-8 col-lg-10">
+                                                <input icheck type="checkbox" ng-model="customer.isCustomerOptedOutMail"><i></i> This customer has opted out of direct mail communications.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <uib-tab>
+                                <uib-tab-heading>
+                                    Address
+                                </uib-tab-heading>
+                                <div class="panel-body">
+                                    <div>
+                                        <div class="form-group">
+                                            <div class="col-lg-6" style="text-align:left;padding-left:50px;">
+                                                Physical Address
+                                            </div>
+                                            <div class="col-lg-6" style="text-align:left;padding-left:50px;">
+                                                Postal Address
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Street</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="physicalAddressStreet1" ng-model="customer.physicalAddressStreet1" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Street</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="postalAddressStreet1" ng-model="customer.postalAddressStreet1" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Street</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="physicalAddressStreet2" ng-model="customer.physicalAddressStreet2" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Street</label>
+                                            <div class="col-lg-4">
+                                                <input type="text" name="postalAddressStreet2" ng-model="customer.postalAddressStreet2" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Suburb</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="physicalSuburb" ng-model="customer.physicalSuburb" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-offset-1 col-lg-2 control-label">Suburb</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="postalSuburb" ng-model="customer.postalSuburb" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">City</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="physicalCity" ng-model="customer.physicalCity" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-offset-1 col-lg-2 control-label">City</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="postalCity" ng-model="customer.postalCity" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Postcode</label>
+                                            <div class="col-lg-1">
+                                                <input type="text" name="physicalPostcode" ng-model="customer.physicalPostcode" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-offset-3 col-lg-2 control-label">Postcode</label>
+                                            <div class="col-lg-1">
+                                                <input type="text" name="postalPostCode" ng-model="customer.postalPostCode" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">State</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="physicalState" ng-model="customer.physicalState" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-offset-1 col-lg-2 control-label">State</label>
+                                            <div class="col-lg-3">
+                                                <input type="text" name="postalState" ng-model="customer.postalState" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                       minlength="2" tabindex="1" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-2 control-label">Country</label>
+                                            <div class="col-lg-3">
+                                                <select name="physicalCountry" class="form-control m-b" ng-model="customer.selectedphysicalCountry"
+                                                        ng-options="c.name for c in physicalCountry" >
+                                                    <option ng-repeat="pc in physicalCountry"
+                                                            value="{{pc.countryId}}">
+                                                        {{pc.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <label style="text-align:left;padding-left:50px;" class="col-lg-offset-1 col-lg-2 control-label">Country</label>
+                                            <div class="col-lg-3">
+                                                <select name="postalCountry" class="form-control m-b" ng-model="customer.selectedpostalCountry"
+                                                        ng-options="c.name for c in physicalCountry" >
+                                                    <option ng-repeat="pc in physicalCountry"
+                                                            value="{{pc.countryId}}">
+                                                        {{pc.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-8 col-lg-10">
+                                                <input icheck type="checkbox" ng-model="customer.isPostalAddSameAsPhysicalAdd"><i></i> Same as Physical Address
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>
+                            <!--<uib-tab>
+                                <uib-tab-heading>
+                                    Additional Information
+                                </uib-tab-heading>
+                                <div class="panel-body">
+                                    <div>
+                                        <div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label style="text-align:left;" class="col-lg-4 control-label">Custom field 1</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" name="physicalState1" ng-model="customer.physicalState1" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                               minlength="2" tabindex="1" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label style="text-align:left;" class="col-lg-4 control-label">Custom field 2</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" name="physicalState2" ng-model="customer.physicalState2" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                               minlength="2" tabindex="1" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label style="text-align:left;" class="col-lg-4 control-label">Custom field 3</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" name="physicalState3" ng-model="customer.physicalState3" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                               minlength="2" tabindex="1" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label style="text-align:left;" class="col-lg-4 control-label">Custom field 4</label>
+                                                    <div class="col-lg-8">
+                                                        <input type="text" name="physicalState4" ng-model="customer.physicalState4" placeholder="" class="form-control" ng-keydown="" ng-change=""
+                                                               minlength="2" tabindex="1" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8" style="height:50%">
+                                                <label style="text-align:left;" class="col-lg-2 control-label pull-left">Note</label>
+                                                <div class="col-lg-10">
+                                                    <textarea summernote class="summernote" ng-model="customer.description" cols="30" rows="40">
+                                                            
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </uib-tab>-->
+                        </uib-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -102,13 +102,18 @@
     <Compile Include="Entity\UserRole.cs" />
     <Compile Include="Entity\UserSwitchingSecurityType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\AddEditCustomerMasterViewModel.cs" />
     <Compile Include="ViewModel\AddEditDiscountOfferMasterViewModel.cs" />
     <Compile Include="ViewModel\AddEditProductMasterViewModel.cs" />
+    <Compile Include="ViewModel\CustomerSearchCriteria.cs" />
+    <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\ProductForSaleViewModel.cs" />
     <Compile Include="ViewModel\ProductInventoryListViewModel.cs" />
     <Compile Include="ViewModel\ProductListViewModel.cs" />
     <Compile Include="ViewModel\ProductSearchCriteria.cs" />
     <Compile Include="ViewModel\StoreOutletInventoryViewModel.cs" />
+    <Compile Include="ViewModel\StoreSetupMasterDataViewModel.cs" />
+    <Compile Include="ViewModel\StoreSetupViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

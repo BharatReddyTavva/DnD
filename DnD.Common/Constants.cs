@@ -58,5 +58,38 @@ namespace DnD.Common
         public const string UspGetAllMasterDataForCreateOrEditDiscountOffer = "usp_GetAllMasterDataForCreateOrEditDiscountOffer";
         public const string UspGetAllSalesTaxList = "usp_GetAllSalesTaxList";
 
+        //Customers 
+        public const string UspInsertCustomer = "usp_InsertCustomer";
+        public const string UspUpdateCustomer = "usp_UpdateCustomer";
+        public const string uspDeleteCustomer = "usp_DeleteCustomer";
+        public const string UspGetCustomersBySearch = "usp_GetCustomersBySearch";
+        public const string UspGetAllMasterDataForCreateOrEditCustomer = "usp_GetAllMasterDataForCreateOrEditCustomer";
+        public const string UspGetAllCustomersByGroup = "usp_GetAllCustomersByGroup";
+        public const string SearchWord = "SearchWord";
+        public const string City = "City";
+        public const string PostalCountryId = "PostalCountryId";
+        public const string UDTCustomer = "CustomerType";
+        public const string CustomerId = "CustomerId";
+
+        //Customer Group
+        public const string UspInsertGroup = "usp_InsertGroup";
+        public const string UspUpdateGroup = "usp_UpdateGroup";
+        public const string UspDeleteGroup = "usp_DeleteGroup";
+        public const string UspGetAllGroups = "usp_GetAllGroups";
+        public const string CustomerGroupMasterId = "CustomerGroupMasterId";
+        public const string DiscountPercentage = "DiscountPercentage";
+        public const string CreatedOn = "CreatedOn";
+        public const string GroupName = "GroupName";
+        public const string UpdatedBy = "UpdatedBy";
+        public const string CreateddBy = "CreatedBy";
+        public const string IsActive = "IsActive";
+
+
+
+        //Store Setup
+        public const string UDTStoreSetup = "StoreSetup";
+        public const string UspGetAllMasterDataForStore = "usp_GetAllMasterDataForStore";
+        public const string UspCreateStoreSetup = "usp_CreateStoreSetup";
+
     }
 }

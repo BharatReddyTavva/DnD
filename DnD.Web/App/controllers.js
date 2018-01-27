@@ -3492,6 +3492,15 @@ angular
     .controller('addTypeModalInstanceCtrl', addTypeModalInstanceCtrl)
     .controller('editTypeModalInstanceCtrl', editTypeModalInstanceCtrl)
     .controller('deleteTypeModalInstanceCtrl', deleteTypeModalInstanceCtrl)
+    .controller('customersCtrl', customersCtrl)
+    .controller('editCustomerCtrl', editCustomerCtrl)
+    .controller('deleteCustomerModalInstanceCtrl', deleteCustomerModalInstanceCtrl)
+    .controller('customerGroupsCtrl', customerGroupsCtrl) //Customer Group Controller
+    .controller('addGroupModalInstanceCtrl', addGroupModalInstanceCtrl)
+    .controller('editGroupModalInstanceCtrl', editGroupModalInstanceCtrl)
+    .controller('deleteGroupModalInstanceCtrl', deleteGroupModalInstanceCtrl)
+    .controller('adminSettingCtrl', adminSettingCtrl)
+    .controller('storeCtrl', storeCtrl)
     .controller('dashboardFlotOne', dashboardFlotOne)
     .controller('dashboardFlotTwo', dashboardFlotTwo)
     .controller('dashboardFive', dashboardFive)
@@ -3563,3 +3572,18 @@ productDiscountOffersCtrl.$inject = ['$scope', '$uibModal', 'productService'];
 sellCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', '$filter', 'sellService'];
 retailDashboardCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', '$filter', 'sellService'];
 
+
+customerGroupsCtrl.$inject = ['$scope', '$uibModal', 'customerService'];
+addGroupModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'actionName', 'customerService'];
+editGroupModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'selectedGroupToEdit', 'actionName', 'customerService'];
+deleteGroupModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'selectedGroupToDelete', 'actionName', 'customerService'];
+
+
+customersCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', 'customerService'];
+editCustomerCtrl.$inject = ['$scope', '$filter', '$uibModal', '$rootScope', '$compile', '$state', 'customerService'];
+deleteCustomerModalInstanceCtrl = ['$scope', '$uibModalInstance', 'selectedCustomerToDelete', 'actionName', 'customerService'];
+
+
+
+adminSettingCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', 'adminSettingService'];
+storeCtrl.$inject = ['$scope', '$uibModal', '$rootScope', '$compile', '$state', 'adminSettingService'];

@@ -276,7 +276,7 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                             name: 'toaster',
                             files: ['Scripts/plugins/toastr/toastr.min.js', 'Content/plugins/toastr/toastr.min.css']
                         },
-						{
+                        {
                             files: ['Scripts/plugins/footable/footable.all.min.js', 'Content/plugins/footable/footable.core.css']
                         },
                         {
@@ -310,20 +310,159 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                 }
             }
         })
+        .state('setup', {
+            abstract: true,
+            url: "/setup",
+            templateUrl: "app/views/common/content.html"
+        })
         .state('customers', {
             abstract: true,
             url: "/customers",
             templateUrl: "app/views/common/content.html"
         })
-        .state('setup', {
+        .state('customers.customersList', {
+            url: "/customersList",
+            templateUrl: "app/views/customers/customers/customers.html",
+            data: { pageTitle: 'Customers' }
+        })
+        .state('customers.addcustomer', {
+            url: "/addcustomer",
+            templateUrl: "app/views/customers/customers/addCustomer.html",
+            data: { pageTitle: 'Add Customer' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'summernote',
+                            files: ['Content/plugins/summernote/summernote.css', 'Content/plugins/summernote/summernote-bs3.css', 'Scripts/plugins/summernote/summernote.min.js', 'Scripts/plugins/summernote/angular-summernote.min.js']
+                        },
+                        {
+                            files: ['Scripts/plugins/jasny/jasny-bootstrap.min.js', 'Content/plugins/jasny/jasny-bootstrap.min.css']
+                        },
+                        {
+                            name: 'ui.switchery',
+                            files: ['Content/plugins/switchery/switchery.css', 'Scripts/plugins/switchery/switchery.js', 'Scripts/plugins/switchery/ng-switchery.js']
+                        },
+                        {
+                            files: ['Content/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css']
+                        },
+                        {
+                            name: 'ui.select',
+                            files: ['Scripts/plugins/ui-select/select.min.js', 'Content/plugins/ui-select/select.min.css']
+                        },
+                        {
+                            name: 'ngTagsInput',
+                            files: ['Scripts/plugins/ngTags//ng-tags-input.min.js', 'Content/plugins/ngTags/ng-tags-input-custom.min.css']
+                        },
+                    ]);
+                }
+            }
+        })
+        .state('customers.updateCustomer', {
+            url: "/updateCustomer",
+            templateUrl: "app/views/customers/customers/updateCustomer.html",
+            data: { pageTitle: 'Update Customer' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'summernote',
+                            files: ['Content/plugins/summernote/summernote.css', 'Content/plugins/summernote/summernote-bs3.css', 'Scripts/plugins/summernote/summernote.min.js', 'Scripts/plugins/summernote/angular-summernote.min.js']
+                        },
+                        {
+                            files: ['Scripts/plugins/jasny/jasny-bootstrap.min.js', 'Content/plugins/jasny/jasny-bootstrap.min.css']
+                        },
+                        {
+                            name: 'ui.switchery',
+                            files: ['Content/plugins/switchery/switchery.css', 'Scripts/plugins/switchery/switchery.js', 'Scripts/plugins/switchery/ng-switchery.js']
+                        },
+                        {
+                            files: ['Content/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css']
+                        },
+                        {
+                            name: 'ui.select',
+                            files: ['Scripts/plugins/ui-select/select.min.js', 'Content/plugins/ui-select/select.min.css']
+                        },
+                        {
+                            name: 'ngTagsInput',
+                            files: ['Scripts/plugins/ngTags//ng-tags-input.min.js', 'Content/plugins/ngTags/ng-tags-input-custom.min.css']
+                        },
+                    ]);
+                }
+            }
+        })
+        .state('customers.groups', {
+            url: "/groups",
+            templateUrl: "app/views/customers/groups/groups.html",
+            data: { pageTitle: 'Customer Groups' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            insertBefore: '#loadBefore',
+                            name: 'toaster',
+                            files: ['Scripts/plugins/toastr/toastr.min.js', 'Content/plugins/toastr/toastr.min.css']
+                        },
+                        {
+                            files: ['Scripts/plugins/footable/footable.all.min.js', 'Content/plugins/footable/footable.core.css']
+                        },
+                        {
+                            name: 'ui.footable',
+                            files: ['Scripts/plugins/footable/angular-footable.js']
+                        }
+                    ]);
+                }
+            }
+        })
+        .state('customers.marketting', {
+            url: "/marketting",
+            templateUrl: "app/views/customers/marketting/marketting.html",
+            data: { pageTitle: 'Marketing' }
+        })
+        .state('setting', {
             abstract: true,
-            url: "/setup",
+            url: "/setting",
             templateUrl: "app/views/common/content.html"
+        })
+        .state('setting.setting', {
+            url: "/setting",
+            templateUrl: "app/views/setting/setting/setting.html",
+            data: { pageTitle: 'Setting' }
+        })
+        .state('setting.store', {
+            url: "/store",
+            templateUrl: "app/views/setting/store/storeSetup.html",
+            data: { pageTitle: 'Store Setup' },
+            resolve: {
+                loadPlugin: function ($ocLazyLoad) {
+                    return $ocLazyLoad.load([
+                        {
+                            name: 'summernote',
+                            files: ['Content/plugins/summernote/summernote.css', 'Content/plugins/summernote/summernote-bs3.css', 'Scripts/plugins/summernote/summernote.min.js', 'Scripts/plugins/summernote/angular-summernote.min.js']
+                        },
+                        {
+                            files: ['Scripts/plugins/jasny/jasny-bootstrap.min.js', 'Content/plugins/jasny/jasny-bootstrap.min.css']
+                        },
+                        {
+                            name: 'ui.switchery',
+                            files: ['Content/plugins/switchery/switchery.css', 'Scripts/plugins/switchery/switchery.js', 'Scripts/plugins/switchery/ng-switchery.js']
+                        },
+                        {
+                            files: ['Content/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css']
+                        },
+                        {
+                            name: 'ui.select',
+                            files: ['Scripts/plugins/ui-select/select.min.js', 'Content/plugins/ui-select/select.min.css']
+                        },
+                        {
+                            name: 'ngTagsInput',
+                            files: ['Scripts/plugins/ngTags//ng-tags-input.min.js', 'Content/plugins/ngTags/ng-tags-input-custom.min.css']
+                        },
+                    ]);
+                }
+            }
         });
-        
-        
-        
-        
+
 
 }
 angular

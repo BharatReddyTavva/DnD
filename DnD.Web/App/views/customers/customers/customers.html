@@ -1,0 +1,134 @@
+﻿<div ng-controller="customersCtrl">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>Customers</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#/customers/customersList">Customers</a>
+                </li>
+                <li class="active">
+                    <strong>Customers</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                <a href="#" class="btn btn-primary" ui-sref="customers.addcustomer">Add Customer</a>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="control-label" for="order_id">Search customers by name, customer code, or contact details</label>
+                        <input type="text" id="customerSearchParam" name="customerSearchParam" placeholder="Enter customer name, customer code, or contact details." ng-model="customerSearchParam" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label style="text-align:left;padding-left:35px;" class="control-label">Customer Group</label>
+                        <select name="customerGroupType" class="form-control m-b" ng-model="selectedcustomerGroupType"
+                                ng-options="cg.groupName for cg in customerGroups" required>
+                            <option ng-repeat="cg in customerGroups"
+                                    value="{{cg.customerGroupMasterId}}">
+                                {{cg.groupName}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="control-label" for="city">City</label>
+                        <input type="text" id="city" name="city" value="" placeholder="Enter City" ng-model="enteredCity" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label style="text-align:left;" class="control-label">Country</label>
+                        <select name="customerCountry" class="form-control m-b" ng-model="customerCountry"
+                                ng-options="pc.name for pc in physicalCountry" required>
+                            <option ng-repeat="pc in physicalCountry"
+                                    value="{{pc.countryId}}">
+                                {{pc.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="control-label" for="amount">Date Created</label>
+                        <input type="date" id="customerDate" name="input" ng-model="selectedcustomerDate"
+                               placeholder="yyyy-MM-dd" min="2013-01-01" max="2013-12-31" required />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <a href="#" class="btn btn-primary" ng-click="searchCustomers()">Apply Filter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+                            <thead>
+                                <tr>
+                                    <th colspan="1" data-toggle="true">Customer</th>
+                                    <th colspan="1" data-toggle="true">Location</th>
+                                    <th colspan="1" data-toggle="true">Mobile number</th>
+                                    <th colspan="1" data-toggle="true">Orders</th>
+                                    <th colspan="1" data-toggle="true">Last order</th>
+                                    <th colspan="4" data-sort-ignore="true">Total spent</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="customer in customers">
+                                    <td colspan="1">
+                                        {{customer.customerName}}
+                                    </td>
+                                    <td colspan="1">
+                                        {{customer.location}}
+                                    </td>
+                                    <td>
+                                        {{customer.mobile}}
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td colspan="4">
+                                        <div class="btn-group">
+                                            <a style="margin-right:20px;" ng-click="editCustomer(customer)"><i class="fa fa-pencil"></i></a>
+                                            <a><i class="fa fa-trash" ng-click="deleteCustomer($index,customer)"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

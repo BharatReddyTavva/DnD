@@ -1,0 +1,19 @@
+﻿<form role="form" name="addGoup_form" ng-submit="deleteGroup()">
+    <div class="inmodal">
+        <div class="modal-header">
+            <h4 class="modal-title">{{addOrEditTitle}}</h4>
+        </div>
+        <div class="modal-body">
+
+            <p>
+                <strong>Are you sure you want to delete the Group '{{groupName}}'. You are about to perform an action that can't be undone.</strong>
+            </p>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-white" ng-click="cancel()">Close</button>
+            <button class="btn btn-primary" type="submit">{{addOrUpdateGroupActionText}}</button>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>DnD.Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{6956dd86-a83d-497d-8807-dceb346c29d1}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>DnD.Database</RootNamespace>
+    <AssemblyName>DnD.Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <IncludeSchemaNameInFileName>True</IncludeSchemaNameInFileName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Scripts\" />
+    <Folder Include="dbo\User Defined Types\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Country.sql" />
+    <Build Include="dbo\Tables\Currency.sql" />
+    <Build Include="dbo\Tables\Customer.sql" />
+    <Build Include="dbo\Tables\CustomerGroup.sql" />
+    <Build Include="dbo\Tables\CustomerGroupMaster.sql" />
+    <Build Include="dbo\Tables\DealnDonePlan.sql" />
+    <Build Include="dbo\Tables\DiscountOffer.sql" />
+    <Build Include="dbo\Tables\DiscountOfferCustomer.sql" />
+    <Build Include="dbo\Tables\DiscountOfferStoreOutlet.sql" />
+    <Build Include="dbo\Tables\DiscountOfferType.sql" />
+    <Build Include="dbo\Tables\DiscountType.sql" />
+    <Build Include="dbo\Tables\DiscountTypeData.sql" />
+    <Build Include="dbo\Tables\DisplayPrice.sql" />
+    <Build Include="dbo\Tables\DNDUser.sql" />
+    <Build Include="dbo\Tables\LabelPrinterFormat.sql" />
+    <Build Include="dbo\Tables\PricingTier.sql" />
+    <Build Include="dbo\Tables\Product.sql" />
+    <Build Include="dbo\Tables\ProductBrand.sql" />
+    <Build Include="dbo\Tables\ProductImage.sql" />
+    <Build Include="dbo\Tables\ProductInventory.sql" />
+    <Build Include="dbo\Tables\ProductOutletPricing.sql" />
+    <Build Include="dbo\Tables\ProductPricing.sql" />
+    <Build Include="dbo\Tables\ProductSupplier.sql" />
+    <Build Include="dbo\Tables\ProductTag.sql" />
+    <Build Include="dbo\Tables\ProductTagMaster.sql" />
+    <Build Include="dbo\Tables\ProductType.sql" />
+    <Build Include="dbo\Tables\ProductVariant.sql" />
+    <Build Include="dbo\Tables\ProductVariantAttribute.sql" />
+    <Build Include="dbo\Tables\ProductVariantAttributeMaster.sql" />
+    <Build Include="dbo\Tables\PurchaseStockOrder.sql" />
+    <Build Include="dbo\Tables\RegisterOpenCloseStatusType.sql" />
+    <Build Include="dbo\Tables\ReturnStockOrder.sql" />
+    <Build Include="dbo\Tables\Role.sql" />
+    <Build Include="dbo\Tables\RoleManagement.sql" />
+    <Build Include="dbo\Tables\SalesTax.sql" />
+    <Build Include="dbo\Tables\SellOpenCloseRegister.sql" />
+    <Build Include="dbo\Tables\SetupAccount.sql" />
+    <Build Include="dbo\Tables\SetupAccountClearOutData.sql" />
+    <Build Include="dbo\Tables\SetupContactInformation.sql" />
+    <Build Include="dbo\Tables\SetupGeneralStoreSettings.sql" />
+    <Build Include="dbo\Tables\SetupLoyaltyPointsId.sql" />
+    <Build Include="dbo\Tables\SetupPaymentType.sql" />
+    <Build Include="dbo\Tables\SetupRegistersAskForNote.sql" />
+    <Build Include="dbo\Tables\SetupRegistersCashManagement.sql" />
+    <Build Include="dbo\Tables\SetupRegistersReceiptTemplate.sql" />
+    <Build Include="dbo\Tables\SetupSalesTaxGroupId.sql" />
+    <Build Include="dbo\Tables\SetupSalesTaxGroupMaster.sql" />
+    <Build Include="dbo\Tables\SetupStoreAddress.sql" />
+    <Build Include="dbo\Tables\SKUGenerationType.sql" />
+    <Build Include="dbo\Tables\StockOrderStatus.sql" />
+    <Build Include="dbo\Tables\StockOrderType.sql" />
+    <Build Include="dbo\Tables\Store.sql" />
+    <Build Include="dbo\Tables\StoreOutlet.sql" />
+    <Build Include="dbo\Tables\StoreOutletRegister.sql" />
+    <Build Include="dbo\Tables\StoreUser.sql" />
+    <Build Include="dbo\Tables\TimeZone.sql" />
+    <Build Include="dbo\Tables\TransferStockOrder.sql" />
+    <Build Include="dbo\Tables\UserRole.sql" />
+    <Build Include="dbo\Tables\UserSwitchingSecurityType.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteBrand.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteProductType.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteSupplier.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteTag.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllBrandsByStore.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllMasterDataForCreateOrEditDiscountOffer.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllMasterDataForCreateOrEditProduct.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllProductsByStore.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllProductsForSaleByStore.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllProductTypesByStore.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllSalesTaxList.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllSuppliersByStore.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllTagsByStore.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetInventoryBySearch.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetProductsBySearch.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetStoreOutlets.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertBrand.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertProduct.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertProductImage.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertProductInventory.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertProductOutletPricing.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertProductPricing.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertProductTag.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertProductType.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertProductVariant.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertProductVariantAttribute.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertSupplier.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertTag.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateBrand.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateProductType.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateSupplier.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateTag.sql" />
+    <None Include="Scripts\ScriptsIgnoredOnImport.sql" />
+    <Build Include="dbo\Tables\SetupOtherStoreSettings.sql" />
+    <Build Include="dbo\Tables\AddressType.sql" />
+    <Build Include="dbo\Tables\Address.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateGroup.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateCustomer.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertGroup.sql" />
+    <Build Include="dbo\Stored Procedures\usp_InsertCustomer.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetCustomersBySearch.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetCountryList.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllMasterDataForStore.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllMasterDataForCreateOrEditCustomer.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllGroups.sql" />
+    <Build Include="dbo\Stored Procedures\usp_GetAllCustomersByGroup.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteGroup.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteCustomer.sql" />
+    <Build Include="dbo\Stored Procedures\usp_CreateStoreSetup.sql" />
+    <Build Include="dbo\User Defined Types\StoreSetup.sql" />
+    <Build Include="dbo\User Defined Types\CustomerType.sql" />
+    <Build Include="Scripts\DnDDataScriptBharat.sql" />
+    <Build Include="Scripts\DndSchemascriptBharat.sql" />
+    <Build Include="Scripts\DNDScript.sql" />
+  </ItemGroup>
+</Project>
