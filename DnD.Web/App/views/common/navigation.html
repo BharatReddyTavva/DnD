@@ -50,13 +50,22 @@
                 <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('products')}">
                     <li ui-sref-active="active"><a ui-sref="products.discountOffers">Discount Offers</a></li>
                 </ul>
-                
+
             </li>
             <li style="text-align:center" ng-class="{active: $state.includes('customers')}">
                 <a href="#">
                     <div style="text-align:center"><i class="fa fa-users" style="color: mediumpurple; font-size: 20px"></i></div>
                     <span class="nav-label">{{ 'customers' | translate }}</span>
                 </a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('customers')}">
+                    <li ui-sref-active="active"><a ui-sref="customers.customersList">Customers</a></li>
+                </ul>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('customers')}">
+                    <li ui-sref-active="active"><a ui-sref="customers.groups">Customer Groups</a></li>
+                </ul>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('customers')}">
+                    <li ui-sref-active="active"><a ui-sref="customers.marketting">Marketting</a></li>
+                </ul>
             </li>
             <li style="text-align:center" ng-class="{active: $state.includes('ecommerce')}">
                 <a href="#">
@@ -64,13 +73,16 @@
                     <span class="nav-label">{{ 'ecommerce' | translate }}</span>
                 </a>
             </li>
-            <li style="text-align:center" ng-class="{active: $state.includes('setup')}">
-                <a href="#">
+            <li style="text-align:center" ng-class="{active: $state.includes('setting')}">
+                <a href="#/setting/setting">
                     <div style="text-align:center"><i class="fa fa-cog" style="font-size: 20px"></i> </div>
-                    <span class="nav-label">{{ 'Setup' | translate }}</span>
+                    <span class="nav-label">{{ 'Setting' | translate }}</span>
                 </a>
+                <!--<ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('setting')}">
+                    <li ui-sref-active="active"><a ui-sref="setting">Setting</a></li>
+                </ul>-->
             </li>
-            
+
         </ul>
 
     </div>

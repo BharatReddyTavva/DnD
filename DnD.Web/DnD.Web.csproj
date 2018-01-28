@@ -169,8 +169,10 @@
     <Content Include="App\directives.js" />
     <Content Include="App\inspinia.js" />
     <Content Include="App\logger.service.js" />
+    <Content Include="App\services\customer.service.js" />
     <Content Include="App\services\products.service.js" />
     <Content Include="App\services\sell.service.js" />
+    <Content Include="App\services\setting.service.js" />
     <Content Include="App\translations.js" />
     <Content Include="App\views\activity_stream.html" />
     <Content Include="App\views\agile_board.html" />
